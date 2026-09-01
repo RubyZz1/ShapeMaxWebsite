@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShapeMax — Connais ta shape</title>
+<meta name="description" content="ShapeMax scanne ton physique en 3 photos et te donne un score honnête, tes points forts, tes points faibles et un plan d'exercices adapté à ton objectif.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">SHAPE<span>MAX</span></a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="#comment-ca-marche">Comment ça marche</a>
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#objectifs">Objectifs</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#top" class="btn btn-primary btn-small">Télécharger</a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Baromètre physique hebdo</p>
+        <h1>Connais ta shape.<br>Bats ton dernier scan.</h1>
+        <p class="hero-sub">
+          ShapeMax analyse trois photos de toi et te donne un score physique honnête sur 100 :
+          tes points forts, tes points faibles, et les exercices précis pour progresser vers
+          <strong>ton</strong> objectif — perdre du gras, prendre du muscle ou sécher.
+        </p>
+
+        <div class="store-buttons" id="telecharger">
+          <a href="#" class="store-btn" aria-label="Télécharger sur l'App Store (bientôt disponible)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.415 2.06-1.244 2.87-.994.973-2.19 1.53-3.463 1.428-.05-1.1.418-2.24 1.24-2.995C13.63.87 15.06.14 16.36 0c.02.14.005.29.005.43zM20.75 17.02c-.516 1.19-.762 1.72-1.42 2.77-.92 1.47-2.22 3.3-3.83 3.31-1.43.02-1.8-.94-3.75-.93-1.94.01-2.35.95-3.78.93-1.61-.02-2.84-1.67-3.76-3.14C1.6 16.68.86 13.03 2.02 10.6c.82-1.72 2.28-2.8 3.87-2.82 1.44-.02 2.8.98 3.68.98.88 0 2.54-1.21 4.28-1.03.73.03 2.78.29 4.1 2.23-.1.07-2.45 1.44-2.42 4.28.02 3.4 2.98 4.53 3.02 4.55z"/></svg>
+            <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>
+          </a>
+          <a href="#" class="store-btn" aria-label="Disponible sur Google Play (bientôt disponible)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.1c-.4.2-.6.7-.6 1.2v17.4c0 .5.2 1 .6 1.2l9.9-9.9-9.9-9.9zm11.1 11.1 2.5 2.5 4.2-2.4c.7-.4.7-1.4 0-1.8l-4.2-2.4-2.5 2.5-2.6 1.6 2.6 1.6v.2zm-1.2-1.2-9-9c.2-.1.4-.1.6 0l10.6 6.1-2.2 2.9zm0 2.4 2.2 2.9-10.6 6.1c-.2.1-.4.1-.6 0l9-9z"/></svg>
+            <span class="store-btn-text"><small>Disponible sur</small>Google Play</span>
+          </a>
+        </div>
+        <p class="hero-note">Bientôt disponible · zéro stockage photo</p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="phone-gl-stage">
+          <canvas id="hero-phone-canvas" class="phone-gl-canvas" data-screen-state="radar"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT CA MARCHE -->
+  <section class="section scrollstory" id="comment-ca-marche">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-center">Comment ça marche</p>
+      <h2 class="section-title center">Trois photos. Un plan clair.</h2>
+    </div>
+
+    <div class="wrap scrollstory-grid">
+      <div class="scrollstory-track">
+
+        <article class="story-step" data-step="1">
+          <div class="story-mobile-phone" aria-hidden="true">
+            <div class="phone-gl-stage phone-gl-stage--sm">
+              <canvas class="phone-gl-canvas" data-mobile-phone="1"></canvas>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-index">01</span>
+            <h3>Prends 3 photos</h3>
+            <p>Face, profil, dos — dans de bonnes conditions de lumière. Un guide à l'écran te positionne, pose après pose.</p>
+            <ul class="step-details">
+              <li>Guide de pose en direct, à l'écran</li>
+              <li>Moins d'une minute, caméra ou galerie</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="story-step" data-step="2">
+          <div class="story-mobile-phone" aria-hidden="true">
+            <div class="phone-gl-stage phone-gl-stage--sm">
+              <canvas class="phone-gl-canvas" data-mobile-phone="2"></canvas>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-index">02</span>
+            <h3>Reçois ton score honnête</h3>
+            <p>Un score global sur 100, basé sur ta symétrie, ta densité musculaire apparente et ta progression réelle — jamais comparé aux autres.</p>
+            <ul class="step-details">
+              <li>Score /100 en quelques secondes</li>
+              <li>Point fort et point faible identifiés</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="story-step" data-step="3">
+          <div class="story-mobile-phone" aria-hidden="true">
+            <div class="phone-gl-stage phone-gl-stage--sm">
+              <canvas class="phone-gl-canvas" data-mobile-phone="3"></canvas>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-index">03</span>
+            <h3>Explore ton radar musculaire</h3>
+            <p>Huit groupes musculaires passés au crible : épaules, dos, bras, poitrine, abdos, fessiers, jambes, avant-bras.</p>
+            <ul class="step-details">
+              <li>Radar détaillé par groupe musculaire</li>
+              <li>Évolution vs ton dernier scan</li>
+              <li>Historique conservé, semaine après semaine</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="story-step" data-step="4">
+          <div class="story-mobile-phone" aria-hidden="true">
+            <div class="phone-gl-stage phone-gl-stage--sm">
+              <canvas class="phone-gl-canvas" data-mobile-phone="4"></canvas>
+            </div>
+          </div>
+          <div class="step-copy">
+            <span class="step-index">04</span>
+            <h3>Suis un plan sur-mesure</h3>
+            <p>Des exercices ciblés sur tes points faibles, adaptés à ton objectif : perte de gras, prise de muscle ou sèche musculaire.</p>
+            <ul class="step-details">
+              <li>Exercices priorisés automatiquement</li>
+              <li>Séries, répétitions, groupe ciblé</li>
+              <li>Plan mis à jour à chaque nouveau scan</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="scrollstory-visual" aria-hidden="true">
+        <div class="phone-gl-stage">
+          <canvas id="story-phone-canvas" class="phone-gl-canvas" data-screen-state="pose"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FONCTIONNALITES -->
+  <section class="section section-alt" id="fonctionnalites">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-center">Fonctionnalités</p>
+      <h2 class="section-title center">Tout ce qu'il te faut pour progresser</h2>
+
+      <div class="feature-list">
+        <article class="feature-item" data-reveal>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l6-14 4 8 3-5 3 11"/></svg>
+          </div>
+          <div>
+            <h3>Points forts &amp; points faibles</h3>
+            <p>ShapeMax identifie automatiquement ton meilleur groupe musculaire et celui à prioriser pour progresser vite.</p>
+          </div>
+        </article>
+
+        <article class="feature-item" data-reveal>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          </div>
+          <div>
+            <h3>Suivi de progression</h3>
+            <p>Compare chaque scan au précédent : symétrie, V-taper, densité musculaire et évolution globale.</p>
+          </div>
+        </article>
+
+        <article class="feature-item" data-reveal>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+          </div>
+          <div>
+            <h3>Exercices ciblés</h3>
+            <p>Un plan d'exercices précis lié à tes points faibles et à ton objectif, avec ou sans matériel.</p>
+          </div>
+        </article>
+
+        <article class="feature-item" data-reveal>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div>
+            <h3>Baromètre hebdo</h3>
+            <p>Un scan par semaine suffit à suivre une tendance fiable, sans obsession du chiffre au quotidien.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTIFS -->
+  <section class="section" id="objectifs">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-center">Objectifs</p>
+      <h2 class="section-title center">Un plan pour chaque objectif</h2>
+      <p class="section-lead center">Dis à ShapeMax où tu veux aller. L'app adapte tes exercices en conséquence.</p>
+
+      <div class="goal-list">
+        <article class="goal-item" data-reveal>
+          <span class="goal-index">01</span>
+          <h3>Perte de gras</h3>
+          <p>Un plan orienté dépense énergétique et renforcement global pour affiner ta silhouette sans perdre de muscle.</p>
+        </article>
+        <article class="goal-item goal-item--accent" data-reveal>
+          <span class="goal-index">02</span>
+          <h3>Prise de muscle</h3>
+          <p>Des exercices de développement ciblés sur tes groupes musculaires les plus en retard, pour une progression équilibrée.</p>
+        </article>
+        <article class="goal-item" data-reveal>
+          <span class="goal-index">03</span>
+          <h3>Sèche musculaire</h3>
+          <p>Maintiens ta masse tout en révélant ta définition, avec un plan pensé pour préserver le muscle en déficit.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIDENTIALITE -->
+  <section class="section section-alt" id="confidentialite">
+    <div class="wrap privacy-inner">
+      <div class="privacy-copy" data-reveal>
+        <p class="eyebrow">Confidentialité</p>
+        <h2 class="section-title">Tes photos t'appartiennent.</h2>
+        <p class="hero-sub">
+          ShapeMax analyse la géométrie de ton corps directement, sans jamais conserver tes photos sur ses serveurs.
+          Aucune comparaison publique, aucun partage : ton scan reste le tien.
+        </p>
+        <ul class="privacy-list">
+          <li>Zéro stockage photo</li>
+          <li>Géométrie 2D analysée localement</li>
+          <li>Comparaison à toi-même, pas aux autres</li>
+        </ul>
+      </div>
+      <div class="privacy-badges" aria-hidden="true" data-reveal>
+        <div class="privacy-pill">Zéro stockage photo</div>
+        <div class="privacy-pill">Analyse locale</div>
+        <div class="privacy-pill">Comparé à toi, pas aux autres</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-center">Foire aux questions</p>
+      <h2 class="section-title center">Tout ce que tu te demandes</h2>
+
+      <div class="faq-list">
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            Comment ShapeMax calcule-t-il mon score ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>À partir de trois photos (face, profil, dos), l'app analyse la géométrie de ton corps — symétrie, proportions, densité apparente — pour produire un score sur 100 et un détail par groupe musculaire.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            Mes photos sont-elles stockées ou partagées ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>Non. L'analyse se fait à partir de la géométrie 2D de la photo ; aucune image n'est conservée sur nos serveurs ni partagée avec d'autres utilisateurs.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            Le score est-il comparé aux autres utilisateurs ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>Non, ShapeMax te compare uniquement à toi-même, scan après scan. L'objectif est ta progression, jamais un classement public.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            À quelle fréquence dois-je scanner ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>Un scan par semaine suffit pour suivre une tendance fiable. Scanner trop souvent n'apporte pas plus de précision : la progression musculaire se joue sur plusieurs semaines.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            Combien de temps prend un scan ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>Moins d'une minute : trois photos guidées par un repère à l'écran, puis ton score s'affiche immédiatement.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            L'application est-elle gratuite ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>Le premier scan est gratuit. Les détails d'abonnement seront communiqués au lancement de l'application.</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            Sur quels appareils l'application sera-t-elle disponible ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>ShapeMax arrive prochainement sur iOS (App Store) et Android (Google Play).</p></div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-reveal>
+          <button class="faq-question" aria-expanded="false">
+            Comment ShapeMax adapte-t-il mes exercices ?
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer-wrap">
+            <div class="faq-answer"><p>Tu choisis ton objectif — perte de gras, prise de muscle ou sèche musculaire — et l'app priorise des exercices sur tes points faibles identifiés par le scan, avec ou sans matériel.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section cta-final">
+    <div class="wrap cta-final-inner">
+      <h2 class="section-title center">Prêt à connaître ta shape ?</h2>
+      <p class="section-lead center">Le premier scan est gratuit. Trois photos suffisent.</p>
+      <div class="store-buttons store-buttons--center">
+        <a href="#" class="store-btn" aria-label="Télécharger sur l'App Store (bientôt disponible)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.415 2.06-1.244 2.87-.994.973-2.19 1.53-3.463 1.428-.05-1.1.418-2.24 1.24-2.995C13.63.87 15.06.14 16.36 0c.02.14.005.29.005.43zM20.75 17.02c-.516 1.19-.762 1.72-1.42 2.77-.92 1.47-2.22 3.3-3.83 3.31-1.43.02-1.8-.94-3.75-.93-1.94.01-2.35.95-3.78.93-1.61-.02-2.84-1.67-3.76-3.14C1.6 16.68.86 13.03 2.02 10.6c.82-1.72 2.28-2.8 3.87-2.82 1.44-.02 2.8.98 3.68.98.88 0 2.54-1.21 4.28-1.03.73.03 2.78.29 4.1 2.23-.1.07-2.45 1.44-2.42 4.28.02 3.4 2.98 4.53 3.02 4.55z"/></svg>
+          <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>
+        </a>
+        <a href="#" class="store-btn" aria-label="Disponible sur Google Play (bientôt disponible)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.1c-.4.2-.6.7-.6 1.2v17.4c0 .5.2 1 .6 1.2l9.9-9.9-9.9-9.9zm11.1 11.1 2.5 2.5 4.2-2.4c.7-.4.7-1.4 0-1.8l-4.2-2.4-2.5 2.5-2.6 1.6 2.6 1.6v.2zm-1.2-1.2-9-9c.2-.1.4-.1.6 0l10.6 6.1-2.2 2.9zm0 2.4 2.2 2.9-10.6 6.1c-.2.1-.4.1-.6 0l9-9z"/></svg>
+          <span class="store-btn-text"><small>Disponible sur</small>Google Play</span>
+        </a>
+      </div>
+      <p class="hero-note center">Bientôt disponible sur iOS et Android</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a href="#top" class="logo">SHAPE<span>MAX</span></a>
+    <p>&copy; 2026 ShapeMax. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
