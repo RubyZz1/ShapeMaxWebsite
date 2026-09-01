@@ -31,6 +31,7 @@
       <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
       <a href="#objectifs">Objectifs</a>
+      <a href="#avis">Avis</a>
       <a href="#faq">FAQ</a>
     </nav>
 
@@ -80,91 +81,95 @@
   </section>
 
   <!-- COMMENT CA MARCHE -->
-  <section class="section scrollstory" id="comment-ca-marche">
+  <section class="section howto" id="comment-ca-marche">
+    <div class="howto-glow howto-glow--a" aria-hidden="true"></div>
+    <div class="howto-glow howto-glow--b" aria-hidden="true"></div>
+
     <div class="wrap">
       <p class="eyebrow eyebrow-center">Comment ça marche</p>
       <h2 class="section-title center">Trois photos. Un plan clair.</h2>
+      <p class="section-lead center">
+        De la photo au plan d'entraînement en quatre étapes : ShapeMax lit ta morphologie,
+        chiffre tes points forts et faibles, puis priorise les exercices qui comptent vraiment.
+      </p>
+      <div class="story-stats" data-reveal>
+        <div class="story-stat">
+          <span class="story-stat-value">&lt;1 min</span>
+          <span class="story-stat-label">par scan</span>
+        </div>
+        <div class="story-stat">
+          <span class="story-stat-value">8</span>
+          <span class="story-stat-label">groupes musculaires</span>
+        </div>
+        <div class="story-stat">
+          <span class="story-stat-value">/100</span>
+          <span class="story-stat-label">score honnête</span>
+        </div>
+      </div>
     </div>
 
-    <div class="wrap scrollstory-grid">
-      <div class="scrollstory-track">
+    <div class="wrap howto-diagram" data-reveal>
+      <div class="howto-stage">
+        <svg class="howto-lines" viewBox="0 0 1040 640" preserveAspectRatio="none" aria-hidden="true">
+          <path class="howto-line is-active" data-line="1" d="M281,111 L281,158 Q281,176 299,176 L460,176"/>
+          <path class="howto-line" data-line="2" d="M281,518 L281,451 Q281,431 301,431 L411,431 Q431,431 431,411 L466,383"/>
+          <path class="howto-line" data-line="3" d="M759,122 L759,229 Q759,249 741,249 L580,249"/>
+          <path class="howto-line" data-line="4" d="M759,527 L759,420 Q759,395 739,395 L599,395 Q579,395 579,375 L557,352"/>
+        </svg>
 
-        <article class="story-step" data-step="1">
-          <div class="story-mobile-phone" aria-hidden="true">
-            <div class="phone-gl-stage phone-gl-stage--sm">
-              <canvas class="phone-gl-canvas" data-mobile-phone="1"></canvas>
-            </div>
+        <div class="howto-phone">
+          <div class="howto-phone-base" aria-hidden="true"></div>
+          <div class="phone-gl-stage">
+            <canvas id="story-phone-canvas" class="phone-gl-canvas" data-screen-state="pose"></canvas>
           </div>
-          <div class="step-copy">
-            <span class="step-index">01</span>
-            <h3>Prends 3 photos</h3>
-            <p>Face, profil, dos — dans de bonnes conditions de lumière. Un guide à l'écran te positionne, pose après pose.</p>
-            <ul class="step-details">
-              <li>Guide de pose en direct, à l'écran</li>
-              <li>Moins d'une minute, caméra ou galerie</li>
-            </ul>
-          </div>
-        </article>
+        </div>
 
-        <article class="story-step" data-step="2">
-          <div class="story-mobile-phone" aria-hidden="true">
-            <div class="phone-gl-stage phone-gl-stage--sm">
-              <canvas class="phone-gl-canvas" data-mobile-phone="2"></canvas>
-            </div>
-          </div>
-          <div class="step-copy">
-            <span class="step-index">02</span>
-            <h3>Reçois ton score honnête</h3>
-            <p>Un score global sur 100, basé sur ta symétrie, ta densité musculaire apparente et ta progression réelle — jamais comparé aux autres.</p>
-            <ul class="step-details">
-              <li>Score /100 en quelques secondes</li>
-              <li>Point fort et point faible identifiés</li>
-            </ul>
-          </div>
-        </article>
+        <button class="howto-node howto-node--1 is-active" data-feature="1" type="button">
+          <span class="howto-node-dot">01</span>
+          <span class="howto-node-copy">
+            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-2h6l2 2h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.3"/></svg></span>
+            <strong>Prends 3 photos</strong>
+            <p>Face, profil, dos — un guide à l'écran te positionne, pose après pose.</p>
+          </span>
+        </button>
 
-        <article class="story-step" data-step="3">
-          <div class="story-mobile-phone" aria-hidden="true">
-            <div class="phone-gl-stage phone-gl-stage--sm">
-              <canvas class="phone-gl-canvas" data-mobile-phone="3"></canvas>
-            </div>
-          </div>
-          <div class="step-copy">
-            <span class="step-index">03</span>
-            <h3>Explore ton radar musculaire</h3>
-            <p>Huit groupes musculaires passés au crible : épaules, dos, bras, poitrine, abdos, fessiers, jambes, avant-bras.</p>
-            <ul class="step-details">
-              <li>Radar détaillé par groupe musculaire</li>
-              <li>Évolution vs ton dernier scan</li>
-              <li>Historique conservé, semaine après semaine</li>
-            </ul>
-          </div>
-        </article>
+        <button class="howto-node howto-node--2" data-feature="2" type="button">
+          <span class="howto-node-dot">02</span>
+          <span class="howto-node-copy">
+            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16a8 8 0 0 1 16 0"/><path d="M12 16l4.2-5"/><circle cx="12" cy="16" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+            <strong>Reçois ton score honnête</strong>
+            <p>Un score sur 100 basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres.</p>
+          </span>
+        </button>
 
-        <article class="story-step" data-step="4">
-          <div class="story-mobile-phone" aria-hidden="true">
-            <div class="phone-gl-stage phone-gl-stage--sm">
-              <canvas class="phone-gl-canvas" data-mobile-phone="4"></canvas>
-            </div>
-          </div>
-          <div class="step-copy">
-            <span class="step-index">04</span>
-            <h3>Suis un plan sur-mesure</h3>
-            <p>Des exercices ciblés sur tes points faibles, adaptés à ton objectif : perte de gras, prise de muscle ou sèche musculaire.</p>
-            <ul class="step-details">
-              <li>Exercices priorisés automatiquement</li>
-              <li>Séries, répétitions, groupe ciblé</li>
-              <li>Plan mis à jour à chaque nouveau scan</li>
-            </ul>
-          </div>
-        </article>
+        <button class="howto-node howto-node--3" data-feature="3" type="button">
+          <span class="howto-node-dot">03</span>
+          <span class="howto-node-copy">
+            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.2"/><path d="M12 3.5v2.5M12 18v2.5M3.5 12h2.5M18 12h2.5"/></svg></span>
+            <strong>Explore ton radar musculaire</strong>
+            <p>Huit groupes musculaires passés au crible, avec ton évolution scan après scan.</p>
+          </span>
+        </button>
 
+        <button class="howto-node howto-node--4" data-feature="4" type="button">
+          <span class="howto-node-dot">04</span>
+          <span class="howto-node-copy">
+            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg></span>
+            <strong>Suis un plan sur-mesure</strong>
+            <p>Des exercices ciblés sur tes points faibles, adaptés à ton objectif.</p>
+          </span>
+        </button>
       </div>
 
-      <div class="scrollstory-visual" aria-hidden="true">
-        <div class="phone-gl-stage">
-          <canvas id="story-phone-canvas" class="phone-gl-canvas" data-screen-state="pose"></canvas>
-        </div>
+      <div class="howto-mobile-nav" role="tablist" aria-label="Étapes">
+        <button class="howto-tab is-active" data-feature="1" type="button" role="tab" aria-selected="true">01</button>
+        <button class="howto-tab" data-feature="2" type="button" role="tab" aria-selected="false">02</button>
+        <button class="howto-tab" data-feature="3" type="button" role="tab" aria-selected="false">03</button>
+        <button class="howto-tab" data-feature="4" type="button" role="tab" aria-selected="false">04</button>
+      </div>
+      <div class="howto-mobile-copy">
+        <strong id="howto-mobile-title">Prends 3 photos</strong>
+        <p id="howto-mobile-text">Face, profil, dos — un guide à l'écran te positionne, pose après pose.</p>
       </div>
     </div>
   </section>
@@ -175,45 +180,42 @@
       <p class="eyebrow eyebrow-center">Fonctionnalités</p>
       <h2 class="section-title center">Tout ce qu'il te faut pour progresser</h2>
 
-      <div class="feature-list">
-        <article class="feature-item" data-reveal>
+      <div class="bento-grid">
+        <article class="bento-tile bento-tile--lg" data-reveal>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l6-14 4 8 3-5 3 11"/></svg>
           </div>
-          <div>
-            <h3>Points forts &amp; points faibles</h3>
-            <p>ShapeMax identifie automatiquement ton meilleur groupe musculaire et celui à prioriser pour progresser vite.</p>
-          </div>
+          <h3>Points forts &amp; points faibles</h3>
+          <p>ShapeMax identifie automatiquement ton meilleur groupe musculaire et celui à prioriser pour progresser vite, sur les 8 zones analysées à chaque scan.</p>
+          <span class="bento-tile-stat">8 groupes musculaires passés au crible</span>
         </article>
 
-        <article class="feature-item" data-reveal>
+        <article class="bento-tile bento-tile--photo" data-reveal style="--bento-img: url('../assets/images/dumbbell-bw.jpg');">
+          <span class="bento-tile-caption">Reste régulier, progresse vraiment.</span>
+        </article>
+
+        <article class="bento-tile" data-reveal>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
           </div>
-          <div>
-            <h3>Suivi de progression</h3>
-            <p>Compare chaque scan au précédent : symétrie, V-taper, densité musculaire et évolution globale.</p>
-          </div>
+          <h3>Suivi de progression</h3>
+          <p>Compare chaque scan au précédent : symétrie, V-taper, densité musculaire et évolution globale.</p>
         </article>
 
-        <article class="feature-item" data-reveal>
+        <article class="bento-tile" data-reveal>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
           </div>
-          <div>
-            <h3>Exercices ciblés</h3>
-            <p>Un plan d'exercices précis lié à tes points faibles et à ton objectif, avec ou sans matériel.</p>
-          </div>
+          <h3>Exercices ciblés</h3>
+          <p>Un plan d'exercices précis lié à tes points faibles et à ton objectif, avec ou sans matériel.</p>
         </article>
 
-        <article class="feature-item" data-reveal>
+        <article class="bento-tile" data-reveal>
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
           </div>
-          <div>
-            <h3>Baromètre hebdo</h3>
-            <p>Un scan par semaine suffit à suivre une tendance fiable, sans obsession du chiffre au quotidien.</p>
-          </div>
+          <h3>Baromètre hebdo</h3>
+          <p>Un scan par semaine suffit à suivre une tendance fiable, sans obsession du chiffre au quotidien.</p>
         </article>
       </div>
     </div>
@@ -227,27 +229,155 @@
       <p class="section-lead center">Dis à ShapeMax où tu veux aller. L'app adapte tes exercices en conséquence.</p>
 
       <div class="goal-list">
-        <article class="goal-item" data-reveal>
+        <article class="goal-card" data-reveal style="--goal-img: url('../assets/images/running-night.jpg');">
           <span class="goal-index">01</span>
-          <h3>Perte de gras</h3>
-          <p>Un plan orienté dépense énergétique et renforcement global pour affiner ta silhouette sans perdre de muscle.</p>
+          <div class="goal-card-body">
+            <span class="goal-tag">Déficit calorique</span>
+            <h3>Perte de gras</h3>
+            <p>Un plan orienté dépense énergétique et renforcement global pour affiner ta silhouette sans perdre de muscle.</p>
+          </div>
         </article>
-        <article class="goal-item goal-item--accent" data-reveal>
+        <article class="goal-card goal-card--accent" data-reveal style="--goal-img: url('../assets/images/barbell-gym.jpg');">
           <span class="goal-index">02</span>
-          <h3>Prise de muscle</h3>
-          <p>Des exercices de développement ciblés sur tes groupes musculaires les plus en retard, pour une progression équilibrée.</p>
+          <div class="goal-card-body">
+            <span class="goal-tag">Surcharge progressive</span>
+            <h3>Prise de muscle</h3>
+            <p>Des exercices de développement ciblés sur tes groupes musculaires les plus en retard, pour une progression équilibrée.</p>
+          </div>
         </article>
-        <article class="goal-item" data-reveal>
+        <article class="goal-card" data-reveal style="--goal-img: url('../assets/images/back-stretch.jpg');">
           <span class="goal-index">03</span>
-          <h3>Sèche musculaire</h3>
-          <p>Maintiens ta masse tout en révélant ta définition, avec un plan pensé pour préserver le muscle en déficit.</p>
+          <div class="goal-card-body">
+            <span class="goal-tag">Préservation musculaire</span>
+            <h3>Sèche musculaire</h3>
+            <p>Maintiens ta masse tout en révélant ta définition, avec un plan pensé pour préserver le muscle en déficit.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS -->
+  <section class="section section-alt" id="avis">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-center">Avis bêta</p>
+      <h2 class="section-title center">Ils ont testé leur shape en avant-première.</h2>
+      <p class="section-lead center">Premiers retours de notre programme bêta fermé, avant l'ouverture au grand public.</p>
+
+      <div class="review-list">
+        <article class="review-card" data-reveal>
+          <div class="review-stars" aria-label="5 sur 5 étoiles">
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+          </div>
+          <p class="review-quote">« Le score m'a bluffé de précision. J'ai enfin compris pourquoi mes épaules stagnaient depuis des mois. »</p>
+          <div class="review-author">
+            <span class="review-avatar">TR</span>
+            <div class="review-author-info">
+              <span class="review-name">Thomas R.</span>
+              <span class="review-meta">Objectif : prise de muscle</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card" data-reveal>
+          <div class="review-stars" aria-label="5 sur 5 étoiles">
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+          </div>
+          <p class="review-quote">« Trois photos et j'ai un plan clair. Simple, honnête, sans jugement sur mon physique de départ. »</p>
+          <div class="review-author">
+            <span class="review-avatar">CD</span>
+            <div class="review-author-info">
+              <span class="review-name">Camille D.</span>
+              <span class="review-meta">Objectif : perte de gras</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card" data-reveal>
+          <div class="review-stars" aria-label="4 sur 5 étoiles">
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg class="is-empty" viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+          </div>
+          <p class="review-quote">« Le suivi semaine après semaine me motive plus que n'importe quelle appli de calories. »</p>
+          <div class="review-author">
+            <span class="review-avatar">YB</span>
+            <div class="review-author-info">
+              <span class="review-name">Yanis B.</span>
+              <span class="review-meta">Objectif : sèche musculaire</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card" data-reveal>
+          <div class="review-stars" aria-label="5 sur 5 étoiles">
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+          </div>
+          <p class="review-quote">« Les exercices ciblés sur mes points faibles, ça change tout par rapport à un programme générique. »</p>
+          <div class="review-author">
+            <span class="review-avatar">LM</span>
+            <div class="review-author-info">
+              <span class="review-name">Léa M.</span>
+              <span class="review-meta">Objectif : prise de muscle</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card" data-reveal>
+          <div class="review-stars" aria-label="5 sur 5 étoiles">
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+          </div>
+          <p class="review-quote">« Rassurant de savoir que mes photos ne sont pas stockées. Je l'ai testé sans hésiter. »</p>
+          <div class="review-author">
+            <span class="review-avatar">KS</span>
+            <div class="review-author-info">
+              <span class="review-name">Karim S.</span>
+              <span class="review-meta">Objectif : perte de gras</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="review-card" data-reveal>
+          <div class="review-stars" aria-label="5 sur 5 étoiles">
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
+          </div>
+          <p class="review-quote">« Le radar musculaire est bluffant. Je vois enfin où je suis vraiment en retard. »</p>
+          <div class="review-author">
+            <span class="review-avatar">SL</span>
+            <div class="review-author-info">
+              <span class="review-name">Sarah L.</span>
+              <span class="review-meta">Objectif : sèche musculaire</span>
+            </div>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
   <!-- CONFIDENTIALITE -->
-  <section class="section section-alt" id="confidentialite">
+  <section class="section" id="confidentialite">
     <div class="wrap privacy-inner">
       <div class="privacy-copy" data-reveal>
         <p class="eyebrow">Confidentialité</p>
@@ -256,16 +386,25 @@
           ShapeMax analyse la géométrie de ton corps directement, sans jamais conserver tes photos sur ses serveurs.
           Aucune comparaison publique, aucun partage : ton scan reste le tien.
         </p>
-        <ul class="privacy-list">
-          <li>Zéro stockage photo</li>
-          <li>Géométrie 2D analysée localement</li>
-          <li>Comparaison à toi-même, pas aux autres</li>
-        </ul>
+        <div class="trust-stats">
+          <div class="trust-stat">
+            <span class="trust-stat-value">0</span>
+            <span class="trust-stat-label">photo stockée sur nos serveurs</span>
+          </div>
+          <div class="trust-stat">
+            <span class="trust-stat-value">100%</span>
+            <span class="trust-stat-label">analyse géométrique, jamais visuelle</span>
+          </div>
+          <div class="trust-stat">
+            <span class="trust-stat-value">Toi</span>
+            <span class="trust-stat-label">seul point de comparaison, scan après scan</span>
+          </div>
+        </div>
       </div>
-      <div class="privacy-badges" aria-hidden="true" data-reveal>
-        <div class="privacy-pill">Zéro stockage photo</div>
-        <div class="privacy-pill">Analyse locale</div>
-        <div class="privacy-pill">Comparé à toi, pas aux autres</div>
+      <div class="privacy-visual" aria-hidden="true" data-reveal>
+        <span class="privacy-visual-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="15.2" r="1.15" fill="currentColor" stroke="none"/></svg>
+        </span>
       </div>
     </div>
   </section>

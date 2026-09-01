@@ -39,8 +39,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
     });
   });
 
-  // Per-step tilt + screen state, shared by the desktop pinned phone and the
-  // four static mobile phones so both paths agree on what each step looks like.
+  // Per-feature tilt for the "comment ça marche" phone, one entry per node/tab.
   var ROTATIONS = [
     { x: 0.070, y: -0.279, z: -0.052 },
     { x: -0.052, y: 0.244, z: 0.035 },
@@ -48,7 +47,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
     { x: -0.070, y: 0.279, z: -0.052 }
   ];
 
-  // ---- 3D phone scenes: hero, desktop pinned scroll story, mobile per-step ----
+  // ---- 3D phone scenes: hero + the "comment ça marche" hub phone ----
   var heroCanvas = document.getElementById("hero-phone-canvas");
   var storyCanvas = document.getElementById("story-phone-canvas");
   var heroScene = heroCanvas
@@ -61,13 +60,63 @@ import { SCREEN_STATES } from "./phone-screens.js";
     heroScene.group.rotation.set(HERO_BASE_ROTATION.x, HERO_BASE_ROTATION.y, HERO_BASE_ROTATION.z);
   }
 
-  var mobileScenes = [];
-  document.querySelectorAll("[data-mobile-phone]").forEach(function (canvas) {
-    var idx = parseInt(canvas.getAttribute("data-mobile-phone"), 10) - 1;
-    if (idx < 0 || idx >= SCREEN_STATES.length) return;
-    var scene = createPhoneScene(canvas, { initialState: SCREEN_STATES[idx] });
-    scene.group.rotation.set(ROTATIONS[idx].x, ROTATIONS[idx].y, ROTATIONS[idx].z);
-    mobileScenes.push(scene);
+  // "Comment ça marche" hub diagram: one shared phone, 4 nodes (desktop) /
+  // 4 tabs (mobile) that swap its screen + tilt on hover/tap. See below for
+  // the wiring, after the shared render loop is set up.
+  var howtoNodes = Array.prototype.slice.call(document.querySelectorAll(".howto-node"));
+  var howtoTabs = Array.prototype.slice.call(document.querySelectorAll(".howto-tab"));
+  var howtoLines = Array.prototype.slice.call(document.querySelectorAll(".howto-line"));
+  var howtoTitleEl = document.getElementById("howto-mobile-title");
+  var howtoTextEl = document.getElementById("howto-mobile-text");
+  var HOWTO_COPY = [
+    { title: "Prends 3 photos", text: "Face, profil, dos — un guide à l'écran te positionne, pose après pose." },
+    { title: "Reçois ton score honnête", text: "Un score sur 100 basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres." },
+    { title: "Explore ton radar musculaire", text: "Huit groupes musculaires passés au crible, avec ton évolution scan après scan." },
+    { title: "Suis un plan sur-mesure", text: "Des exercices ciblés sur tes points faibles, adaptés à ton objectif." }
+  ];
+  var howtoActiveIndex = 0;
+
+  function setActiveFeature(idx) {
+    if (idx === howtoActiveIndex && (howtoNodes[idx] && howtoNodes[idx].classList.contains("is-active"))) return;
+    howtoActiveIndex = idx;
+
+    howtoNodes.forEach(function (node, i) { node.classList.toggle("is-active", i === idx); });
+    howtoLines.forEach(function (line, i) { line.classList.toggle("is-active", i === idx); });
+    howtoTabs.forEach(function (tab, i) {
+      tab.classList.toggle("is-active", i === idx);
+      tab.setAttribute("aria-selected", String(i === idx));
+    });
+    if (howtoTitleEl && howtoTextEl && HOWTO_COPY[idx]) {
+      howtoTitleEl.textContent = HOWTO_COPY[idx].title;
+      howtoTextEl.textContent = HOWTO_COPY[idx].text;
+    }
+
+    if (storyScene) {
+      storyScene.setState(SCREEN_STATES[idx]);
+      var target = ROTATIONS[idx];
+      if (hasGsapGlobal()) {
+        gsap.to(storyScene.group.rotation, { duration: 0.9, ease: "power2.inOut", x: target.x, y: target.y, z: target.z });
+      } else {
+        storyScene.group.rotation.set(target.x, target.y, target.z);
+      }
+    }
+  }
+
+  function hasGsapGlobal() {
+    return typeof window.gsap !== "undefined";
+  }
+
+  if (storyScene) {
+    storyScene.group.rotation.set(ROTATIONS[0].x, ROTATIONS[0].y, ROTATIONS[0].z);
+  }
+
+  howtoNodes.forEach(function (node, i) {
+    node.addEventListener("mouseenter", function () { setActiveFeature(i); });
+    node.addEventListener("focus", function () { setActiveFeature(i); });
+    node.addEventListener("click", function () { setActiveFeature(i); });
+  });
+  howtoTabs.forEach(function (tab, i) {
+    tab.addEventListener("click", function () { setActiveFeature(i); });
   });
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -76,12 +125,11 @@ import { SCREEN_STATES } from "./phone-screens.js";
   function renderPhones() {
     if (heroScene) heroScene.render();
     if (storyScene) storyScene.render();
-    mobileScenes.forEach(function (scene) { scene.render(); });
   }
 
   if (hasGsap) {
     gsap.ticker.add(renderPhones);
-  } else if (heroScene || storyScene || mobileScenes.length) {
+  } else if (heroScene || storyScene) {
     (function loop() {
       renderPhones();
       requestAnimationFrame(loop);
@@ -126,20 +174,6 @@ import { SCREEN_STATES } from "./phone-screens.js";
     });
   }
 
-  // Mobile per-step phones: same subtle idle float, phase-offset per phone
-  // so they don't all breathe in lockstep.
-  mobileScenes.forEach(function (scene, i) {
-    var base = ROTATIONS[i];
-    gsap.to(scene.group.rotation, {
-      z: base.z + (i % 2 === 0 ? 0.045 : -0.045),
-      x: base.x - 0.03,
-      duration: 3.2 + i * 0.2,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1
-    });
-  });
-
   // Generic scroll reveals
   gsap.utils.toArray("[data-reveal]").forEach(function (el) {
     gsap.from(el, {
@@ -149,99 +183,5 @@ import { SCREEN_STATES } from "./phone-screens.js";
       ease: "power2.out",
       scrollTrigger: { trigger: el, start: "top 88%" }
     });
-  });
-
-  var headerEl = document.querySelector(".site-header");
-
-  ScrollTrigger.matchMedia({
-    "(min-width: 900px)": function () {
-      var section = document.querySelector(".scrollstory");
-      var grid = section.querySelector(".scrollstory-grid");
-      var steps = gsap.utils.toArray(".story-step");
-
-      if (!storyScene) return undefined;
-
-      section.classList.add("is-pinned");
-
-      storyScene.group.rotation.set(ROTATIONS[0].x, ROTATIONS[0].y, ROTATIONS[0].z);
-      storyScene.setState(SCREEN_STATES[0]);
-      gsap.set(steps, { autoAlpha: 0, y: 24 });
-      gsap.set(steps[0], { autoAlpha: 1, y: 0 });
-
-      // Screen-state thresholds: the exact tl.time() at which each step's
-      // content becomes "current". Driven from the timeline's own onUpdate
-      // (fires every tick, including the scrub's inertial catch-up after
-      // the user stops scrolling) instead of a one-shot tl.call() -- a
-      // scrubbed timeline re-crosses these points going backward too, so a
-      // plain .call() fires again on the way back and re-asserts the state
-      // it was leaving (scrolling up from step 4 into step 3 left the phone
-      // showing step 4's screen under step 3's text). Deriving the state
-      // from "how far across have we scrubbed" instead of "did we just
-      // cross a point" is correct in both directions by construction, and
-      // ScrollTrigger's own onUpdate is scroll-event-driven so it stops
-      // firing before scrub:1's ~1s easing has actually finished catching
-      // up -- the timeline's onUpdate does not have that gap.
-      var stateThresholds = [0];
-      for (var s = 1; s < steps.length; s += 1) stateThresholds.push((s - 1) + 0.4);
-      var currentStateIndex = 0;
-
-      function stateIndexForTime(time) {
-        var idx = 0;
-        for (var s = 0; s < stateThresholds.length; s += 1) {
-          if (time >= stateThresholds[s]) idx = s;
-        }
-        return idx;
-      }
-
-      var tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: grid,
-          start: function () { return "top " + (headerEl ? headerEl.offsetHeight : 0); },
-          end: "+=" + steps.length * 100 + "%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
-        },
-        onUpdate: function () {
-          var idx = stateIndexForTime(this.time());
-          if (idx !== currentStateIndex) {
-            currentStateIndex = idx;
-            storyScene.setState(SCREEN_STATES[idx]);
-          }
-        }
-      });
-
-      for (var i = 1; i < steps.length; i += 1) {
-        (function (i) {
-          var t = i - 1;
-          tl.addLabel("step" + (i + 1), t);
-          tl.to(storyScene.group.rotation, { duration: 1, ease: "power2.inOut", x: ROTATIONS[i].x, y: ROTATIONS[i].y, z: ROTATIONS[i].z }, "step" + (i + 1) + "+=0.15");
-          tl.to(steps[i - 1], { autoAlpha: 0, y: -24, duration: 0.35, ease: "power1.in" }, "step" + (i + 1) + "+=0.05");
-          tl.to(steps[i], { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, "step" + (i + 1) + "+=0.45");
-        })(i);
-      }
-
-      return function () {
-        section.classList.remove("is-pinned");
-        gsap.set(steps, { clearProps: "all" });
-        storyScene.group.rotation.set(ROTATIONS[0].x, ROTATIONS[0].y, ROTATIONS[0].z);
-        storyScene.setState(SCREEN_STATES[0]);
-      };
-    },
-
-    // Below 900px the phone is never pinned (mobileScenes render statically,
-    // one per step, see above) -- .story-step only needs a plain reveal here.
-    "(max-width: 899px)": function () {
-      gsap.utils.toArray(".story-step").forEach(function (step) {
-        gsap.from(step, {
-          opacity: 0,
-          y: 20,
-          duration: 0.5,
-          ease: "power2.out",
-          scrollTrigger: { trigger: step, start: "top 72%" }
-        });
-      });
-    }
   });
 })();
