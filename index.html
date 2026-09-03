@@ -46,9 +46,17 @@
 
 <main id="main">
 
+  <!-- Shared ambient glow behind hero + comment ça marche: one continuous
+       layer spanning both sections so the blue glow isn't cut off at the
+       section boundary between them (each section used to draw its own,
+       clipped to its own box, leaving a visible seam). -->
+  <div class="ambient-glow-zone">
+    <div class="ambient-glow ambient-glow--1" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--2" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--3" aria-hidden="true"></div>
+
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="hero-glow" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div class="hero-copy">
         <p class="eyebrow">Baromètre physique hebdo</p>
@@ -82,8 +90,6 @@
 
   <!-- COMMENT CA MARCHE -->
   <section class="section howto" id="comment-ca-marche">
-    <div class="howto-glow howto-glow--a" aria-hidden="true"></div>
-    <div class="howto-glow howto-glow--b" aria-hidden="true"></div>
 
     <div class="wrap">
       <p class="eyebrow eyebrow-center">Comment ça marche</p>
@@ -127,7 +133,6 @@
         <button class="howto-node howto-node--1 is-active" data-feature="1" type="button">
           <span class="howto-node-dot">01</span>
           <span class="howto-node-copy">
-            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h3l2-2h6l2 2h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.3"/></svg></span>
             <strong>Prends 3 photos</strong>
             <p>Face, profil, dos — un guide à l'écran te positionne, pose après pose.</p>
           </span>
@@ -136,7 +141,6 @@
         <button class="howto-node howto-node--2" data-feature="2" type="button">
           <span class="howto-node-dot">02</span>
           <span class="howto-node-copy">
-            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16a8 8 0 0 1 16 0"/><path d="M12 16l4.2-5"/><circle cx="12" cy="16" r="1.1" fill="currentColor" stroke="none"/></svg></span>
             <strong>Reçois ton score honnête</strong>
             <p>Un score sur 100 basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres.</p>
           </span>
@@ -145,7 +149,6 @@
         <button class="howto-node howto-node--3" data-feature="3" type="button">
           <span class="howto-node-dot">03</span>
           <span class="howto-node-copy">
-            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.2"/><path d="M12 3.5v2.5M12 18v2.5M3.5 12h2.5M18 12h2.5"/></svg></span>
             <strong>Explore ton radar musculaire</strong>
             <p>Huit groupes musculaires passés au crible, avec ton évolution scan après scan.</p>
           </span>
@@ -154,7 +157,6 @@
         <button class="howto-node howto-node--4" data-feature="4" type="button">
           <span class="howto-node-dot">04</span>
           <span class="howto-node-copy">
-            <span class="howto-node-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg></span>
             <strong>Suis un plan sur-mesure</strong>
             <p>Des exercices ciblés sur tes points faibles, adaptés à ton objectif.</p>
           </span>
@@ -173,6 +175,7 @@
       </div>
     </div>
   </section>
+  </div>
 
   <!-- FONCTIONNALITES -->
   <section class="section section-alt" id="fonctionnalites">

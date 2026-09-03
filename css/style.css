@@ -246,17 +246,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: relative;
   padding-top: calc(var(--header-h) + var(--space-7));
   padding-bottom: var(--space-7);
-  overflow: hidden;
-}
-
-.hero-glow {
-  position: absolute;
-  top: -20%; left: 50%;
-  width: 1100px; height: 900px;
-  transform: translateX(-50%);
-  background: radial-gradient(closest-side, var(--accent-glow), transparent 65%);
-  opacity: 0.35;
-  pointer-events: none;
 }
 
 .hero-inner {
@@ -287,21 +276,40 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- comment ça marche (hub diagram) ---------- */
 
-.howto { position: relative; overflow: hidden; }
+.howto { position: relative; }
 
-.howto-glow {
+/* Shared glow layer behind hero + howto (see markup) -- positions are in
+   px from the zone's own top, tuned so the glow reads as one continuous
+   wash across the hero/howto boundary instead of two separate blobs each
+   clipped to its own section. */
+.ambient-glow-zone {
+  position: relative;
+  overflow: hidden;
+}
+.ambient-glow {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  z-index: 0;
 }
-.howto-glow--a {
-  top: -14%; left: 4%;
-  width: 640px; height: 640px;
+.ambient-glow--1 {
+  top: -180px;
+  left: 50%;
+  width: 1100px; height: 1000px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, var(--accent-glow), transparent 65%);
+  opacity: 0.35;
+}
+.ambient-glow--2 {
+  top: 620px;
+  left: 4%;
+  width: 720px; height: 720px;
   background: radial-gradient(closest-side, var(--accent-glow), transparent 72%);
   opacity: 0.32;
 }
-.howto-glow--b {
-  bottom: -16%; right: 2%;
+.ambient-glow--3 {
+  top: 1500px;
+  right: 2%;
   width: 560px; height: 560px;
   background: radial-gradient(closest-side, var(--warn-soft), transparent 72%);
   opacity: 0.4;
@@ -449,17 +457,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     gap: 14px;
     width: 300px;
     padding: var(--space-3);
+    /* Fully opaque at all times (not dimmed via opacity) so the card keeps
+       masking the connector line behind it even when inactive -- opacity
+       on the whole element would let the line show through the
+       now-translucent background, which is exactly the "line reaches the
+       number even when not active" bug this replaced. */
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
     border-radius: var(--radius-lg);
-    opacity: 0.65;
-    transition: opacity 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease);
   }
   .howto-node:hover, .howto-node.is-active {
-    opacity: 1;
     border-color: var(--accent);
+    background: var(--bg-card-hover);
     transform: translateY(-2px);
   }
+  .howto-node-copy strong { color: var(--text-muted); transition: color 0.3s var(--ease); }
+  .howto-node:hover .howto-node-copy strong, .howto-node.is-active .howto-node-copy strong { color: var(--text); }
 
   .howto-node--1 { top: 6%; left: 0; flex-direction: row-reverse; }
   .howto-node--2 { bottom: 6%; left: 0; flex-direction: row-reverse; }
@@ -490,18 +504,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     box-shadow: 0 0 0 6px var(--accent-soft);
   }
 
-  .howto-node-copy { min-width: 0; }
-  .howto-node--3 .howto-node-copy, .howto-node--4 .howto-node-copy { text-align: right; }
-  .howto-node-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px; height: 24px;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-  .howto-node--3 .howto-node-icon, .howto-node--4 .howto-node-icon { margin-left: auto; }
-  .howto-node-icon svg { width: 18px; height: 18px; }
+  .howto-node-copy { min-width: 0; text-align: left; }
   .howto-node-copy strong {
     display: block;
     font-family: var(--font-display);
