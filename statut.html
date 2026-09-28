@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Statut — ShapeMax</title>
+<meta name="description" content="État actuel du site vitrine et de l'application ShapeMax.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/svg+xml" href="favicon-dark.svg" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .status-list { display: flex; flex-direction: column; gap: var(--space-2); max-width: 720px; }
+  .status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 16px 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+  }
+  .status-row-name { font-weight: 600; }
+  .status-row-sub { color: var(--text-faint); font-size: 13px; margin-top: 2px; }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+  .status-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }
+  .status-pill--ok { color: #1f9d55; background: rgba(31, 157, 85, 0.12); }
+  .status-pill--ok::before { background: #1f9d55; }
+  .status-pill--soon { color: var(--text-muted); background: var(--bg-elevated); }
+  .status-pill--soon::before { background: var(--text-faint); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html#top" class="logo">
+      <img src="assets/brand/wordmark-dark.svg" alt="ShapeMax" class="logo-img logo-img--light">
+      <img src="assets/brand/wordmark-light.svg" alt="ShapeMax" class="logo-img logo-img--dark">
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="index.html#demo">Démo</a>
+      <a href="index.html#comment-ca-marche">Comment ça marche</a>
+      <a href="index.html#fonctionnalites">Fonctionnalités</a>
+      <a href="index.html#objectifs">Objectifs</a>
+      <a href="index.html#avis">Avis</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="index.html#top" class="btn btn-primary btn-small">Télécharger</a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="legal-main">
+  <div class="wrap">
+
+    <div class="legal-header">
+      <p class="eyebrow">Statut</p>
+      <h1 class="section-title">Statut du service</h1>
+      <p class="legal-updated">Dernière vérification : janvier 2026</p>
+    </div>
+
+    <div class="legal-body">
+      <div>
+        <p>
+          ShapeMax est encore en phase de bêta fermée : voici un aperçu simple et honnête de ce
+          qui est déjà en ligne et de ce qui arrive bientôt.
+        </p>
+      </div>
+
+      <div class="status-list">
+        <div class="status-row">
+          <div>
+            <div class="status-row-name">Site vitrine</div>
+            <div class="status-row-sub">shapemax.app — présentation, démo, téléchargement</div>
+          </div>
+          <span class="status-pill status-pill--ok">En ligne</span>
+        </div>
+
+        <div class="status-row">
+          <div>
+            <div class="status-row-name">Application iOS</div>
+            <div class="status-row-sub">Bêta fermée — sortie App Store à venir</div>
+          </div>
+          <span class="status-pill status-pill--soon">Bientôt disponible</span>
+        </div>
+
+        <div class="status-row">
+          <div>
+            <div class="status-row-name">Application Android</div>
+            <div class="status-row-sub">Bêta fermée — sortie Google Play à venir</div>
+          </div>
+          <span class="status-pill status-pill--soon">Bientôt disponible</span>
+        </div>
+
+        <div class="status-row">
+          <div>
+            <div class="status-row-name">Moteur de scan &amp; scoring</div>
+            <div class="status-row-sub">Analyse géométrique des 3 photos, calcul du score</div>
+          </div>
+          <span class="status-pill status-pill--soon">En développement</span>
+        </div>
+      </div>
+
+      <div>
+        <h2>Incidents</h2>
+        <p>
+          Aucun incident à signaler actuellement : le site vitrine ne dépend d'aucun service tiers
+          critique. Une fois l'application publiée, cette page listera les éventuels incidents et
+          maintenances passés et en cours.
+        </p>
+      </div>
+    </div>
+
+    <p class="legal-note" style="margin-top: var(--space-5); max-width: 720px;">
+      Cette page est mise à jour manuellement pour le moment ; elle n'est pas encore connectée à
+      un système de supervision automatique. Un monitoring temps réel sera mis en place au
+      lancement public de l'application.
+    </p>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <a href="index.html#top" class="footer-icon" aria-label="ShapeMax — retour à l'accueil">
+        <img src="assets/brand/icon-dark.svg" alt="" class="logo-img logo-img--light">
+        <img src="assets/brand/icon-light.svg" alt="" class="logo-img logo-img--dark">
+      </a>
+      <p class="footer-tagline">Connais ta shape. Bats ton dernier scan.</p>
+    </div>
+
+    <nav class="footer-legal" aria-label="Liens légaux">
+      <a href="confidentialite.html">Confidentialité</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="cgu.html">CGU</a>
+      <a href="cgv.html">CGV</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="statut.html">Statut</a>
+    </nav>
+
+    <p class="footer-copy">&copy; 2026 ShapeMax. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var header = document.querySelector(".site-header");
+  var navToggle = document.getElementById("nav-toggle");
+  var mainNav = document.getElementById("main-nav");
+  if (navToggle && header && mainNav) {
+    navToggle.addEventListener("click", function () {
+      var isOpen = header.classList.toggle("nav-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Fermer le menu" : "Ouvrir le menu");
+    });
+    mainNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        header.classList.remove("nav-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

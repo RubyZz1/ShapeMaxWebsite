@@ -5,16 +5,16 @@
  */
 
 const COLORS = {
-  bg: "#0b1122",
-  bgCard: "#101a30",
-  border: "#1e2b48",
-  text: "#f5f8ff",
-  textMuted: "#93a2c2",
-  textFaint: "#5c6c92",
-  accent: "#4f9dff",
-  accentSoft: "rgba(79, 157, 255, 0.16)",
-  warn: "#f2b84b",
-  warnSoft: "rgba(242, 184, 75, 0.16)",
+  bg: "#ffffff",
+  bgCard: "#ffffff",
+  border: "#e7e7e7",
+  text: "#1b1b1b",
+  textMuted: "#6b6b6b",
+  textFaint: "#9a9a9a",
+  accent: "#ff5522",
+  accentSoft: "rgba(255, 85, 34, 0.14)",
+  warn: "#1b1b1b",
+  warnSoft: "rgba(164, 189, 252, 0.3)",
 };
 
 const W = 520;
@@ -50,7 +50,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
 function drawBackground(ctx) {
   const grad = ctx.createRadialGradient(W * 0.35, 0, 40, W * 0.35, 0, H * 0.9);
-  grad.addColorStop(0, "#0f1830");
+  grad.addColorStop(0, "#fff3ee");
   grad.addColorStop(1, COLORS.bg);
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
@@ -77,7 +77,7 @@ function drawPoseScreen(ctx) {
   roundRect(ctx, W / 2 - badgeW / 2, 162, badgeW, 46, 23);
   ctx.fillStyle = COLORS.accentSoft;
   ctx.fill();
-  ctx.strokeStyle = "rgba(79,157,255,0.4)";
+  ctx.strokeStyle = "rgba(255,85,34,0.4)";
   ctx.lineWidth = 1.5;
   ctx.stroke();
   ctx.fillStyle = COLORS.accent;
@@ -127,7 +127,7 @@ function drawPoseScreen(ctx) {
   roundRect(ctx, 60, 940, W - 120, 62, 16);
   ctx.fillStyle = COLORS.accent;
   ctx.fill();
-  ctx.fillStyle = "#04101f";
+  ctx.fillStyle = "#ffffff";
   ctx.fillText("Ouvrir la caméra", W / 2, 980);
 
   roundRect(ctx, 60, 1018, W - 120, 56, 16);
@@ -179,7 +179,7 @@ function drawScoreScreen(ctx) {
   roundRect(ctx, 60, tagY, tagW, tagH, 14);
   ctx.fillStyle = COLORS.accentSoft;
   ctx.fill();
-  ctx.strokeStyle = "rgba(79,157,255,0.3)";
+  ctx.strokeStyle = "rgba(255,85,34,0.3)";
   ctx.stroke();
   ctx.textAlign = "left";
   ctx.font = "500 18px 'Barlow', sans-serif";
@@ -193,7 +193,7 @@ function drawScoreScreen(ctx) {
   roundRect(ctx, tag2X, tagY, tagW, tagH, 14);
   ctx.fillStyle = COLORS.warnSoft;
   ctx.fill();
-  ctx.strokeStyle = "rgba(242,184,75,0.32)";
+  ctx.strokeStyle = "rgba(164,189,252,0.55)";
   ctx.stroke();
   ctx.font = "500 18px 'Barlow', sans-serif";
   ctx.fillStyle = COLORS.warn;
@@ -249,7 +249,7 @@ function drawRadarScreen(ctx) {
       if (i === 0) ctx.moveTo(p.x, p.y);
       else ctx.lineTo(p.x, p.y);
     }
-    ctx.strokeStyle = "rgba(255,255,255,0.12)";
+    ctx.strokeStyle = "rgba(27,27,27,0.1)";
     ctx.lineWidth = 1.5;
     ctx.stroke();
   }
@@ -258,7 +258,7 @@ function drawRadarScreen(ctx) {
     ctx.beginPath();
     ctx.moveTo(cx, cy);
     ctx.lineTo(p.x, p.y);
-    ctx.strokeStyle = "rgba(255,255,255,0.12)";
+    ctx.strokeStyle = "rgba(27,27,27,0.1)";
     ctx.stroke();
   }
 
@@ -269,7 +269,7 @@ function drawRadarScreen(ctx) {
     else ctx.lineTo(p.x, p.y);
   });
   ctx.closePath();
-  ctx.fillStyle = "rgba(79,157,255,0.28)";
+  ctx.fillStyle = "rgba(255,85,34,0.22)";
   ctx.fill();
   ctx.strokeStyle = COLORS.accent;
   ctx.lineWidth = 3;

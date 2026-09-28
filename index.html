@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ShapeMax — Connais ta shape</title>
 <meta name="description" content="ShapeMax scanne ton physique en 3 photos et te donne un score honnête, tes points forts, tes points faibles et un plan d'exercices adapté à ton objectif.">
-<link rel="icon" href="data:,">
+<link rel="icon" type="image/svg+xml" href="favicon.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/svg+xml" href="favicon-dark.svg" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,9 +31,13 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <a href="#top" class="logo">SHAPE<span>MAX</span></a>
+    <a href="#top" class="logo">
+      <img src="assets/brand/wordmark-dark.svg" alt="ShapeMax" class="logo-img logo-img--light">
+      <img src="assets/brand/wordmark-light.svg" alt="ShapeMax" class="logo-img logo-img--dark">
+    </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="#demo">Démo</a>
       <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
       <a href="#objectifs">Objectifs</a>
@@ -46,15 +56,6 @@
 
 <main id="main">
 
-  <!-- Shared ambient glow behind hero + comment ça marche: one continuous
-       layer spanning both sections so the blue glow isn't cut off at the
-       section boundary between them (each section used to draw its own,
-       clipped to its own box, leaving a visible seam). -->
-  <div class="ambient-glow-zone">
-    <div class="ambient-glow ambient-glow--1" aria-hidden="true"></div>
-    <div class="ambient-glow ambient-glow--2" aria-hidden="true"></div>
-    <div class="ambient-glow ambient-glow--3" aria-hidden="true"></div>
-
   <!-- HERO -->
   <section class="hero" id="top">
     <div class="wrap hero-inner">
@@ -67,15 +68,19 @@
           <strong>ton</strong> objectif — perdre du gras, prendre du muscle ou sécher.
         </p>
 
-        <div class="store-buttons" id="telecharger">
-          <a href="#" class="store-btn" aria-label="Télécharger sur l'App Store (bientôt disponible)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.415 2.06-1.244 2.87-.994.973-2.19 1.53-3.463 1.428-.05-1.1.418-2.24 1.24-2.995C13.63.87 15.06.14 16.36 0c.02.14.005.29.005.43zM20.75 17.02c-.516 1.19-.762 1.72-1.42 2.77-.92 1.47-2.22 3.3-3.83 3.31-1.43.02-1.8-.94-3.75-.93-1.94.01-2.35.95-3.78.93-1.61-.02-2.84-1.67-3.76-3.14C1.6 16.68.86 13.03 2.02 10.6c.82-1.72 2.28-2.8 3.87-2.82 1.44-.02 2.8.98 3.68.98.88 0 2.54-1.21 4.28-1.03.73.03 2.78.29 4.1 2.23-.1.07-2.45 1.44-2.42 4.28.02 3.4 2.98 4.53 3.02 4.55z"/></svg>
-            <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>
-          </a>
-          <a href="#" class="store-btn" aria-label="Disponible sur Google Play (bientôt disponible)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.1c-.4.2-.6.7-.6 1.2v17.4c0 .5.2 1 .6 1.2l9.9-9.9-9.9-9.9zm11.1 11.1 2.5 2.5 4.2-2.4c.7-.4.7-1.4 0-1.8l-4.2-2.4-2.5 2.5-2.6 1.6 2.6 1.6v.2zm-1.2-1.2-9-9c.2-.1.4-.1.6 0l10.6 6.1-2.2 2.9zm0 2.4 2.2 2.9-10.6 6.1c-.2.1-.4.1-.6 0l9-9z"/></svg>
-            <span class="store-btn-text"><small>Disponible sur</small>Google Play</span>
-          </a>
+        <div class="hero-cta">
+          <a href="https://app.shapemax.hugobaras.fr/onboarding" class="btn btn-primary btn-scan-gratuit">Faire un scan gratuit</a>
+
+          <div class="store-buttons" id="telecharger">
+            <a href="#" class="store-btn" aria-label="Télécharger sur l'App Store (bientôt disponible)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.415 2.06-1.244 2.87-.994.973-2.19 1.53-3.463 1.428-.05-1.1.418-2.24 1.24-2.995C13.63.87 15.06.14 16.36 0c.02.14.005.29.005.43zM20.75 17.02c-.516 1.19-.762 1.72-1.42 2.77-.92 1.47-2.22 3.3-3.83 3.31-1.43.02-1.8-.94-3.75-.93-1.94.01-2.35.95-3.78.93-1.61-.02-2.84-1.67-3.76-3.14C1.6 16.68.86 13.03 2.02 10.6c.82-1.72 2.28-2.8 3.87-2.82 1.44-.02 2.8.98 3.68.98.88 0 2.54-1.21 4.28-1.03.73.03 2.78.29 4.1 2.23-.1.07-2.45 1.44-2.42 4.28.02 3.4 2.98 4.53 3.02 4.55z"/></svg>
+              <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>
+            </a>
+            <a href="#" class="store-btn" aria-label="Disponible sur Google Play (bientôt disponible)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.1c-.4.2-.6.7-.6 1.2v17.4c0 .5.2 1 .6 1.2l9.9-9.9-9.9-9.9zm11.1 11.1 2.5 2.5 4.2-2.4c.7-.4.7-1.4 0-1.8l-4.2-2.4-2.5 2.5-2.6 1.6 2.6 1.6v.2zm-1.2-1.2-9-9c.2-.1.4-.1.6 0l10.6 6.1-2.2 2.9zm0 2.4 2.2 2.9-10.6 6.1c-.2.1-.4.1-.6 0l9-9z"/></svg>
+              <span class="store-btn-text"><small>Disponible sur</small>Google Play</span>
+            </a>
+          </div>
         </div>
         <p class="hero-note">Bientôt disponible · zéro stockage photo</p>
       </div>
@@ -84,6 +89,34 @@
         <div class="phone-gl-stage">
           <canvas id="hero-phone-canvas" class="phone-gl-canvas" data-screen-state="radar"></canvas>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO VIDEO -->
+  <section class="section" id="demo">
+    <div class="wrap">
+      <p class="eyebrow eyebrow-center">Démo</p>
+      <h2 class="section-title center">Vois ShapeMax en action</h2>
+      <p class="section-lead center">Le scan, le score et le plan d'exercices, expliqués en moins de deux minutes.</p>
+
+      <div class="video-embed" data-reveal>
+        <button
+          class="video-embed-trigger"
+          type="button"
+          data-youtube-id="6GY_PEBb9AA"
+          aria-label="Lancer la vidéo de démonstration ShapeMax"
+        >
+          <img
+            src="https://img.youtube.com/vi/6GY_PEBb9AA/maxresdefault.jpg"
+            alt=""
+            class="video-embed-thumb"
+            loading="lazy"
+          >
+          <span class="video-embed-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
       </div>
     </div>
   </section>
@@ -98,20 +131,6 @@
         De la photo au plan d'entraînement en quatre étapes : ShapeMax lit ta morphologie,
         chiffre tes points forts et faibles, puis priorise les exercices qui comptent vraiment.
       </p>
-      <div class="story-stats" data-reveal>
-        <div class="story-stat">
-          <span class="story-stat-value">&lt;1 min</span>
-          <span class="story-stat-label">par scan</span>
-        </div>
-        <div class="story-stat">
-          <span class="story-stat-value">8</span>
-          <span class="story-stat-label">groupes musculaires</span>
-        </div>
-        <div class="story-stat">
-          <span class="story-stat-value">/100</span>
-          <span class="story-stat-label">score honnête</span>
-        </div>
-      </div>
     </div>
 
     <div class="wrap howto-diagram" data-reveal>
@@ -175,7 +194,6 @@
       </div>
     </div>
   </section>
-  </div>
 
   <!-- FONCTIONNALITES -->
   <section class="section section-alt" id="fonctionnalites">
@@ -198,7 +216,7 @@
         </article>
 
         <article class="bento-tile" data-reveal>
-          <div class="feature-icon">
+          <div class="feature-icon feature-icon--blue">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
           </div>
           <h3>Suivi de progression</h3>
@@ -214,7 +232,7 @@
         </article>
 
         <article class="bento-tile" data-reveal>
-          <div class="feature-icon">
+          <div class="feature-icon feature-icon--blue">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
           </div>
           <h3>Baromètre hebdo</h3>
@@ -248,7 +266,7 @@
             <p>Des exercices de développement ciblés sur tes groupes musculaires les plus en retard, pour une progression équilibrée.</p>
           </div>
         </article>
-        <article class="goal-card" data-reveal style="--goal-img: url('../assets/images/back-stretch.jpg');">
+        <article class="goal-card goal-card--blue" data-reveal style="--goal-img: url('../assets/images/back-stretch.jpg');">
           <span class="goal-index">03</span>
           <div class="goal-card-body">
             <span class="goal-tag">Préservation musculaire</span>
@@ -267,7 +285,7 @@
       <h2 class="section-title center">Ils ont testé leur shape en avant-première.</h2>
       <p class="section-lead center">Premiers retours de notre programme bêta fermé, avant l'ouverture au grand public.</p>
 
-      <div class="review-list">
+      <div class="review-list" id="review-list">
         <article class="review-card" data-reveal>
           <div class="review-stars" aria-label="5 sur 5 étoiles">
             <svg viewBox="0 0 20 20"><path d="M10 1.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L10 14.7l-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.7z"/></svg>
@@ -296,7 +314,7 @@
           </div>
           <p class="review-quote">« Trois photos et j'ai un plan clair. Simple, honnête, sans jugement sur mon physique de départ. »</p>
           <div class="review-author">
-            <span class="review-avatar">CD</span>
+            <span class="review-avatar review-avatar--blue">CD</span>
             <div class="review-author-info">
               <span class="review-name">Camille D.</span>
               <span class="review-meta">Objectif : perte de gras</span>
@@ -332,7 +350,7 @@
           </div>
           <p class="review-quote">« Les exercices ciblés sur mes points faibles, ça change tout par rapport à un programme générique. »</p>
           <div class="review-author">
-            <span class="review-avatar">LM</span>
+            <span class="review-avatar review-avatar--blue">LM</span>
             <div class="review-author-info">
               <span class="review-name">Léa M.</span>
               <span class="review-meta">Objectif : prise de muscle</span>
@@ -368,7 +386,7 @@
           </div>
           <p class="review-quote">« Le radar musculaire est bluffant. Je vois enfin où je suis vraiment en retard. »</p>
           <div class="review-author">
-            <span class="review-avatar">SL</span>
+            <span class="review-avatar review-avatar--blue">SL</span>
             <div class="review-author-info">
               <span class="review-name">Sarah L.</span>
               <span class="review-meta">Objectif : sèche musculaire</span>
@@ -376,6 +394,7 @@
           </div>
         </article>
       </div>
+      <button class="btn btn-outline list-toggle" type="button" data-target="review-list" data-label-more="Voir plus d'avis" data-label-less="Voir moins d'avis">Voir plus d'avis</button>
     </div>
   </section>
 
@@ -418,7 +437,7 @@
       <p class="eyebrow eyebrow-center">Foire aux questions</p>
       <h2 class="section-title center">Tout ce que tu te demandes</h2>
 
-      <div class="faq-list">
+      <div class="faq-list" id="faq-list">
         <div class="faq-item" data-reveal>
           <button class="faq-question" aria-expanded="false">
             Comment ShapeMax calcule-t-il mon score ?
@@ -499,6 +518,7 @@
           </div>
         </div>
       </div>
+      <button class="btn btn-outline list-toggle" type="button" data-target="faq-list" data-label-more="Voir plus de questions" data-label-less="Voir moins de questions">Voir plus de questions</button>
     </div>
   </section>
 
@@ -525,8 +545,24 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <a href="#top" class="logo">SHAPE<span>MAX</span></a>
-    <p>&copy; 2026 ShapeMax. Tous droits réservés.</p>
+    <div class="footer-brand">
+      <a href="#top" class="footer-icon" aria-label="ShapeMax — retour en haut de page">
+        <img src="assets/brand/icon-dark.svg" alt="" class="logo-img logo-img--light">
+        <img src="assets/brand/icon-light.svg" alt="" class="logo-img logo-img--dark">
+      </a>
+      <p class="footer-tagline">Connais ta shape. Bats ton dernier scan.</p>
+    </div>
+
+    <nav class="footer-legal" aria-label="Liens légaux">
+      <a href="confidentialite.html">Confidentialité</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="cgu.html">CGU</a>
+      <a href="cgv.html">CGV</a>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="statut.html">Statut</a>
+    </nav>
+
+    <p class="footer-copy">&copy; 2026 ShapeMax. Tous droits réservés.</p>
   </div>
 </footer>
 

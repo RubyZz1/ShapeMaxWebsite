@@ -23,6 +23,32 @@ import { SCREEN_STATES } from "./phone-screens.js";
     });
   }
 
+  // "Voir plus" / "Voir moins" toggle for the avis/faq lists on mobile
+  // (CSS hides items past the 3rd via :nth-child until the list gets
+  // .is-expanded).
+  document.querySelectorAll(".list-toggle").forEach(function (btn) {
+    var labelMore = btn.getAttribute("data-label-more") || btn.textContent;
+    var labelLess = btn.getAttribute("data-label-less") || labelMore;
+    btn.addEventListener("click", function () {
+      var list = document.getElementById(btn.getAttribute("data-target"));
+      if (!list) return;
+      var expanded = list.classList.toggle("is-expanded");
+      btn.textContent = expanded ? labelLess : labelMore;
+      if (expanded) {
+        // Clear any inline opacity/transform a scroll-reveal animation may
+        // have set while these items were display:none (and so never
+        // actually crossed their ScrollTrigger position) -- without this
+        // they could stay invisible after being un-hidden.
+        Array.prototype.forEach.call(list.children, function (item) {
+          item.style.opacity = "";
+          item.style.transform = "";
+        });
+      } else {
+        list.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
   // FAQ accordion
   document.querySelectorAll(".faq-item").forEach(function (item) {
     var btn = item.querySelector(".faq-question");
@@ -39,6 +65,21 @@ import { SCREEN_STATES } from "./phone-screens.js";
     });
   });
 
+  // Demo video: click-to-load facade -- keeps YouTube's iframe/JS off the
+  // page until the user actually wants to watch, and plays inline (no
+  // redirect to youtube.com) once clicked.
+  document.querySelectorAll(".video-embed-trigger").forEach(function (trigger) {
+    trigger.addEventListener("click", function () {
+      var videoId = trigger.getAttribute("data-youtube-id");
+      var iframe = document.createElement("iframe");
+      iframe.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?autoplay=1&rel=0";
+      iframe.title = "Vidéo de démonstration ShapeMax";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      trigger.replaceWith(iframe);
+    });
+  });
+
   // Per-feature tilt for the "comment ça marche" phone, one entry per node/tab.
   var ROTATIONS = [
     { x: 0.070, y: -0.279, z: -0.052 },
@@ -51,7 +92,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
   var heroCanvas = document.getElementById("hero-phone-canvas");
   var storyCanvas = document.getElementById("story-phone-canvas");
   var heroScene = heroCanvas
-    ? createPhoneScene(heroCanvas, { initialImage: "assets/screens/accueil.png" })
+    ? createPhoneScene(heroCanvas, { initialState: "radar" })
     : null;
   var storyScene = storyCanvas ? createPhoneScene(storyCanvas, { initialState: "pose" }) : null;
 
