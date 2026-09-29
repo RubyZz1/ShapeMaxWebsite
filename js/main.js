@@ -65,18 +65,20 @@ import { SCREEN_STATES } from "./phone-screens.js";
     });
   });
 
-  // Demo video: click-to-load facade -- keeps YouTube's iframe/JS off the
-  // page until the user actually wants to watch, and plays inline (no
-  // redirect to youtube.com) once clicked.
+  // Demo video: click-to-load facade -- keeps the video file off the page
+  // until the user actually wants to watch, then plays it inline.
   document.querySelectorAll(".video-embed-trigger").forEach(function (trigger) {
     trigger.addEventListener("click", function () {
-      var videoId = trigger.getAttribute("data-youtube-id");
-      var iframe = document.createElement("iframe");
-      iframe.src = "https://www.youtube-nocookie.com/embed/" + videoId + "?autoplay=1&rel=0";
-      iframe.title = "Vidéo de démonstration ShapeMax";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      trigger.replaceWith(iframe);
+      var videoSrc = trigger.getAttribute("data-video-src");
+      var poster = trigger.querySelector(".video-embed-thumb");
+      var video = document.createElement("video");
+      video.src = videoSrc;
+      if (poster) video.poster = poster.getAttribute("src");
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      trigger.replaceWith(video);
+      video.play().catch(function () {});
     });
   });
 
@@ -111,7 +113,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
   var howtoTextEl = document.getElementById("howto-mobile-text");
   var HOWTO_COPY = [
     { title: "Prends 3 photos", text: "Face, profil, dos — un guide à l'écran te positionne, pose après pose." },
-    { title: "Reçois ton score honnête", text: "Un score sur 100 basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres." },
+    { title: "Reçois ton grade honnête", text: "Un grade basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres." },
     { title: "Explore ton radar musculaire", text: "Huit groupes musculaires passés au crible, avec ton évolution scan après scan." },
     { title: "Suis un plan sur-mesure", text: "Des exercices ciblés sur tes points faibles, adaptés à ton objectif." }
   ];
@@ -151,14 +153,54 @@ import { SCREEN_STATES } from "./phone-screens.js";
     storyScene.group.rotation.set(ROTATIONS[0].x, ROTATIONS[0].y, ROTATIONS[0].z);
   }
 
+  // Auto-advance to the next step every 5s until the user takes control
+  // (a click means "I'm driving now"); hovering just pauses the timer
+  // for as long as the cursor stays on a card.
+  var howtoAutoplayTimer = null;
+  var howtoAutoplayEnabled = true;
+  var howtoHovering = false;
+  var howtoReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function pauseHowtoAutoplay() {
+    if (howtoAutoplayTimer) { clearInterval(howtoAutoplayTimer); howtoAutoplayTimer = null; }
+  }
+
+  function stopHowtoAutoplay() {
+    howtoAutoplayEnabled = false;
+    pauseHowtoAutoplay();
+  }
+
+  function resumeHowtoAutoplay() {
+    if (!howtoAutoplayEnabled || howtoHovering || howtoReduceMotion || howtoAutoplayTimer || !howtoNodes.length) return;
+    howtoAutoplayTimer = setInterval(function () {
+      setActiveFeature((howtoActiveIndex + 1) % howtoNodes.length);
+    }, 5000);
+  }
+
   howtoNodes.forEach(function (node, i) {
-    node.addEventListener("mouseenter", function () { setActiveFeature(i); });
+    node.addEventListener("mouseenter", function () {
+      howtoHovering = true;
+      pauseHowtoAutoplay();
+      setActiveFeature(i);
+    });
+    node.addEventListener("mouseleave", function () {
+      howtoHovering = false;
+      resumeHowtoAutoplay();
+    });
     node.addEventListener("focus", function () { setActiveFeature(i); });
-    node.addEventListener("click", function () { setActiveFeature(i); });
+    node.addEventListener("click", function () {
+      stopHowtoAutoplay();
+      setActiveFeature(i);
+    });
   });
   howtoTabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () { setActiveFeature(i); });
+    tab.addEventListener("click", function () {
+      stopHowtoAutoplay();
+      setActiveFeature(i);
+    });
   });
+
+  resumeHowtoAutoplay();
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
