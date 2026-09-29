@@ -54,8 +54,8 @@
 <header class="site-header">
   <div class="wrap header-inner">
     <a href="index.html#top" class="logo">
-      <img src="assets/brand/wordmark-dark.svg" alt="ShapeMax" class="logo-img logo-img--light">
-      <img src="assets/brand/wordmark-light.svg" alt="ShapeMax" class="logo-img logo-img--dark">
+      <img src="assets/brand/wordmark-dark.webp" alt="Logo ShapeMax" class="logo-img logo-img--light">
+      <img src="assets/brand/wordmark-light.webp" alt="Logo ShapeMax" class="logo-img logo-img--dark">
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
@@ -150,45 +150,27 @@
   <div class="wrap footer-inner">
     <div class="footer-brand">
       <a href="index.html#top" class="footer-icon" aria-label="ShapeMax — retour à l'accueil">
-        <img src="assets/brand/icon-dark.svg" alt="" class="logo-img logo-img--light">
-        <img src="assets/brand/icon-light.svg" alt="" class="logo-img logo-img--dark">
+        <img src="assets/brand/icon-dark.webp" alt="Logo ShapeMax" class="logo-img logo-img--light">
+        <img src="assets/brand/icon-light.webp" alt="Logo ShapeMax" class="logo-img logo-img--dark">
       </a>
       <p class="footer-tagline">Connais ta shape. Bats ton dernier scan.</p>
     </div>
 
     <nav class="footer-legal" aria-label="Liens légaux">
       <a href="confidentialite.html">Confidentialité</a>
+      <a href="donnees.html">Données</a>
       <a href="cookies.html">Cookies</a>
       <a href="cgu.html">CGU</a>
       <a href="cgv.html">CGV</a>
+      <a href="remboursement.html">Remboursement</a>
       <a href="mentions-legales.html">Mentions légales</a>
       <a href="statut.html">Statut</a>
     </nav>
 
-    <p class="footer-copy">&copy; 2026 ShapeMax. Tous droits réservés.</p>
+    <p class="footer-copy">&copy; 2026 ShapeMax</p>
   </div>
 </footer>
 
-<script>
-(function () {
-  "use strict";
-  var header = document.querySelector(".site-header");
-  var navToggle = document.getElementById("nav-toggle");
-  var mainNav = document.getElementById("main-nav");
-  if (navToggle && header && mainNav) {
-    navToggle.addEventListener("click", function () {
-      var isOpen = header.classList.toggle("nav-open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-      navToggle.setAttribute("aria-label", isOpen ? "Fermer le menu" : "Ouvrir le menu");
-    });
-    mainNav.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        header.classList.remove("nav-open");
-        navToggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
-})();
-</script>
+<script src="js/nav.js"></script>
 </body>
 </html>

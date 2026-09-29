@@ -11,10 +11,10 @@ const COLORS = {
   text: "#1b1b1b",
   textMuted: "#6b6b6b",
   textFaint: "#9a9a9a",
-  accent: "#ff5522",
-  accentSoft: "rgba(255, 85, 34, 0.14)",
+  accent: "#d72638",
+  accentSoft: "rgba(215, 38, 56, 0.14)",
   warn: "#1b1b1b",
-  warnSoft: "rgba(164, 189, 252, 0.3)",
+  warnSoft: "rgba(207, 220, 255, 0.5)",
 };
 
 const W = 520;
@@ -50,7 +50,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 
 function drawBackground(ctx) {
   const grad = ctx.createRadialGradient(W * 0.35, 0, 40, W * 0.35, 0, H * 0.9);
-  grad.addColorStop(0, "#fff3ee");
+  grad.addColorStop(0, "rgba(244, 160, 168, 0.4)");
   grad.addColorStop(1, COLORS.bg);
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
@@ -77,7 +77,7 @@ function drawPoseScreen(ctx) {
   roundRect(ctx, W / 2 - badgeW / 2, 162, badgeW, 46, 23);
   ctx.fillStyle = COLORS.accentSoft;
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,85,34,0.4)";
+  ctx.strokeStyle = "rgba(215,38,56,0.4)";
   ctx.lineWidth = 1.5;
   ctx.stroke();
   ctx.fillStyle = COLORS.accent;
@@ -179,7 +179,7 @@ function drawScoreScreen(ctx) {
   roundRect(ctx, 60, tagY, tagW, tagH, 14);
   ctx.fillStyle = COLORS.accentSoft;
   ctx.fill();
-  ctx.strokeStyle = "rgba(255,85,34,0.3)";
+  ctx.strokeStyle = "rgba(215,38,56,0.3)";
   ctx.stroke();
   ctx.textAlign = "left";
   ctx.font = "500 18px 'Barlow', sans-serif";
@@ -193,7 +193,7 @@ function drawScoreScreen(ctx) {
   roundRect(ctx, tag2X, tagY, tagW, tagH, 14);
   ctx.fillStyle = COLORS.warnSoft;
   ctx.fill();
-  ctx.strokeStyle = "rgba(164,189,252,0.55)";
+  ctx.strokeStyle = "rgba(207,220,255,0.8)";
   ctx.stroke();
   ctx.font = "500 18px 'Barlow', sans-serif";
   ctx.fillStyle = COLORS.warn;
@@ -269,7 +269,7 @@ function drawRadarScreen(ctx) {
     else ctx.lineTo(p.x, p.y);
   });
   ctx.closePath();
-  ctx.fillStyle = "rgba(255,85,34,0.22)";
+  ctx.fillStyle = "rgba(215,38,56,0.22)";
   ctx.fill();
   ctx.strokeStyle = COLORS.accent;
   ctx.lineWidth = 3;
