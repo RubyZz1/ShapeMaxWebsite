@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../assets/fonts/PlusJakartaSans-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ==========================================================================
    ShapeMax — site vitrine
    ========================================================================== */
@@ -22,7 +30,7 @@
   --accent-grad: rgba(244, 160, 168, 0.5);
   --accent-glow: rgba(215, 38, 56, 0.22);
   --blue: #cfdcff;
-  --blue-strong: #cfdcff;
+  --blue-strong: #4f6fe0;
   --blue-soft: rgba(207, 220, 255, 0.6);
   --dark: #1b1b1b;
 
@@ -39,8 +47,8 @@
   --space-6: 64px;
   --space-7: 96px;
 
-  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
-  --font-body: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --header-h: 76px;
@@ -171,7 +179,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   justify-content: center;
   gap: 8px;
   padding: 14px 26px;
-  border-radius: var(--radius-lg);
+  border-radius: 3.40282e+38px;
   font-weight: 700;
   font-size: 15px;
   transition: transform 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
@@ -234,6 +242,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   min-height: 56px;
   transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), background 0.2s var(--ease);
 }
+html[data-os="ios"] .store-btn--android,
+html[data-os="android"] .store-btn--ios { display: none; }
 .store-btn:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--bg-card-hover); }
 .store-btn svg { height: 26px; width: auto; fill: var(--text); flex-shrink: 0; }
 .store-btn-text { display: flex; flex-direction: column; font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.15; }
@@ -271,6 +281,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .main-nav a:hover { color: var(--text); }
 
 .header-actions { display: flex; align-items: center; gap: var(--space-2); }
+.nav-login { display: none; }
 
 .nav-toggle {
   display: none;
@@ -325,9 +336,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero-copy h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(48px, 7.2vw, 84px);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  font-size: clamp(40px, 5.6vw, 68px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .hero-sub {
@@ -1093,6 +1104,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 @media (max-width: 640px) {
   .wrap { padding-inline: var(--space-2); }
+  .btn-login { display: none; }
+  .nav-login { display: block; }
   .section { padding-block: var(--space-5); }
   .hero { padding-top: calc(var(--header-h) + var(--space-5)); padding-bottom: var(--space-5); }
   .howto-diagram, .video-embed, .bento-grid, .goal-list, .review-list, .faq-list { margin-top: var(--space-4); }

@@ -12,9 +12,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 <style>
   .status-list { display: flex; flex-direction: column; gap: var(--space-2); max-width: 720px; }
@@ -65,9 +63,11 @@
       <a href="index.html#objectifs">Objectifs</a>
       <a href="index.html#avis">Avis</a>
       <a href="index.html#faq">FAQ</a>
+      <a href="https://app.shapemax.hugobaras.fr/home" class="nav-login">Connexion</a>
     </nav>
 
     <div class="header-actions">
+      <a href="https://app.shapemax.hugobaras.fr/home" class="btn btn-outline btn-small btn-login">Connexion</a>
       <a href="index.html#top" class="btn btn-primary btn-small">Télécharger</a>
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
         <span></span><span></span><span></span>

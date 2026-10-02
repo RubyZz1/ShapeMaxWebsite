@@ -12,9 +12,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16-dark.png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -35,9 +33,11 @@
       <a href="index.html#objectifs">Objectifs</a>
       <a href="index.html#avis">Avis</a>
       <a href="index.html#faq">FAQ</a>
+      <a href="https://app.shapemax.hugobaras.fr/home" class="nav-login">Connexion</a>
     </nav>
 
     <div class="header-actions">
+      <a href="https://app.shapemax.hugobaras.fr/home" class="btn btn-outline btn-small btn-login">Connexion</a>
       <a href="https://app.shapemax.hugobaras.fr/onboarding" class="btn btn-primary btn-small">Faire un scan gratuit</a>
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
         <span></span><span></span><span></span>
@@ -73,7 +73,7 @@
             <tr><td data-label="Traitement">Abonnement et paiement</td><td data-label="Données">Offre souscrite, dates, identifiant de transaction (sans numéro de carte)</td><td data-label="Finalité">Gérer l'abonnement Premium, facturer, respecter nos obligations comptables</td><td data-label="Base légale">Exécution du contrat (art. 6.1.b) et obligation légale (art. 6.1.c)</td><td data-label="Durée">Durée de l'abonnement, puis 10 ans pour les pièces comptables</td></tr>
             <tr><td data-label="Traitement">Données techniques</td><td data-label="Données">Adresse IP, journaux de connexion, type d'appareil et de navigateur</td><td data-label="Finalité">Assurer la sécurité et le bon fonctionnement du service</td><td data-label="Base légale">Intérêt légitime (art. 6.1.f) et obligation légale (art. 6.1.c)</td><td data-label="Durée">12 mois pour les journaux de connexion</td></tr>
             <tr><td data-label="Traitement">Support</td><td data-label="Données">Contenu de tes messages, adresse e-mail</td><td data-label="Finalité">Répondre à tes demandes</td><td data-label="Base légale">Exécution du contrat ou intérêt légitime (art. 6.1.b et 6.1.f)</td><td data-label="Durée">Durée du traitement de la demande, puis jusqu'à 3 ans</td></tr>
-            <tr><td data-label="Traitement">Site vitrine</td><td data-label="Données">Adresse IP transmise à Google Fonts et jsDelivr lors du chargement des pages</td><td data-label="Finalité">Afficher correctement le site</td><td data-label="Base légale">Intérêt légitime (art. 6.1.f)</td><td data-label="Durée">Selon les politiques de ces prestataires</td></tr>
+            <tr><td data-label="Traitement">Site vitrine</td><td data-label="Données">Adresse IP transmise à jsDelivr lors du chargement des bibliothèques d'animation</td><td data-label="Finalité">Afficher correctement le site</td><td data-label="Base légale">Intérêt légitime (art. 6.1.f)</td><td data-label="Durée">Selon la politique de ce prestataire</td></tr>
           </tbody>
         </table>
         </div>

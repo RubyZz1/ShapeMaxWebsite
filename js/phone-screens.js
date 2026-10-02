@@ -57,7 +57,7 @@ function drawBackground(ctx) {
 }
 
 function drawKicker(ctx, text, y) {
-  ctx.font = "600 22px 'Barlow Condensed', sans-serif";
+  ctx.font = "600 22px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   ctx.textAlign = "center";
   ctx.letterSpacing = "2px";
@@ -69,10 +69,10 @@ function drawKicker(ctx, text, y) {
 function drawPoseScreen(ctx) {
   drawBackground(ctx);
 
-  ctx.font = "700 20px 'Barlow', sans-serif";
+  ctx.font = "700 20px 'Plus Jakarta Sans', sans-serif";
   ctx.textAlign = "center";
   const badgeText = "POSE 1/3";
-  ctx.font = "700 18px 'Barlow', sans-serif";
+  ctx.font = "700 18px 'Plus Jakarta Sans', sans-serif";
   const badgeW = ctx.measureText(badgeText).width + 56;
   roundRect(ctx, W / 2 - badgeW / 2, 162, badgeW, 46, 23);
   ctx.fillStyle = COLORS.accentSoft;
@@ -83,11 +83,11 @@ function drawPoseScreen(ctx) {
   ctx.fillStyle = COLORS.accent;
   ctx.fillText(badgeText, W / 2, 192);
 
-  ctx.font = "700 56px 'Barlow Condensed', sans-serif";
+  ctx.font = "700 56px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.text;
   ctx.fillText("Face", W / 2, 280);
 
-  ctx.font = "400 22px 'Barlow', sans-serif";
+  ctx.font = "400 22px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   wrapText(
     ctx,
@@ -123,7 +123,7 @@ function drawPoseScreen(ctx) {
   ctx.stroke();
   ctx.restore();
 
-  ctx.font = "700 24px 'Barlow', sans-serif";
+  ctx.font = "700 24px 'Plus Jakarta Sans', sans-serif";
   roundRect(ctx, 60, 940, W - 120, 62, 16);
   ctx.fillStyle = COLORS.accent;
   ctx.fill();
@@ -134,7 +134,7 @@ function drawPoseScreen(ctx) {
   ctx.strokeStyle = COLORS.border;
   ctx.lineWidth = 1.5;
   ctx.stroke();
-  ctx.font = "600 20px 'Barlow', sans-serif";
+  ctx.font = "600 20px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   ctx.fillText("Importer une photo", W / 2, 1053);
 }
@@ -160,15 +160,15 @@ function drawScoreScreen(ctx) {
   ctx.stroke();
   ctx.lineCap = "butt";
 
-  ctx.font = "700 110px 'Barlow Condensed', sans-serif";
+  ctx.font = "700 110px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.text;
   ctx.textAlign = "center";
   ctx.fillText("83", cx, cy + 20);
-  ctx.font = "500 28px 'Barlow', sans-serif";
+  ctx.font = "500 28px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   ctx.fillText("/100", cx, cy + 66);
 
-  ctx.font = "600 34px 'Barlow Condensed', sans-serif";
+  ctx.font = "600 34px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.accent;
   ctx.fillText("Forme élite", cx, cy + r + 90);
 
@@ -182,10 +182,10 @@ function drawScoreScreen(ctx) {
   ctx.strokeStyle = "rgba(215,38,56,0.3)";
   ctx.stroke();
   ctx.textAlign = "left";
-  ctx.font = "500 18px 'Barlow', sans-serif";
+  ctx.font = "500 18px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.accent;
   ctx.fillText("Point fort", 84, tagY + 44);
-  ctx.font = "700 26px 'Barlow', sans-serif";
+  ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.text;
   ctx.fillText("Dos · 9/10", 84, tagY + 84);
 
@@ -195,10 +195,10 @@ function drawScoreScreen(ctx) {
   ctx.fill();
   ctx.strokeStyle = "rgba(207,220,255,0.8)";
   ctx.stroke();
-  ctx.font = "500 18px 'Barlow', sans-serif";
+  ctx.font = "500 18px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.warn;
   ctx.fillText("À travailler", tag2X + 24, tagY + 44);
-  ctx.font = "700 26px 'Barlow', sans-serif";
+  ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.text;
   ctx.fillText("Abdos · 4.8/10", tag2X + 24, tagY + 84);
 }
@@ -228,11 +228,11 @@ function drawRadarScreen(ctx) {
   drawBackground(ctx);
   drawKicker(ctx, "Radar musculaire", 172);
 
-  ctx.font = "700 90px 'Barlow Condensed', sans-serif";
+  ctx.font = "700 90px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.accent;
   ctx.textAlign = "center";
   ctx.fillText("+9", W / 2, 272);
-  ctx.font = "600 20px 'Barlow', sans-serif";
+  ctx.font = "600 20px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   ctx.letterSpacing = "1.5px";
   ctx.fillText("VS TON DERNIER SCAN", W / 2, 310);
@@ -283,7 +283,7 @@ function drawRadarScreen(ctx) {
     ctx.fill();
   });
 
-  ctx.font = "500 17px 'Barlow', sans-serif";
+  ctx.font = "500 17px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   RADAR_LABELS.forEach((label, i) => {
     const p = radarPoint(cx, cy, maxR + 46, i, 1);
@@ -321,18 +321,18 @@ function drawStatsScreen(ctx) {
     ctx.stroke();
 
     ctx.textAlign = "left";
-    ctx.font = "600 15px 'Barlow', sans-serif";
+    ctx.font = "600 15px 'Plus Jakarta Sans', sans-serif";
     ctx.fillStyle = COLORS.textFaint;
     ctx.letterSpacing = "0.8px";
     ctx.fillText(label.toUpperCase(), x + 22, y + 42);
     ctx.letterSpacing = "0px";
-    ctx.font = "700 38px 'Barlow Condensed', sans-serif";
+    ctx.font = "700 38px 'Plus Jakarta Sans', sans-serif";
     ctx.fillStyle = COLORS.text;
     ctx.fillText(value, x + 22, y + 92);
   });
 
   const hintY = gridTop + 2 * cardH + gap + 60;
-  ctx.font = "400 21px 'Barlow', sans-serif";
+  ctx.font = "400 21px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   ctx.textAlign = "left";
   wrapText(
@@ -365,10 +365,10 @@ function drawStatsScreen(ctx) {
   ctx.lineTo(146, exY + 62);
   ctx.stroke();
 
-  ctx.font = "700 25px 'Barlow', sans-serif";
+  ctx.font = "700 25px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.text;
   ctx.fillText("Barbell glute bridge", 168, exY + 46);
-  ctx.font = "500 19px 'Barlow', sans-serif";
+  ctx.font = "500 19px 'Plus Jakarta Sans', sans-serif";
   ctx.fillStyle = COLORS.textMuted;
   ctx.fillText("3×10–12 · Fessiers", 168, exY + 78);
 }

@@ -229,7 +229,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
   gsap.registerPlugin(ScrollTrigger);
 
   // Recompute pin/trigger boundaries once web fonts have swapped in --
-  // Barlow/Barlow Condensed loading late can reflow section heights after
+  // Plus Jakarta Sans loading late can reflow section heights after
   // ScrollTrigger's first measurement, which would otherwise leave the pin
   // start/end (and the mobile reveal triggers) slightly stale.
   if (document.fonts && document.fonts.ready) {
