@@ -257,6 +257,91 @@ import { SCREEN_STATES } from "./phone-screens.js";
     });
   }
 
+  // Parallax: layers drift at different speeds while scrolling (offset runs
+  // from -v to +v px across the element's pass through the viewport).
+  function parallax(el, v, trigger, start) {
+    var fromTop = start === "top top";
+    gsap.fromTo(el, { y: fromTop ? 0 : -v }, {
+      y: fromTop ? 2 * v : v,
+      ease: "none",
+      scrollTrigger: { trigger: trigger || el, start: start || "top bottom", end: "bottom top", scrub: 0.6 }
+    });
+  }
+  var heroSection = document.querySelector(".hero");
+  var heroVisual = document.querySelector(".hero-visual");
+  var heroCopy = document.querySelector(".hero-copy");
+  if (heroSection && heroVisual) parallax(heroVisual, -60, heroSection, "top top");
+  if (heroSection && heroCopy) parallax(heroCopy, 24, heroSection, "top top");
+  gsap.utils.toArray(".section > .wrap > .eyebrow").forEach(function (el) { parallax(el, 8); });
+  gsap.utils.toArray(".section > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
+  gsap.utils.toArray(".section > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
+  gsap.utils.toArray(".privacy-visual-icon").forEach(function (el) { parallax(el, -28); });
+  gsap.utils.toArray(".tile-img, .goal-card-img").forEach(function (img) {
+    gsap.set(img, { scale: 1.2 });
+    gsap.fromTo(img, { yPercent: -8 }, {
+      yPercent: 8,
+      ease: "none",
+      scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: 0.6 }
+    });
+  });
+
+  // "Comment ça marche": the diagram is pinned while the user scrolls, and
+  // the four steps are revealed (with a slight parallax drift) one after the
+  // other, each one becoming active in turn. Scroll replaces the autoplay.
+  var howtoDiagram = document.querySelector(".howto-diagram");
+  if (howtoDiagram && howtoNodes.length) {
+    gsap.matchMedia().add({ desktop: "(min-width: 900px)", mobile: "(max-width: 899px)" }, function (ctx) {
+      var isDesktop = ctx.conditions.desktop;
+      var steps = howtoNodes.length;
+      var lastIdx = -1;
+      stopHowtoAutoplay();
+
+      var tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: howtoDiagram,
+          start: "center center+=38",
+          end: function () { return "+=" + Math.round(window.innerHeight * 2.4); },
+          pin: true,
+          scrub: 0.6,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: function (self) {
+            var idx = Math.min(steps - 1, Math.floor(self.progress * steps));
+            if (idx !== lastIdx) {
+              lastIdx = idx;
+              setActiveFeature(idx);
+            }
+            var shown = Math.min(steps - 1, Math.floor(self.progress * steps + 0.3));
+            howtoLines.forEach(function (line, i) {
+              line.style.visibility = isDesktop && i > shown ? "hidden" : "";
+            });
+          }
+        }
+      });
+
+      if (isDesktop) {
+        howtoNodes.forEach(function (node, i) {
+          if (i === 0) return;
+          var side = i < 2 ? -1 : 1;
+          tl.fromTo(node,
+            { autoAlpha: 0, "--tx": side * 60 + "px", "--ty": "24px" },
+            { autoAlpha: 1, "--tx": "0px", "--ty": "0px", duration: 0.5, ease: "power2.out" },
+            i - 0.3);
+        });
+        tl.to([howtoNodes[0], howtoNodes[1]], { "--dy": "20px", duration: steps }, 0);
+        tl.to([howtoNodes[2], howtoNodes[3]], { "--dy": "-20px", duration: steps }, 0);
+        howtoLines.forEach(function (line, i) { if (i > 0) line.style.visibility = "hidden"; });
+      } else {
+        tl.to({}, { duration: steps }, 0);
+      }
+
+      return function () {
+        howtoLines.forEach(function (line) { line.style.visibility = ""; });
+      };
+    });
+  }
+
   // Generic scroll reveals
   gsap.utils.toArray("[data-reveal]").forEach(function (el) {
     gsap.from(el, {

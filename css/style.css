@@ -484,6 +484,7 @@ html[data-os="android"] .store-btn--ios { display: none; }
     box-shadow: var(--shadow-card);
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
+  .howto-node { translate: var(--tx, 0px) calc(var(--ty, 0px) + var(--dy, 0px)); }
   .howto-node:hover, .howto-node.is-active {
     border-color: var(--accent);
     background: var(--bg-card-hover);
