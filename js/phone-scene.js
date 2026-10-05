@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { createSmartphoneModel, createSmartphoneLighting } from "./phone3d.js";
-import { getScreenCanvas } from "./phone-screens.js";
 
 const textureLoader = new THREE.TextureLoader();
 const textureCache = new Map();
@@ -24,7 +23,7 @@ function loadTexture(url, onLoad) {
  * `render()` from a shared ticker (see main.js), so it stays in lockstep with
  * GSAP/ScrollTrigger instead of running its own competing rAF loop.
  */
-export function createPhoneScene(canvasEl, { initialState = "score", initialImage = null } = {}) {
+export function createPhoneScene(canvasEl, { initialImage = null } = {}) {
   const scene = new THREE.Scene();
   // Distance gives enough margin that the phone's rotated silhouette (idle
   // float + the per-step tilts in main.js, up to ~20 degrees combined with
@@ -53,7 +52,7 @@ export function createPhoneScene(canvasEl, { initialState = "score", initialImag
 
   createSmartphoneLighting(scene);
 
-  const { root, setScreenCanvas, setScreenTexture } = createSmartphoneModel();
+  const { root, setScreenTexture } = createSmartphoneModel();
   scene.add(root);
   let requestedImage = null;
   const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -65,11 +64,7 @@ export function createPhoneScene(canvasEl, { initialState = "score", initialImag
       setScreenTexture(texture);
     });
   }
-  if (initialImage) {
-    showImage(initialImage);
-  } else {
-    setScreenCanvas(getScreenCanvas(initialState));
-  }
+  if (initialImage) showImage(initialImage);
 
   function resize() {
     const rect = canvasEl.getBoundingClientRect();
@@ -87,9 +82,6 @@ export function createPhoneScene(canvasEl, { initialState = "score", initialImag
   return {
     group: root,
     camera,
-    setState(state) {
-      setScreenCanvas(getScreenCanvas(state));
-    },
     setImage: showImage,
     preload(urls) {
       urls.forEach((url) => loadTexture(url, () => {}));

@@ -124,7 +124,7 @@ function buildScreenMaterial(texture) {
 
 /**
  * Builds the full component hierarchy for the phone. Returns
- * { root, screenTexture, setScreenCanvas(canvas) }.
+ * { root, screenTexture, setScreenTexture(texture) }.
  */
 export function createSmartphoneModel() {
   const materials = buildMaterials();
@@ -285,14 +285,8 @@ export function createSmartphoneModel() {
   return {
     root,
     screenTexture,
-    setScreenCanvas(canvas) {
-      screenMat.emissiveMap = screenTexture;
-      screenTexture.image = canvas;
-      screenTexture.needsUpdate = true;
-      screenMat.needsUpdate = true;
-    },
     // Swaps in a real screenshot/photo texture (e.g. a loaded PNG) instead
-    // of the procedurally-drawn canvas screens -- used for the hero phone.
+    // of the placeholder canvas -- used for the hero and "comment ça marche" phones.
     setScreenTexture(texture) {
       texture.colorSpace = THREE.SRGBColorSpace;
       screenMat.emissiveMap = texture;

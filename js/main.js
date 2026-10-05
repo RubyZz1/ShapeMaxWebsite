@@ -93,7 +93,7 @@ import { createPhoneScene } from "./phone-scene.js";
   var heroCanvas = document.getElementById("hero-phone-canvas");
   var storyCanvas = document.getElementById("story-phone-canvas");
   var heroScene = heroCanvas
-    ? createPhoneScene(heroCanvas, { initialState: "radar" })
+    ? createPhoneScene(heroCanvas, { initialImage: "assets/screens/accueil.webp" })
     : null;
   // App screenshots shown on the "comment ça marche" phone, one per step.
   var HOWTO_SCREENS = [
@@ -119,7 +119,7 @@ import { createPhoneScene } from "./phone-scene.js";
   var howtoTitleEl = document.getElementById("howto-mobile-title");
   var howtoTextEl = document.getElementById("howto-mobile-text");
   var HOWTO_COPY = [
-    { title: "Prends 3 photos", text: "Face, profil, dos — un guide à l'écran te positionne, pose après pose." },
+    { title: "Prends 3 photos", text: "Face, profil, dos. Un guide à l'écran te positionne, pose après pose." },
     { title: "Reçois ton grade honnête", text: "Un grade basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres." },
     { title: "Explore ton radar musculaire", text: "Huit groupes musculaires passés au crible, avec ton évolution scan après scan." },
     { title: "Suis un plan sur-mesure", text: "Des exercices ciblés sur tes points faibles, adaptés à ton objectif et à tes préférences." }
