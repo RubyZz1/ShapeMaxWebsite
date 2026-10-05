@@ -1,5 +1,4 @@
 import { createPhoneScene } from "./phone-scene.js";
-import { SCREEN_STATES } from "./phone-screens.js";
 
 (function () {
   "use strict";
@@ -96,7 +95,15 @@ import { SCREEN_STATES } from "./phone-screens.js";
   var heroScene = heroCanvas
     ? createPhoneScene(heroCanvas, { initialState: "radar" })
     : null;
-  var storyScene = storyCanvas ? createPhoneScene(storyCanvas, { initialState: "pose" }) : null;
+  // App screenshots shown on the "comment ça marche" phone, one per step.
+  var HOWTO_SCREENS = [
+    "assets/screens/scan.webp",
+    "assets/screens/rank.webp",
+    "assets/screens/radar.webp",
+    "assets/screens/exercices.webp"
+  ];
+  var storyScene = storyCanvas ? createPhoneScene(storyCanvas, { initialImage: HOWTO_SCREENS[0] }) : null;
+  if (storyScene) storyScene.preload(HOWTO_SCREENS);
 
   var HERO_BASE_ROTATION = { x: 0.105, y: -0.349, z: -0.052 };
   if (heroScene) {
@@ -115,7 +122,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
     { title: "Prends 3 photos", text: "Face, profil, dos — un guide à l'écran te positionne, pose après pose." },
     { title: "Reçois ton grade honnête", text: "Un grade basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres." },
     { title: "Explore ton radar musculaire", text: "Huit groupes musculaires passés au crible, avec ton évolution scan après scan." },
-    { title: "Suis un plan sur-mesure", text: "Des exercices ciblés sur tes points faibles, adaptés à ton objectif." }
+    { title: "Suis un plan sur-mesure", text: "Des exercices ciblés sur tes points faibles, adaptés à ton objectif et à tes préférences." }
   ];
   var howtoActiveIndex = 0;
 
@@ -135,7 +142,7 @@ import { SCREEN_STATES } from "./phone-screens.js";
     }
 
     if (storyScene) {
-      storyScene.setState(SCREEN_STATES[idx]);
+      storyScene.setImage(HOWTO_SCREENS[idx]);
       var target = ROTATIONS[idx];
       if (hasGsapGlobal()) {
         gsap.to(storyScene.group.rotation, { duration: 0.9, ease: "power2.inOut", x: target.x, y: target.y, z: target.z });

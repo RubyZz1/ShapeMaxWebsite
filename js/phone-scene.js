@@ -4,6 +4,19 @@ import { createSmartphoneModel, createSmartphoneLighting } from "./phone3d.js";
 import { getScreenCanvas } from "./phone-screens.js";
 
 const textureLoader = new THREE.TextureLoader();
+const textureCache = new Map();
+
+function loadTexture(url, onLoad) {
+  const cached = textureCache.get(url);
+  if (cached) {
+    onLoad(cached);
+    return;
+  }
+  textureLoader.load(url, (texture) => {
+    textureCache.set(url, texture);
+    onLoad(texture);
+  });
+}
 
 /**
  * Sets up an independent Three.js scene rendered into `canvasEl`, containing
@@ -42,8 +55,18 @@ export function createPhoneScene(canvasEl, { initialState = "score", initialImag
 
   const { root, setScreenCanvas, setScreenTexture } = createSmartphoneModel();
   scene.add(root);
+  let requestedImage = null;
+  const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
+  function showImage(url) {
+    requestedImage = url;
+    loadTexture(url, (texture) => {
+      if (requestedImage !== url) return;
+      texture.anisotropy = maxAnisotropy;
+      setScreenTexture(texture);
+    });
+  }
   if (initialImage) {
-    textureLoader.load(initialImage, setScreenTexture);
+    showImage(initialImage);
   } else {
     setScreenCanvas(getScreenCanvas(initialState));
   }
@@ -67,8 +90,9 @@ export function createPhoneScene(canvasEl, { initialState = "score", initialImag
     setState(state) {
       setScreenCanvas(getScreenCanvas(state));
     },
-    setImage(url) {
-      textureLoader.load(url, setScreenTexture);
+    setImage: showImage,
+    preload(urls) {
+      urls.forEach((url) => loadTexture(url, () => {}));
     },
     render() {
       renderer.render(scene, camera);
