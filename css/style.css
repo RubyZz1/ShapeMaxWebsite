@@ -1135,7 +1135,12 @@ html[data-os="android"] .store-btn--ios { display: none; }
 
 /* ---------- reveal animation base ---------- */
 
-[data-reveal] { opacity: 1; }
+.reveal-ready [data-reveal]:not(.is-visible) { opacity: 0; }
+.reveal-ready [data-reveal].is-visible { animation: reveal-in 0.6s var(--ease) backwards; }
+@keyframes reveal-in {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
 
 /* ---------- responsive ---------- */
 
