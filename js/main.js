@@ -1,5 +1,3 @@
-import { createPhoneScene } from "./phone-scene.js";
-
 (function () {
   "use strict";
 
@@ -90,11 +88,11 @@ import { createPhoneScene } from "./phone-scene.js";
   ];
 
   // ---- 3D phone scenes: hero + the "comment ça marche" hub phone ----
+  // three.js is heavy to download, compile and initialise, so it is loaded
+  // lazily (only when a phone is about to be seen) and each scene is only
+  // rendered while its canvas is on screen.
   var heroCanvas = document.getElementById("hero-phone-canvas");
   var storyCanvas = document.getElementById("story-phone-canvas");
-  var heroScene = heroCanvas
-    ? createPhoneScene(heroCanvas, { initialImage: "assets/screens/accueil.webp" })
-    : null;
   // App screenshots shown on the "comment ça marche" phone, one per step.
   var HOWTO_SCREENS = [
     "assets/screens/scan.webp",
@@ -102,13 +100,55 @@ import { createPhoneScene } from "./phone-scene.js";
     "assets/screens/radar.webp",
     "assets/screens/exercices.webp"
   ];
-  var storyScene = storyCanvas ? createPhoneScene(storyCanvas, { initialImage: HOWTO_SCREENS[0] }) : null;
-  if (storyScene) storyScene.preload(HOWTO_SCREENS);
-
   var HERO_BASE_ROTATION = { x: 0.105, y: -0.349, z: -0.052 };
-  if (heroScene) {
-    heroScene.group.rotation.set(HERO_BASE_ROTATION.x, HERO_BASE_ROTATION.y, HERO_BASE_ROTATION.z);
+  var heroScene = null;
+  var storyScene = null;
+  var heroVisible = false;
+  var storyVisible = false;
+  var heroIdle = null;
+  var phoneModule = null;
+
+  function loadPhoneModule() {
+    if (!phoneModule) phoneModule = import("./phone-scene.js");
+    return phoneModule;
   }
+
+  function whenIdle(fn) {
+    if (window.requestIdleCallback) window.requestIdleCallback(fn, { timeout: 2000 });
+    else setTimeout(fn, 200);
+  }
+
+  function watchCanvas(canvas, margin, onFirstVisible, onChange) {
+    if (!canvas || !("IntersectionObserver" in window)) return;
+    var started = false;
+    new IntersectionObserver(function (entries) {
+      var on = entries[entries.length - 1].isIntersecting;
+      onChange(on);
+      if (on && !started) {
+        started = true;
+        onFirstVisible();
+      }
+    }, { rootMargin: margin }).observe(canvas);
+  }
+
+  watchCanvas(heroCanvas, "100px 0px", function () {
+    whenIdle(function () {
+      loadPhoneModule().then(function (mod) {
+        heroScene = mod.createPhoneScene(heroCanvas, { initialImage: "assets/screens/accueil.webp" });
+        heroScene.group.rotation.set(HERO_BASE_ROTATION.x, HERO_BASE_ROTATION.y, HERO_BASE_ROTATION.z);
+        if (heroIdle) heroIdle();
+      });
+    });
+  }, function (on) { heroVisible = on; });
+
+  watchCanvas(storyCanvas, "600px 0px", function () {
+    loadPhoneModule().then(function (mod) {
+      var target = ROTATIONS[howtoActiveIndex];
+      storyScene = mod.createPhoneScene(storyCanvas, { initialImage: HOWTO_SCREENS[howtoActiveIndex] });
+      storyScene.group.rotation.set(target.x, target.y, target.z);
+      storyScene.preload(HOWTO_SCREENS);
+    });
+  }, function (on) { storyVisible = on; });
 
   // "Comment ça marche" hub diagram: one shared phone, 4 nodes (desktop) /
   // 4 tabs (mobile) that swap its screen + tilt on hover/tap. See below for
@@ -154,10 +194,6 @@ import { createPhoneScene } from "./phone-scene.js";
 
   function hasGsapGlobal() {
     return typeof window.gsap !== "undefined";
-  }
-
-  if (storyScene) {
-    storyScene.group.rotation.set(ROTATIONS[0].x, ROTATIONS[0].y, ROTATIONS[0].z);
   }
 
   // Auto-advance to the next step every 5s until the user takes control
@@ -213,25 +249,37 @@ import { createPhoneScene } from "./phone-scene.js";
   var hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
   function renderPhones() {
-    if (heroScene) heroScene.render();
-    if (storyScene) storyScene.render();
+    if (heroScene && heroVisible) heroScene.render();
+    if (storyScene && storyVisible) storyScene.render();
   }
 
   if (hasGsap) {
     gsap.ticker.add(renderPhones);
-  } else if (heroScene || storyScene) {
+  } else if (heroCanvas || storyCanvas) {
     (function loop() {
       renderPhones();
       requestAnimationFrame(loop);
     })();
   }
 
-  if (!hasGsap || reduceMotion) {
-    document.querySelectorAll("[data-reveal]").forEach(function (el) {
-      el.classList.add("is-visible");
-    });
-    return;
+  // Scroll reveals: one IntersectionObserver, CSS does the animating.
+  var revealEls = document.querySelectorAll("[data-reveal]");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    document.documentElement.classList.remove("reveal-ready");
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+  } else {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
   }
+  window.__smxReady = true;
+
+  if (!hasGsap || reduceMotion) return;
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -245,8 +293,8 @@ import { createPhoneScene } from "./phone-scene.js";
     });
   }
 
-  // Hero phone: gentle idle float + tilt
-  if (heroScene) {
+  // Hero phone: gentle idle float + tilt (started once the scene exists)
+  heroIdle = function () {
     gsap.to(heroScene.group.rotation, {
       z: HERO_BASE_ROTATION.z + 0.05,
       x: HERO_BASE_ROTATION.x - 0.035,
@@ -262,7 +310,8 @@ import { createPhoneScene } from "./phone-scene.js";
       yoyo: true,
       repeat: -1
     });
-  }
+  };
+  if (heroScene) heroIdle();
 
   // Parallax: layers drift at different speeds while scrolling (offset runs
   // from -v to +v px across the element's pass through the viewport).
@@ -349,14 +398,4 @@ import { createPhoneScene } from "./phone-scene.js";
     });
   }
 
-  // Generic scroll reveals
-  gsap.utils.toArray("[data-reveal]").forEach(function (el) {
-    gsap.from(el, {
-      opacity: 0,
-      y: 28,
-      duration: 0.6,
-      ease: "power2.out",
-      scrollTrigger: { trigger: el, start: "top 88%" }
-    });
-  });
 })();
