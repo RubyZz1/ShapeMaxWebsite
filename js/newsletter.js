@@ -60,9 +60,10 @@
     ".nlp-overlay.is-open{opacity:1}",
     ".nlp-card{position:relative;width:100%;max-width:440px;padding:40px 32px 28px;border-radius:32px;background:#fff;color:#000;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);font-family:inherit;transform:translateY(24px);transition:transform .25s ease}",
     ".nlp-overlay.is-open .nlp-card{transform:none}",
-    ".nlp-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border:0;border-radius:50%;background:#a3a3a3;color:#fff;font-size:20px;line-height:1;cursor:pointer}",
+    ".nlp-close{position:absolute;top:16px;right:16px;display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:#a3a3a3;color:#fff;cursor:pointer}",
+    ".nlp-close svg{display:block;width:16px;height:16px}",
     ".nlp-close:hover{background:#737373}",
-    ".nlp-logo{display:block;width:64px;height:64px;margin:0 auto}",
+    ".nlp-logo{display:block;width:72px;height:auto;margin:0 auto}",
     ".nlp-pre{display:block;margin-top:24px;font-size:20px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}",
     ".nlp-big{display:block;margin-top:4px;font-size:88px;font-weight:900;line-height:.9;letter-spacing:-.04em;color:#D72638}",
     ".nlp-lede{margin:16px 0 0;font-size:17px;font-weight:500;line-height:1.35}",
@@ -98,12 +99,14 @@
     card.setAttribute("aria-modal", "true");
     card.setAttribute("aria-label", TEXT.pre + " " + TEXT.big);
 
-    var close = el("button", "nlp-close", "×");
+    var close = el("button", "nlp-close");
     close.type = "button";
+    close.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>';
     close.setAttribute("aria-label", TEXT.close);
 
     var logo = el("img", "nlp-logo");
-    logo.src = "assets/brand/icon-light.webp";
+    // Sur ce site, « icon-dark » est la version à encre foncée, pour les fonds clairs (la carte est toujours blanche).
+    logo.src = "assets/brand/icon-dark.webp";
     logo.alt = "";
 
     var form = el("form");
