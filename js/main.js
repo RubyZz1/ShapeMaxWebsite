@@ -62,6 +62,140 @@
     });
   });
 
+  // Grades: the six grades are shown one at a time in a single stage, and
+  // the first four have three tiers (I-III) picked with the tier buttons.
+  // Without GSAP the ladder drives the grade directly; with GSAP the panel
+  // is pinned and the scroll position drives it (see the ScrollTrigger block
+  // below, which sets gradesApi.onPick so a click scrolls to that grade).
+  // Tiers are never scroll-driven: they are always a click.
+  // Badges are plain SVG files swapped into one <img>, preloaded once the
+  // section is about to be seen.
+  var gradesApi = (function () {
+    var panel = document.getElementById("grades-panel");
+    if (!panel) return null;
+    var stage = document.getElementById("grade-stage");
+    var img = document.getElementById("grade-badge-img");
+    var kicker = document.getElementById("grade-kicker");
+    var nameEl = document.getElementById("grade-name");
+    var descEl = document.getElementById("grade-desc");
+    var tiersEl = document.getElementById("grade-tiers");
+    var singleEl = document.getElementById("grade-single");
+    var tabs = Array.prototype.slice.call(panel.querySelectorAll(".grade-tab"));
+    var tierBtns = Array.prototype.slice.call(tiersEl.querySelectorAll(".grade-tier"));
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var current = 0;
+    var tier = 1;
+    var swapTimer = null;
+    var api = { panel: panel, count: tabs.length, onPick: null, showGrade: showGrade };
+
+    function badgeFor(tab, t) {
+      var multi = Number(tab.getAttribute("data-tiers")) > 1;
+      var sizes = tab.getAttribute("data-sizes").split(",");
+      return {
+        src: tab.getAttribute("data-base") + (multi ? "-" + t : "") + ".svg",
+        size: sizes[Math.min(t, sizes.length) - 1]
+      };
+    }
+
+    function paint() {
+      var tab = tabs[current];
+      var multi = Number(tab.getAttribute("data-tiers")) > 1;
+      var name = tab.getAttribute("data-name");
+      var badge = badgeFor(tab, tier);
+      var roman = ["I", "II", "III"][tier - 1];
+      img.src = badge.src;
+      img.style.setProperty("--w", badge.size);
+      img.alt = "Badge du grade " + name + (multi ? ", palier " + roman : "");
+      kicker.textContent = "Grade " + (current + 1) + " sur " + tabs.length;
+      nameEl.textContent = name;
+      descEl.textContent = tab.getAttribute("data-desc");
+      stage.style.setProperty("--glow", tab.getAttribute("data-glow"));
+      stage.setAttribute("aria-labelledby", tab.id);
+      tiersEl.hidden = !multi;
+      singleEl.hidden = multi;
+      tierBtns.forEach(function (btn, i) {
+        var on = i + 1 === tier;
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-pressed", String(on));
+      });
+    }
+
+    function update() {
+      clearTimeout(swapTimer);
+      if (reduce) { paint(); return; }
+      stage.classList.add("is-swapping");
+      swapTimer = setTimeout(function () {
+        paint();
+        stage.classList.remove("is-swapping");
+      }, 140);
+    }
+
+    function show(g, t) {
+      if (g === current && t === tier) return;
+      if (g !== current) {
+        tabs.forEach(function (tab, i) {
+          var on = i === g;
+          tab.classList.toggle("is-active", on);
+          tab.setAttribute("aria-selected", String(on));
+          tab.tabIndex = on ? 0 : -1;
+        });
+      }
+      current = g;
+      tier = t;
+      update();
+    }
+
+    // Scroll position -> grade: keeps the chosen tier while the grade is
+    // unchanged, otherwise starts the new grade at tier I.
+    function showGrade(g) {
+      if (g !== current) show(g, 1);
+    }
+
+    // A click on a grade: scroll-driven mode redirects it to a scroll
+    // position, otherwise it applies directly.
+    function request(g) {
+      if (api.onPick) api.onPick(g);
+      else show(g, 1);
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { request(i); });
+      tab.addEventListener("keydown", function (e) {
+        var next = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i + tabs.length - 1) % tabs.length;
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = tabs.length - 1;
+        if (next === null) return;
+        e.preventDefault();
+        tabs[next].focus({ preventScroll: true });
+        request(next);
+      });
+    });
+
+    tierBtns.forEach(function (btn, i) {
+      btn.addEventListener("click", function () { show(current, i + 1); });
+    });
+
+    function preload() {
+      tabs.forEach(function (tab) {
+        var count = Number(tab.getAttribute("data-tiers"));
+        for (var t = 1; t <= count; t++) { new Image().src = badgeFor(tab, t).src; }
+      });
+    }
+    if ("IntersectionObserver" in window) {
+      var preloadObserver = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        preloadObserver.disconnect();
+        preload();
+      }, { rootMargin: "600px 0px" });
+      preloadObserver.observe(panel);
+    } else {
+      preload();
+    }
+    return api;
+  })();
+
   // Demo video: click-to-load facade -- keeps the video file off the page
   // until the user actually wants to watch, then plays it inline.
   document.querySelectorAll(".video-embed-trigger").forEach(function (trigger) {
@@ -332,7 +466,7 @@
   gsap.utils.toArray(".section > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
   gsap.utils.toArray(".section > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
   gsap.utils.toArray(".privacy-visual-icon").forEach(function (el) { parallax(el, -28); });
-  gsap.utils.toArray(".tile-img, .goal-card-img").forEach(function (img) {
+  gsap.utils.toArray(".tile-img").forEach(function (img) {
     gsap.set(img, { scale: 1.2 });
     gsap.fromTo(img, { yPercent: -8 }, {
       yPercent: 8,
@@ -396,6 +530,40 @@
         howtoLines.forEach(function (line) { line.style.visibility = ""; });
       };
     });
+  }
+
+
+  // "Grades": the panel is pinned and the scroll position walks through the
+  // six grades in order; the badge and glow drift with the overall progress
+  // (--prog) for a parallax feel. Clicking a grade scrolls to it; the tiers
+  // (I-III) stay a plain click.
+  if (gradesApi) {
+    var gradesPanel = gradesApi.panel;
+    var gradeCount = gradesApi.count;
+    // Compact pinned layout first, so the trigger measures the final height.
+    gradesPanel.classList.add("is-pinned");
+    var gradesTrigger = ScrollTrigger.create({
+      trigger: gradesPanel,
+      // Centre the panel in the space under the header (never tighter than
+      // 16px below it when the viewport is short).
+      start: function () {
+        var headerH = header ? header.offsetHeight : 76;
+        var top = Math.max(headerH + 16, (window.innerHeight - gradesPanel.offsetHeight) / 2 + headerH / 2);
+        return "top top+=" + Math.round(top);
+      },
+      end: function () { return "+=" + Math.round(window.innerHeight * 0.6 * gradeCount); },
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: function (self) {
+        gradesApi.showGrade(Math.min(gradeCount - 1, Math.floor(self.progress * gradeCount)));
+        gradesPanel.style.setProperty("--prog", self.progress.toFixed(3));
+      }
+    });
+    gradesApi.onPick = function (g) {
+      var y = gradesTrigger.start + (g + 0.5) / gradeCount * (gradesTrigger.end - gradesTrigger.start);
+      window.scrollTo({ top: y, behavior: "smooth" });
+    };
   }
 
 })();

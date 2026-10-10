@@ -40,7 +40,7 @@
       <a href="#demo">Démo</a>
       <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
-      <a href="#objectifs">Objectifs</a>
+      <a href="#grades">Grades</a>
       <a href="#avis">Avis</a>
       <a href="#faq">FAQ</a>
       <a href="https://app.shapemax.hugobaras.fr/home" class="nav-login">Connexion</a>
@@ -242,41 +242,101 @@
     </div>
   </section>
 
-  <!-- OBJECTIFS -->
-  <section class="section" id="objectifs">
+  <!-- GRADES -->
+  <section class="section" id="grades">
     <div class="wrap">
-      <p class="eyebrow eyebrow-center">Objectifs</p>
-      <h2 class="section-title center">Un plan pour chaque objectif</h2>
-      <p class="section-lead center">Dis à ShapeMax où tu veux aller. L'app adapte tes exercices en conséquence.</p>
+      <p class="eyebrow eyebrow-center">Grades</p>
+      <h2 class="section-title center">Six grades à gravir</h2>
 
-      <div class="goal-list">
-        <article class="goal-card" data-reveal>
-          <img class="goal-card-img" src="assets/images/running-night.webp" alt="Coureur en pleine foulée de nuit, image en mouvement flou" width="809" height="1100" loading="lazy" decoding="async">
-          <span class="goal-index">01</span>
-          <div class="goal-card-body">
-            <span class="goal-tag">Déficit calorique</span>
-            <h3>Perte de gras</h3>
-            <p>Un plan orienté dépense énergétique et renforcement global pour affiner ta silhouette sans perdre de muscle.</p>
+      <div class="grades" id="grades-panel">
+        <div class="grade-stage" id="grade-stage" role="tabpanel" aria-labelledby="grade-tab-1" style="--glow:143,162,224;">
+          <div class="grade-badge">
+            <img id="grade-badge-img" src="assets/grades/initie-1.svg" alt="Badge du grade Initié, palier I" width="340" height="340" style="--w:43;" loading="lazy" decoding="async">
           </div>
-        </article>
-        <article class="goal-card goal-card--accent" data-reveal>
-          <img class="goal-card-img" src="assets/images/barbell-gym.webp" alt="Athlète musclé debout dans une salle de musculation, un haltère à la main" width="619" height="1100" loading="lazy" decoding="async">
-          <span class="goal-index">02</span>
-          <div class="goal-card-body">
-            <span class="goal-tag">Surcharge progressive</span>
-            <h3>Prise de muscle</h3>
-            <p>Des exercices de développement ciblés sur tes groupes musculaires les plus en retard, pour une progression équilibrée.</p>
+          <div class="grade-info">
+            <p class="grade-kicker" id="grade-kicker">Grade 1 sur 6</p>
+            <h3 id="grade-name">Initié</h3>
+            <p class="grade-desc" id="grade-desc">Le point de départ. Ton premier scan pose ta base et ShapeMax repère les points à travailler en priorité.</p>
+            <div class="grade-tiers" id="grade-tiers" role="group" aria-label="Palier du grade">
+              <button class="grade-tier is-active" type="button" data-tier="1" aria-pressed="true">I</button>
+              <button class="grade-tier" type="button" data-tier="2" aria-pressed="false">II</button>
+              <button class="grade-tier" type="button" data-tier="3" aria-pressed="false">III</button>
+            </div>
+            <p class="grade-single" id="grade-single" hidden>Grade unique, sans palier.</p>
           </div>
-        </article>
-        <article class="goal-card goal-card--blue" data-reveal>
-          <img class="goal-card-img" src="assets/images/back-stretch.webp" alt="Athlète torse nu vu de dos, penché au sol pendant un exercice" width="733" height="1100" loading="lazy" decoding="async">
-          <span class="goal-index">03</span>
-          <div class="goal-card-body">
-            <span class="goal-tag">Préservation musculaire</span>
-            <h3>Sèche musculaire</h3>
-            <p>Maintiens ta masse tout en révélant ta définition, avec un plan pensé pour préserver le muscle en déficit.</p>
+        </div>
+
+        <div class="grade-ladder" role="tablist" aria-label="Les six grades">
+          <button class="grade-tab is-active" id="grade-tab-1" type="button" role="tab" aria-selected="true" aria-controls="grade-stage" style="--step:1; --c:#8FA2E0;" aria-label="Initié"
+            data-name="Initié" data-desc="Le point de départ. Ton premier scan pose ta base et ShapeMax repère les points à travailler en priorité." data-base="assets/grades/initie" data-tiers="3" data-sizes="43,43,43" data-glow="143,162,224">
+            <span class="grade-tab-thumb"><img src="assets/grades/initie-1.svg" alt="" width="340" height="340" loading="lazy" decoding="async" style="--w:43;"></span>
+            <span class="grade-tab-name">Initié</span>
+            <span class="grade-tab-meta">3 paliers</span>
+          </button>
+          <button class="grade-tab" id="grade-tab-2" type="button" role="tab" aria-selected="false" aria-controls="grade-stage" tabindex="-1" style="--step:2; --c:#7283F0;" aria-label="Intermédiaire"
+            data-name="Intermédiaire" data-desc="Les bases sont là. Ta régularité commence à se voir d'un scan à l'autre et ton physique gagne en équilibre." data-base="assets/grades/intermediaire" data-tiers="3" data-sizes="100,100,49" data-glow="129,146,255">
+            <span class="grade-tab-thumb"><img src="assets/grades/intermediaire-1.svg" alt="" width="340" height="340" loading="lazy" decoding="async" style="--w:100;"></span>
+            <span class="grade-tab-name">Intermédiaire</span>
+            <span class="grade-tab-meta">3 paliers</span>
+          </button>
+          <button class="grade-tab" id="grade-tab-3" type="button" role="tab" aria-selected="false" aria-controls="grade-stage" tabindex="-1" style="--step:3; --c:#D72638;" aria-label="Confirmé"
+            data-name="Confirmé" data-desc="Un physique construit. Ta symétrie et ta densité musculaire sont solides, il reste des retards ciblés à combler." data-base="assets/grades/confirme" data-tiers="3" data-sizes="100,100,100" data-glow="215,38,56">
+            <span class="grade-tab-thumb"><img src="assets/grades/confirme-1.svg" alt="" width="340" height="340" loading="lazy" decoding="async" style="--w:100;"></span>
+            <span class="grade-tab-name">Confirmé</span>
+            <span class="grade-tab-meta">3 paliers</span>
+          </button>
+          <button class="grade-tab" id="grade-tab-4" type="button" role="tab" aria-selected="false" aria-controls="grade-stage" tabindex="-1" style="--step:4; --c:#EB1329;" aria-label="Athlétique"
+            data-name="Athlétique" data-desc="Un physique qui se remarque. Ton développement est dense et harmonieux, chaque scan sert à peaufiner." data-base="assets/grades/athletique" data-tiers="3" data-sizes="100,100,100" data-glow="235,19,41">
+            <span class="grade-tab-thumb"><img src="assets/grades/athletique-1.svg" alt="" width="340" height="340" loading="lazy" decoding="async" style="--w:100;"></span>
+            <span class="grade-tab-name">Athlétique</span>
+            <span class="grade-tab-meta">3 paliers</span>
+          </button>
+          <button class="grade-tab" id="grade-tab-5" type="button" role="tab" aria-selected="false" aria-controls="grade-stage" tabindex="-1" style="--step:5; --c:#5262F0;" aria-label="Élite"
+            data-name="Élite" data-desc="Proportions maîtrisées, densité marquée. À ce niveau, la progression se joue dans les détails." data-base="assets/grades/elite" data-tiers="1" data-sizes="100" data-glow="129,146,255">
+            <span class="grade-tab-thumb"><img src="assets/grades/elite.svg" alt="" width="340" height="340" loading="lazy" decoding="async" style="--w:100;"></span>
+            <span class="grade-tab-name">Élite</span>
+            <span class="grade-tab-meta">Grade unique</span>
+          </button>
+          <button class="grade-tab" id="grade-tab-6" type="button" role="tab" aria-selected="false" aria-controls="grade-stage" tabindex="-1" style="--step:6; --c:#FD011B;" aria-label="Suprême"
+            data-name="Suprême" data-desc="Le sommet de l'échelle. Un physique abouti, symétrique et dense." data-base="assets/grades/supreme" data-tiers="1" data-sizes="100" data-glow="253,1,27">
+            <span class="grade-tab-thumb"><img src="assets/grades/supreme.svg" alt="" width="340" height="340" loading="lazy" decoding="async" style="--w:100;"></span>
+            <span class="grade-tab-name">Suprême</span>
+            <span class="grade-tab-meta">Grade unique</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIDENTIALITE -->
+  <section class="section" id="confidentialite">
+    <div class="wrap privacy-inner">
+      <div class="privacy-copy" data-reveal>
+        <p class="eyebrow">Confidentialité</p>
+        <h2 class="section-title">Tes photos t'appartiennent.</h2>
+        <p class="hero-sub">
+          ShapeMax analyse la géométrie de ton corps directement, sans jamais conserver tes photos sur ses serveurs.
+          Aucune comparaison publique, aucun partage : ton scan reste le tien.
+        </p>
+        <div class="trust-stats">
+          <div class="trust-stat">
+            <span class="trust-stat-value">0</span>
+            <span class="trust-stat-label">photo stockée sur nos serveurs</span>
           </div>
-        </article>
+          <div class="trust-stat">
+            <span class="trust-stat-value">100%</span>
+            <span class="trust-stat-label">analyse géométrique, jamais visuelle</span>
+          </div>
+          <div class="trust-stat">
+            <span class="trust-stat-value">Toi</span>
+            <span class="trust-stat-label">seul point de comparaison, scan après scan</span>
+          </div>
+        </div>
+      </div>
+      <div class="privacy-visual" aria-hidden="true" data-reveal>
+        <span class="privacy-visual-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="15.2" r="1.15" fill="currentColor" stroke="none"/></svg>
+        </span>
       </div>
     </div>
   </section>
@@ -398,39 +458,6 @@
         </article>
       </div>
       <button class="btn btn-outline list-toggle" type="button" data-target="review-list" data-label-more="Voir plus d'avis" data-label-less="Voir moins d'avis">Voir plus d'avis</button>
-    </div>
-  </section>
-
-  <!-- CONFIDENTIALITE -->
-  <section class="section" id="confidentialite">
-    <div class="wrap privacy-inner">
-      <div class="privacy-copy" data-reveal>
-        <p class="eyebrow">Confidentialité</p>
-        <h2 class="section-title">Tes photos t'appartiennent.</h2>
-        <p class="hero-sub">
-          ShapeMax analyse la géométrie de ton corps directement, sans jamais conserver tes photos sur ses serveurs.
-          Aucune comparaison publique, aucun partage : ton scan reste le tien.
-        </p>
-        <div class="trust-stats">
-          <div class="trust-stat">
-            <span class="trust-stat-value">0</span>
-            <span class="trust-stat-label">photo stockée sur nos serveurs</span>
-          </div>
-          <div class="trust-stat">
-            <span class="trust-stat-value">100%</span>
-            <span class="trust-stat-label">analyse géométrique, jamais visuelle</span>
-          </div>
-          <div class="trust-stat">
-            <span class="trust-stat-value">Toi</span>
-            <span class="trust-stat-label">seul point de comparaison, scan après scan</span>
-          </div>
-        </div>
-      </div>
-      <div class="privacy-visual" aria-hidden="true" data-reveal>
-        <span class="privacy-visual-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="15.2" r="1.15" fill="currentColor" stroke="none"/></svg>
-        </span>
-      </div>
     </div>
   </section>
 
