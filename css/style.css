@@ -320,8 +320,14 @@ html[data-os="android"] .store-btn--ios { display: none; }
   margin-bottom: calc(var(--header-h) * -1);
 }
 
+.promo-text--short { display: none; }
+
+/* Mobile: one slim line (short offer + code) instead of three stacked ones. */
 @media (max-width: 640px) {
-  .promo-tag { padding-right: 0; border-right: none; }
+  .promo-bar { flex-wrap: nowrap; gap: 10px; padding: 7px var(--space-2); font-size: 12.5px; }
+  .promo-logo, .promo-tag, .promo-text--full { display: none; }
+  .promo-text--short { display: inline; white-space: nowrap; }
+  .promo-code { white-space: nowrap; }
 }
 
 /* ---------- header ---------- */
