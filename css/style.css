@@ -52,7 +52,6 @@
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --header-h: 76px;
-  --banner-h: 0px; /* 40px quand le bandeau de lancement est actif (html.has-banner) */
 
   --shadow-card: 0 1px 2px rgba(27, 27, 27, 0.04), 0 10px 26px -14px rgba(27, 27, 27, 0.16);
   --shadow-card-hover: 0 1px 2px rgba(27, 27, 27, 0.05), 0 16px 32px -14px rgba(215, 38, 56, 0.22);
@@ -92,7 +91,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + var(--banner-h)); }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -255,34 +254,9 @@ html[data-os="android"] .store-btn--ios { display: none; }
 
 /* ---------- header ---------- */
 
-html.has-banner { --banner-h: 40px; }
-
-.promo-banner {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 101;
-  height: var(--banner-h);
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--space-3);
-  background: var(--accent);
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
-  line-height: 1.2;
-}
-html.has-banner .promo-banner { display: flex; }
-.promo-banner p { margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.promo-code { letter-spacing: 0.04em; }
-@media (max-width: 640px) {
-  .promo-banner { font-size: 12.5px; }
-  .promo-note { display: none; }
-}
-
 .site-header {
   position: fixed;
-  top: var(--banner-h); left: 0; right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 100;
   height: var(--header-h);
   display: flex;
@@ -349,7 +323,7 @@ html.has-banner .promo-banner { display: flex; }
 
 .hero {
   position: relative;
-  padding-top: calc(var(--header-h) + var(--banner-h) + var(--space-7));
+  padding-top: calc(var(--header-h) + var(--space-7));
   padding-bottom: var(--space-7);
 }
 
@@ -1388,7 +1362,7 @@ html.has-banner .promo-banner { display: flex; }
   .btn-login { display: none; }
   .nav-login { display: block; }
   .section { padding-block: var(--space-5); }
-  .hero { padding-top: calc(var(--header-h) + var(--banner-h) + var(--space-5)); padding-bottom: var(--space-5); }
+  .hero { padding-top: calc(var(--header-h) + var(--space-5)); padding-bottom: var(--space-5); }
   .howto-diagram, .video-embed, .bento-grid, .review-list, .faq-list { margin-top: var(--space-4); }
   .legal-main { padding-bottom: var(--space-5); }
   .store-btn { flex: 1; justify-content: center; padding-inline: 14px; }
