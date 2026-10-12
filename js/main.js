@@ -235,6 +235,39 @@
     });
   }
 
+  // Promo bar "i": toggles the note explaining that promo codes cancel the
+  // free trial. Closes on outside click and Escape (focus goes back to "i").
+  var promoInfo = document.querySelector(".promo-info");
+  var promoPanel = document.getElementById("promo-info-panel");
+  if (promoInfo && promoPanel) {
+    var setPromoInfo = function (open) {
+      promoPanel.hidden = !open;
+      promoInfo.setAttribute("aria-expanded", String(open));
+    };
+    // Mouse devices: the note shows on hover (and on keyboard focus). Touch
+    // devices keep the tap-to-toggle behaviour.
+    var promoHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+    var promoWrap = promoInfo.parentElement;
+    promoWrap.addEventListener("mouseenter", function () { if (promoHover.matches) setPromoInfo(true); });
+    promoWrap.addEventListener("mouseleave", function () { if (promoHover.matches) setPromoInfo(false); });
+    promoInfo.addEventListener("focus", function () {
+      if (promoHover.matches && promoInfo.matches(":focus-visible")) setPromoInfo(true);
+    });
+    promoInfo.addEventListener("blur", function () { if (promoHover.matches) setPromoInfo(false); });
+    promoInfo.addEventListener("click", function () {
+      if (!promoHover.matches) setPromoInfo(promoPanel.hidden);
+    });
+    document.addEventListener("click", function (e) {
+      if (!promoPanel.hidden && !promoPanel.contains(e.target) && !promoInfo.contains(e.target)) setPromoInfo(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !promoPanel.hidden) {
+        setPromoInfo(false);
+        promoInfo.focus();
+      }
+    });
+  }
+
   // Demo video: click-to-load facade -- keeps the video file off the page
   // until the user actually wants to watch, then plays it inline.
   document.querySelectorAll(".video-embed-trigger").forEach(function (trigger) {
