@@ -16,6 +16,7 @@
   --bg-elevated: #fafafa;
   --bg-card: #ffffff;
   --bg-card-hover: #fff5f6;
+  --bg-card-hover-blue: #eef3ff;
   --border: #e7e7e7;
   --border-soft: #efefef;
 
@@ -67,6 +68,7 @@
     --bg-elevated: #202020;
     --bg-card: #242424;
     --bg-card-hover: #2b2b2b;
+    --bg-card-hover-blue: #2b2b2b;
     --border: #3a3a3a;
     --border-soft: #2f2f2f;
 
@@ -251,6 +253,76 @@ html[data-os="android"] .store-btn--ios { display: none; }
 
 .hero-note { color: var(--text-faint); font-size: 13px; margin-top: var(--space-2); }
 .hero-note.center { text-align: center; }
+
+/* ---------- promo bar ---------- */
+
+/* Dark in the light theme, white in the dark theme (see the media query
+   below). It sits in the normal flow above the header and scrolls away with
+   the page. */
+.promo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 10px var(--space-2);
+  background: #141414;
+  color: #e8e8e8;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+.promo-logo { height: 14px; width: auto; flex-shrink: 0; }
+.promo-tag {
+  font-weight: 600;
+  padding-right: 14px;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+.promo-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.promo-code:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.5); }
+.promo-code svg { width: 13px; height: 13px; flex-shrink: 0; }
+/* Both labels share one grid cell so the button keeps its width on "Copié". */
+.promo-code-label { display: inline-grid; }
+.promo-code-label > * { grid-area: 1 / 1; }
+.promo-code-done { visibility: hidden; text-align: center; letter-spacing: 0.04em; }
+.promo-code.is-copied .promo-code-text { visibility: hidden; }
+.promo-code.is-copied .promo-code-done { visibility: visible; }
+
+/* With the bar above it, the header sticks to the top once the bar has
+   scrolled away. The negative margin keeps it out of the flow, exactly like
+   the fixed header the hero padding was written for. */
+.promo-logo-base { fill: #ffffff; }
+@media (prefers-color-scheme: dark) {
+  .promo-bar { background: #ffffff; color: #1b1b1b; }
+  .promo-logo-base { fill: #1b1b1b; }
+  .promo-tag { border-right-color: rgba(27, 27, 27, 0.25); }
+  .promo-code { color: #1b1b1b; border-color: rgba(27, 27, 27, 0.3); }
+  .promo-code:hover { background: rgba(27, 27, 27, 0.06); border-color: rgba(27, 27, 27, 0.5); }
+}
+
+.promo-bar + .site-header {
+  position: sticky;
+  left: auto;
+  right: auto;
+  margin-bottom: calc(var(--header-h) * -1);
+}
+
+@media (max-width: 640px) {
+  .promo-tag { padding-right: 0; border-right: none; }
+}
 
 /* ---------- header ---------- */
 
@@ -496,6 +568,7 @@ html[data-os="android"] .store-btn--ios { display: none; }
   .howto-node--2:hover, .howto-node--2.is-active,
   .howto-node--4:hover, .howto-node--4.is-active {
     border-color: var(--blue-strong);
+    background: var(--bg-card-hover-blue);
     box-shadow: 0 1px 2px rgba(27, 27, 27, 0.05), 0 16px 32px -14px rgba(207, 220, 255, 0.55);
   }
   .howto-node-copy strong { color: var(--text-muted); transition: color 0.3s var(--ease); }
@@ -680,8 +753,9 @@ html[data-os="android"] .store-btn--ios { display: none; }
   padding: var(--space-3);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 14.5px;
-  color: var(--text);
+  font-size: 16px;
+  /* The photo overlay is dark in both themes, so the caption is always white. */
+  color: #ffffff;
 }
 
 .feature-icon {

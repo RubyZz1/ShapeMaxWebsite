@@ -196,6 +196,45 @@
     return api;
   })();
 
+  // Promo bar: click the code to copy it.
+  var promoCode = document.querySelector(".promo-code");
+  if (promoCode) {
+    var promoStatus = document.getElementById("promo-status");
+    var promoTimer = null;
+    var promoDone = function (ok) {
+      promoCode.classList.toggle("is-copied", ok);
+      if (promoStatus) promoStatus.textContent = ok ? "Code copié" : "";
+      clearTimeout(promoTimer);
+      promoTimer = setTimeout(function () {
+        promoCode.classList.remove("is-copied");
+        if (promoStatus) promoStatus.textContent = "";
+      }, 1800);
+    };
+    // execCommand fallback: used when the async clipboard API is missing or
+    // refuses (non-secure context, no permission).
+    var promoFallback = function (code) {
+      var area = document.createElement("textarea");
+      area.value = code;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(area);
+      if (ok) promoDone(true);
+    };
+    promoCode.addEventListener("click", function () {
+      var code = promoCode.getAttribute("data-code");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(function () { promoDone(true); }, function () { promoFallback(code); });
+      } else {
+        promoFallback(code);
+      }
+    });
+  }
+
   // Demo video: click-to-load facade -- keeps the video file off the page
   // until the user actually wants to watch, then plays it inline.
   document.querySelectorAll(".video-embed-trigger").forEach(function (trigger) {
