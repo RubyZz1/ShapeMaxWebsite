@@ -5,7 +5,7 @@
 <script src="js/logo-loader.js" data-mode="web" data-theme="auto" data-min-duration="1200"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ShapeMax — Connais ta shape</title>
+<title>ShapeMax · Connais ta shape</title>
 <meta name="description" content="ShapeMax scanne ton physique en 3 photos et te donne un score honnête, tes points forts, tes points faibles et un plan d'exercices adapté à ton objectif.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="favicon-dark.svg" media="(prefers-color-scheme: dark)">
@@ -16,14 +16,6 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
 </head>
 <body>
 
@@ -61,7 +53,6 @@
 
     <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
       <a href="#demo">Teaser</a>
-      <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#fonctionnalites">Fonctionnalités</a>
       <a href="#grades">Grades</a>
       <a hidden href="#avis">Avis</a>
@@ -71,7 +62,7 @@
 
     <div class="header-actions">
       <a href="https://app.shapemax.hugobaras.fr/home" class="btn btn-outline btn-small btn-login">Connexion</a>
-      <a href="#top" class="btn btn-primary btn-small">Télécharger</a>
+      <a href="#telecharger" class="btn btn-primary btn-small">Télécharger</a>
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
         <span></span><span></span><span></span>
       </button>
@@ -83,37 +74,90 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="wrap hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow">Scan corporel par IA</p>
-        <h1>Connais ta shape.<br>Bats ton dernier scan.</h1>
-        <p class="hero-sub">
-          ShapeMax analyse trois photos de toi et te donne un score physique honnête sur 100,
-          tes points forts, tes points faibles, et les exercices précis pour progresser vers
-          <strong>ton</strong> objectif, perdre du gras, prendre du muscle ou sécher.
-        </p>
+    <div class="wrap hero-head">
+      <h1>Notre <span class="text-accent">IA</span> scanne ton physique<br class="hero-br"> et crée ta séance.</h1>
+      <p class="hero-sub">
+        Trois photos suffisent. Notre IA note chaque muscle, repère tes points faibles
+        et génère la séance qui les cible.
+      </p>
 
-        <div class="hero-cta">
-          <a href="https://app.shapemax.hugobaras.fr/onboarding" class="btn btn-primary btn-scan-gratuit">Faire un scan gratuit</a>
+      <div class="hero-actions">
+        <a href="https://app.shapemax.hugobaras.fr/onboarding" class="btn btn-primary">Faire un scan gratuit</a>
+        <a href="#telecharger" class="btn btn-outline">Télécharger l'app</a>
+      </div>
+    </div>
 
-          <div class="store-buttons" id="telecharger">
-            <a href="#" class="store-btn store-btn--ios" aria-label="Télécharger sur l'App Store (bientôt disponible)">
-              <svg viewBox="0 0 417 512" aria-hidden="true"><path d="M347.927 272.278C348.439 232.384 369.345 195.542 403.329 174.656C381.804 143.894 347.009 125.099 309.484 123.926C269.996 119.787 231.724 147.542 211.607 147.542C191.105 147.542 160.129 124.331 126.764 125.014C82.8812 126.443 42.9452 150.784 21.5905 189.163C-23.8708 267.883 10.0279 383.595 53.5905 447.232C75.3932 478.4 100.844 513.195 134.188 511.979C166.807 510.635 178.988 491.179 218.348 491.179C257.345 491.179 268.78 511.979 302.785 511.19C337.772 510.614 359.831 479.894 380.865 448.427C396.524 426.219 408.577 401.686 416.556 375.723C374.999 358.144 347.969 317.419 347.927 272.278Z"/><path d="M283.693 82.0693C302.765 59.1573 312.173 29.7173 309.89 0C280.749 3.072 253.805 17.0027 234.477 39.0187C215.383 60.7573 205.698 89.1733 207.575 118.059C237.122 118.357 265.175 105.088 283.693 82.0693Z"/></svg>
-              <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>
-            </a>
-            <a href="#" class="store-btn store-btn--android" aria-label="Disponible sur Google Play (bientôt disponible)">
-              <svg viewBox="0 0 418 457" aria-hidden="true"><path d="M394.753 189.312L69.2926 7.19757C55.5636 -1.67585 38.1595 -2.39943 23.7259 5.31244C9.10192 13.1386 0 28.3148 0 44.9191V412.081C0 428.685 9.08287 443.842 23.7259 451.668C38.1024 459.361 55.4874 458.714 69.2926 449.802L394.753 267.688C409.148 259.633 417.736 244.99 417.736 228.5C417.736 212.01 409.148 197.367 394.753 189.312ZM285.339 162.406L240.401 207.345L81.327 48.2514L285.339 162.406ZM29.9525 417.127V39.8731L219.246 228.5L29.9525 417.127ZM81.327 408.767L240.42 249.674L285.358 294.612L81.327 408.767ZM380.129 241.581L312.493 279.417L261.575 228.5L312.493 177.582L380.129 215.418C387.041 219.284 387.784 225.853 387.784 228.481C387.784 231.109 387.041 237.678 380.129 241.543V241.581Z"/></svg>
-              <span class="store-btn-text"><small>Disponible sur</small>Google Play</span>
-            </a>
-          </div>
-        </div>
-        <p class="hero-note">Bientôt disponible · zéro stockage photo</p>
+    <!-- Fan of app cards, the scan in front. Decorative: everything shown
+         here is described again in the sections below. -->
+    <div class="hero-fan" id="hero-fan" aria-hidden="true">
+      <div class="fan-inner">
+      <div class="fan-card fan-card--radar" style="--i:-2; --d:2;">
+        <p class="fan-card-title">Radar</p>
+        <p class="fan-card-sub">Ton équilibre musculaire</p>
+        <!-- Same chart as the app's progression screen: score per muscle
+             (red, with points) over the pink reference shape. -->
+        <svg class="fan-radar" viewBox="26 26 188 182">
+          <g class="fan-radar-grid">
+            <polygon points="120.0,32.0 188.8,65.1 205.8,139.6 158.2,199.3 81.8,199.3 34.2,139.6 51.2,65.1"/>
+            <polygon points="120.0,49.6 175.0,76.1 188.6,135.7 150.5,183.4 89.5,183.4 51.4,135.7 65.0,76.1"/>
+            <polygon points="120.0,67.2 161.3,87.1 171.5,131.7 142.9,167.6 97.1,167.6 68.5,131.7 78.7,87.1"/>
+            <polygon points="120.0,84.8 147.5,98.1 154.3,127.8 135.3,151.7 104.7,151.7 85.7,127.8 92.5,98.1"/>
+            <polygon points="120.0,102.4 133.8,109.0 137.2,123.9 127.6,135.9 112.4,135.9 102.8,123.9 106.2,109.0"/>
+            <path d="M120,120L120.0,32.0M120,120L188.8,65.1M120,120L205.8,139.6M120,120L158.2,199.3M120,120L81.8,199.3M120,120L34.2,139.6M120,120L51.2,65.1"/>
+          </g>
+          <polygon class="fan-radar-fill" points="120.0,41.7 162.0,86.5 205.8,139.6 158.2,199.3 95.2,171.5 57.4,134.3 51.2,65.1"/>
+          <polygon class="fan-radar-ref" points="120.0,47.8 157.8,89.8 162.9,129.8 141.0,163.6 97.1,167.6 55.7,134.7 78.7,87.1"/>
+          <polygon class="fan-radar-line" points="120.0,41.7 162.0,86.5 205.8,139.6 158.2,199.3 95.2,171.5 57.4,134.3 51.2,65.1"/>
+          <g class="fan-radar-dots"><circle cx="120.0" cy="41.7" r="5.5"/><circle cx="162.0" cy="86.5" r="5.5"/><circle cx="205.8" cy="139.6" r="5.5"/><circle cx="158.2" cy="199.3" r="5.5"/><circle cx="95.2" cy="171.5" r="5.5"/><circle cx="57.4" cy="134.3" r="5.5"/><circle cx="51.2" cy="65.1" r="5.5"/></g>
+        </svg>
       </div>
 
-      <div class="hero-visual" aria-hidden="true">
-        <div class="phone-gl-stage">
-          <canvas id="hero-phone-canvas" class="phone-gl-canvas"></canvas>
+      <div class="fan-card fan-card--grade" style="--i:-1; --d:1;">
+        <p class="fan-card-title">Grade</p>
+        <p class="fan-card-sub">Six grades à gravir</p>
+        <div class="fan-badges">
+          <span class="fan-badge fan-badge--l" style="--w:100;"><img src="assets/grades/intermediaire-2.svg" alt="" width="340" height="340" decoding="async"></span>
+          <span class="fan-badge fan-badge--r" style="--w:100;"><img src="assets/grades/elite.svg" alt="" width="340" height="340" decoding="async"></span>
+          <span class="fan-badge fan-badge--c" style="--w:100;"><img src="assets/grades/athletique-2.svg" alt="" width="340" height="340" decoding="async"></span>
         </div>
+      </div>
+
+      <div class="fan-card fan-card--seance" style="--i:1; --d:1;">
+        <p class="fan-card-title">Séance IA</p>
+        <p class="fan-card-sub">Fessiers · Dos en priorité</p>
+        <ul class="fan-exos">
+          <li><span>Tractions pronation</span><b>5×</b></li>
+          <li><span>Rowing prise serrée</span><b>4×</b></li>
+          <li><span>Hip thrust</span><b>4×</b></li>
+          <li><span>Fentes bulgares</span><b>3×</b></li>
+        </ul>
+      </div>
+
+      <div class="fan-card fan-card--progress" style="--i:2; --d:2;">
+        <p class="fan-card-title">Progression</p>
+        <p class="fan-card-sub">Score global</p>
+        <p class="fan-score">8,2<span>/10</span></p>
+        <svg class="fan-line" viewBox="0 0 300 110" preserveAspectRatio="none">
+          <path d="M10,68.5 L66,79.8 L122,59.5 L178,43.8 L234,55 L290,28"/>
+        </svg>
+      </div>
+
+      <!-- Front card: the AI scan. -->
+      <div class="fan-card fan-card--scan" style="--i:0; --d:0;">
+        <p class="fan-card-title">Scan IA</p>
+        <svg class="fan-body" viewBox="0 0 200 400">
+          <circle class="fan-body-sil" cx="100" cy="52" r="24"/>
+          <path class="fan-body-sil" d="M74 90H126Q146 90 152 104L166 170Q170 186 168 214L166 226Q164 234 156 232Q150 230 150 222L148 172L140 140L138 220L136 372Q136 380 128 380H112Q104 380 104 372L103 262Q100 254 97 262L96 372Q96 380 88 380H72Q64 380 64 372L62 220L60 140L52 172L50 222Q50 230 44 232Q36 234 34 226L32 214Q30 186 34 170L48 104Q54 90 74 90Z"/>
+          <path class="fan-body-bone" d="M100 52V92M66 100H134M66 100L43 170L42 222M134 100L157 170L158 222M100 92V226M76 226H124M76 226L80 300L80 366M124 226L120 300L120 366"/>
+          <g class="fan-body-kps">
+            <circle cx="100" cy="52" r="5"/><circle cx="66" cy="100" r="5"/><circle cx="134" cy="100" r="5"/>
+            <circle cx="43" cy="170" r="5"/><circle cx="157" cy="170" r="5"/><circle cx="76" cy="226" r="5"/>
+            <circle cx="124" cy="226" r="5"/><circle cx="80" cy="300" r="5"/><circle cx="120" cy="300" r="5"/>
+          </g>
+        </svg>
+        <span class="fan-tag fan-tag--a">Épaules <b>8,9</b></span>
+        <span class="fan-tag fan-tag--b">Poitrine <b>6,1</b></span>
+      </div>
       </div>
     </div>
   </section>
@@ -134,7 +178,7 @@
         >
           <img
             src="assets/videos/shapemax-teaser-poster.webp"
-            alt="Aperçu de la vidéo de démonstration : l'écran du rang Confirmé III dans l'application ShapeMax"
+            alt="Aperçu de la vidéo de démonstration, l'écran du rang Confirmé III dans l'application ShapeMax"
             width="1920" height="1080"
             class="video-embed-thumb"
             loading="lazy"
@@ -147,76 +191,132 @@
     </div>
   </section>
 
-  <!-- COMMENT CA MARCHE -->
-  <section class="section howto" id="comment-ca-marche">
-
+  <!-- SCAN IA -->
+  <section class="section scan-ia" id="scan-ia">
     <div class="wrap">
-      <p class="eyebrow eyebrow-center">Comment ça marche</p>
-      <h2 class="section-title center">Trois photos. Un plan clair.</h2>
-      <p class="section-lead center">
-        De la photo au plan d'entraînement en quatre étapes : ShapeMax lit ta morphologie,
-        chiffre tes points forts et faibles, puis priorise les exercices qui comptent vraiment.
-      </p>
-    </div>
+      <p class="eyebrow eyebrow-center">Scan IA</p>
+      <h2 class="section-title center">Notre IA lit ton corps en trois photos.</h2>
+      <p class="section-lead center">Chaque muscle noté en moins d'une minute, sans jamais garder tes photos.</p>
 
-    <div class="wrap howto-diagram">
-      <div class="howto-stage">
-        <svg class="howto-lines" viewBox="0 0 1040 640" preserveAspectRatio="none" aria-hidden="true">
-          <path class="howto-line is-active" data-line="1" d="M281,111 L281,158 Q281,176 299,176 L460,176"/>
-          <path class="howto-line" data-line="2" d="M281,518 L281,451 Q281,431 301,431 L411,431 Q431,431 431,411 L466,383"/>
-          <path class="howto-line" data-line="3" d="M759,122 L759,229 Q759,249 741,249 L580,249"/>
-          <path class="howto-line" data-line="4" d="M759,527 L759,420 Q759,395 739,395 L599,395 Q579,395 579,375 L557,352"/>
-        </svg>
+      <div class="scan-ia-inner">
+        <div class="scan-demo" id="scan-demo" data-reveal>
+          <div class="scan-poses" role="tablist" aria-label="Poses du scan">
+            <button class="scan-pose is-active" type="button" role="tab" aria-selected="true" data-pose="0">Face</button>
+            <button class="scan-pose" type="button" role="tab" aria-selected="false" tabindex="-1" data-pose="1">Profil</button>
+            <button class="scan-pose" type="button" role="tab" aria-selected="false" tabindex="-1" data-pose="2">Dos</button>
+          </div>
 
-        <div class="howto-phone">
-          <div class="howto-phone-base" aria-hidden="true"></div>
-          <div class="phone-gl-stage">
-            <canvas id="story-phone-canvas" class="phone-gl-canvas" role="img" aria-label="Smartphone affichant les écrans de l'application ShapeMax"></canvas>
+          <div class="scan-view" aria-hidden="true">
+            <div class="scan-figure">
+              <svg viewBox="0 0 200 400">
+                <!-- Face -->
+                <g class="scan-art is-active" data-pose="0">
+                  <circle class="sil" cx="100" cy="52" r="24"/>
+                  <path class="sil" d="M74 90H126Q146 90 152 104L166 170Q170 186 168 214L166 226Q164 234 156 232Q150 230 150 222L148 172L140 140L138 220L136 372Q136 380 128 380H112Q104 380 104 372L103 262Q100 254 97 262L96 372Q96 380 88 380H72Q64 380 64 372L62 220L60 140L52 172L50 222Q50 230 44 232Q36 234 34 226L32 214Q30 186 34 170L48 104Q54 90 74 90Z"/>
+                  <path class="bone" d="M100 52V92M66 100H134M66 100L43 170L42 222M134 100L157 170L158 222M100 92V226M76 226H124M76 226L80 300L80 366M124 226L120 300L120 366"/>
+                  <g class="kps">
+                    <circle cx="100" cy="52" r="4" style="--d:.15s"/>
+                    <circle cx="66" cy="100" r="4" style="--d:.35s"/><circle cx="134" cy="100" r="4" style="--d:.4s"/>
+                    <circle cx="43" cy="170" r="4" style="--d:.6s"/><circle cx="157" cy="170" r="4" style="--d:.65s"/>
+                    <circle cx="42" cy="222" r="4" style="--d:.8s"/><circle cx="158" cy="222" r="4" style="--d:.85s"/>
+                    <circle cx="76" cy="226" r="4" style="--d:.9s"/><circle cx="124" cy="226" r="4" style="--d:.95s"/>
+                    <circle cx="80" cy="300" r="4" style="--d:1.1s"/><circle cx="120" cy="300" r="4" style="--d:1.15s"/>
+                    <circle cx="80" cy="366" r="4" style="--d:1.3s"/><circle cx="120" cy="366" r="4" style="--d:1.35s"/>
+                  </g>
+                </g>
+                <!-- Profil -->
+                <g class="scan-art" data-pose="1">
+                  <circle class="sil" cx="104" cy="52" r="24"/>
+                  <path class="sil" d="M92 90H112Q126 92 128 110L130 160Q134 196 126 222L122 372Q122 380 114 380H96Q88 380 88 372L84 222Q74 184 80 130Q82 92 92 90Z"/>
+                  <path class="sil" d="M104 104Q113 106 113 116L115 214Q115 226 106 226Q97 226 97 214L95 116Q95 106 104 104Z"/>
+                  <path class="bone" d="M104 52V108M104 108L106 166L106 218M104 108L126 130M104 108L104 226M104 226L86 240M104 226L106 300L106 366"/>
+                  <g class="kps">
+                    <circle cx="104" cy="52" r="4" style="--d:.15s"/>
+                    <circle cx="104" cy="108" r="4" style="--d:.35s"/>
+                    <circle cx="126" cy="130" r="4" style="--d:.5s"/>
+                    <circle cx="106" cy="166" r="4" style="--d:.6s"/>
+                    <circle cx="106" cy="218" r="4" style="--d:.8s"/>
+                    <circle cx="104" cy="226" r="4" style="--d:.9s"/>
+                    <circle cx="86" cy="240" r="4" style="--d:.95s"/>
+                    <circle cx="106" cy="300" r="4" style="--d:1.1s"/>
+                    <circle cx="106" cy="366" r="4" style="--d:1.3s"/>
+                  </g>
+                </g>
+                <!-- Dos -->
+                <g class="scan-art" data-pose="2">
+                  <circle class="sil" cx="100" cy="52" r="24"/>
+                  <path class="sil" d="M74 90H126Q146 90 152 104L166 170Q170 186 168 214L166 226Q164 234 156 232Q150 230 150 222L148 172L140 140L138 220L136 372Q136 380 128 380H112Q104 380 104 372L103 262Q100 254 97 262L96 372Q96 380 88 380H72Q64 380 64 372L62 220L60 140L52 172L50 222Q50 230 44 232Q36 234 34 226L32 214Q30 186 34 170L48 104Q54 90 74 90Z"/>
+                  <path class="bone" d="M100 52V92M66 100H134M66 100L84 124L100 92L116 124L134 100M66 100L43 170L42 222M134 100L157 170L158 222M100 92V226M76 226H124M76 226L80 300L80 366M124 226L120 300L120 366"/>
+                  <g class="kps">
+                    <circle cx="100" cy="52" r="4" style="--d:.15s"/>
+                    <circle cx="66" cy="100" r="4" style="--d:.35s"/><circle cx="134" cy="100" r="4" style="--d:.4s"/>
+                    <circle cx="84" cy="124" r="4" style="--d:.5s"/><circle cx="116" cy="124" r="4" style="--d:.55s"/>
+                    <circle cx="43" cy="170" r="4" style="--d:.6s"/><circle cx="157" cy="170" r="4" style="--d:.65s"/>
+                    <circle cx="42" cy="222" r="4" style="--d:.8s"/><circle cx="158" cy="222" r="4" style="--d:.85s"/>
+                    <circle cx="76" cy="226" r="4" style="--d:.9s"/><circle cx="124" cy="226" r="4" style="--d:.95s"/>
+                    <circle cx="80" cy="300" r="4" style="--d:1.1s"/><circle cx="120" cy="300" r="4" style="--d:1.15s"/>
+                    <circle cx="80" cy="366" r="4" style="--d:1.3s"/><circle cx="120" cy="366" r="4" style="--d:1.35s"/>
+                  </g>
+                </g>
+              </svg>
+
+              <div class="scan-labels is-active" data-pose="0">
+                <span class="scan-label scan-label--r" style="--x:67%; --y:25%; --d:1.7s">Épaules <b>8,9</b></span>
+                <span class="scan-label scan-label--l scan-label--weak" style="--x:40%; --y:33%; --d:1.85s">Poitrine <b>6,1</b></span>
+                <span class="scan-label scan-label--r" style="--x:78.5%; --y:42.5%; --d:2s">Bras <b>10,0</b></span>
+                <span class="scan-label scan-label--l" style="--x:40%; --y:75%; --d:2.15s">Jambes <b>10,0</b></span>
+              </div>
+              <div class="scan-labels" data-pose="1">
+                <span class="scan-label scan-label--r scan-label--weak" style="--x:63%; --y:32.5%; --d:1.7s">Poitrine <b>6,1</b></span>
+                <span class="scan-label scan-label--l" style="--x:43%; --y:60%; --d:1.85s">Fessiers <b>7,3</b></span>
+                <span class="scan-label scan-label--r" style="--x:53%; --y:75%; --d:2s">Jambes <b>10,0</b></span>
+              </div>
+              <div class="scan-labels" data-pose="2">
+                <span class="scan-label scan-label--r" style="--x:58%; --y:31%; --d:1.7s">Dos <b>10,0</b></span>
+                <span class="scan-label scan-label--l scan-label--weak" style="--x:21%; --y:50%; --d:1.85s">Avant-bras <b>6,5</b></span>
+                <span class="scan-label scan-label--r" style="--x:62%; --y:60%; --d:2s">Fessiers <b>7,3</b></span>
+              </div>
+            </div>
+
+            <div class="scan-done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+              Analyse terminée · photo supprimée
+            </div>
           </div>
         </div>
 
-        <button class="howto-node howto-node--1 is-active" data-feature="1" type="button">
-          <span class="howto-node-dot">01</span>
-          <span class="howto-node-copy">
-            <strong>Prends 3 photos</strong>
-            <p>Face, profil, dos. Un guide à l'écran te positionne, pose après pose.</p>
-          </span>
-        </button>
-
-        <button class="howto-node howto-node--2" data-feature="2" type="button">
-          <span class="howto-node-dot">02</span>
-          <span class="howto-node-copy">
-            <strong>Reçois ton grade honnête</strong>
-            <p>Un grade basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres.</p>
-          </span>
-        </button>
-
-        <button class="howto-node howto-node--3" data-feature="3" type="button">
-          <span class="howto-node-dot">03</span>
-          <span class="howto-node-copy">
-            <strong>Explore ton radar musculaire</strong>
-            <p>Huit groupes musculaires passés au crible, avec ton évolution scan après scan.</p>
-          </span>
-        </button>
-
-        <button class="howto-node howto-node--4" data-feature="4" type="button">
-          <span class="howto-node-dot">04</span>
-          <span class="howto-node-copy">
-            <strong>Suis un plan sur-mesure</strong>
-            <p>Des exercices ciblés sur tes points faibles, adaptés à ton objectif et à tes préférences.</p>
-          </span>
-        </button>
-      </div>
-
-      <div class="howto-mobile-nav" role="tablist" aria-label="Étapes">
-        <button class="howto-tab is-active" data-feature="1" type="button" role="tab" aria-selected="true">01</button>
-        <button class="howto-tab" data-feature="2" type="button" role="tab" aria-selected="false">02</button>
-        <button class="howto-tab" data-feature="3" type="button" role="tab" aria-selected="false">03</button>
-        <button class="howto-tab" data-feature="4" type="button" role="tab" aria-selected="false">04</button>
-      </div>
-      <div class="howto-mobile-copy">
-        <strong id="howto-mobile-title">Prends 3 photos</strong>
-        <p id="howto-mobile-text">Face, profil, dos. Un guide à l'écran te positionne, pose après pose.</p>
+        <ol class="scan-steps" id="scan-steps">
+          <li class="scan-step is-active">
+            <span class="scan-step-num">01</span>
+            <div>
+              <h3>Capture guidée</h3>
+              <p>Une silhouette à l'écran aligne ton corps, pose après pose. Face, profil, puis dos.</p>
+            </div>
+          </li>
+          <li class="scan-step">
+            <span class="scan-step-num">02</span>
+            <div>
+              <h3>Analyse par notre IA</h3>
+              <p>Notre modèle place les points clés de ton corps et mesure proportions, symétrie et densité musculaire.</p>
+            </div>
+          </li>
+          <li class="scan-step scan-step--privacy">
+            <span class="scan-step-num">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+            </span>
+            <div>
+              <h3>Aucune photo conservée</h3>
+              <p>Ta photo est analysée puis supprimée. Rien n'est stocké sur nos serveurs, seuls tes résultats restent dans ton historique.</p>
+            </div>
+          </li>
+          <li class="scan-step">
+            <span class="scan-step-num">04</span>
+            <div>
+              <h3>Ton score par muscle</h3>
+              <p>Ton grade, une note sur 10 par groupe musculaire et tes points faibles. C'est la base des séances générées par l'IA.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </div>
   </section>
@@ -230,22 +330,29 @@
       <div class="bento-grid">
         <article class="bento-tile bento-tile--lg" data-reveal>
           <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell preview-icon"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg>          </div>
-          <h3>Suis ta séance en direct</h3>
-          <p>Crée ton entraînement exercice par exercice : renseigne le poids et les répétitions de chaque série, chronomètre ton repos, vois si tu bats ta PR, puis retrouve toutes tes séances dans ton calendrier.</p>
-          <span class="bento-tile-stat">La fonctionnalité qu'on ouvre à chaque séance, pas seulement le jour du scan</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand-sparkles preview-icon"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
+          </div>
+          <h3>Des séances générées pour tes points faibles</h3>
+          <p>Ton scan repère les muscles en retard et notre IA construit ta semaine d'entraînement autour d'eux. Plus de volume sur tes points faibles, placés en tête de chaque séance, selon ton objectif et tes préférences.</p>
+          <ol class="bento-flow" aria-label="Du scan à la séance">
+            <li>Scan</li>
+            <li>Points faibles</li>
+            <li>Séance ciblée</li>
+          </ol>
+          <span class="bento-tile-stat">Chaque séance part de ton dernier scan</span>
         </article>
 
         <article class="bento-tile bento-tile--photo" data-reveal>
           <img class="tile-img" src="assets/images/dumbbell-bw.webp" alt="Haltère en fonte avec ses disques, photographié en noir et blanc sur un fond sombre" width="1100" height="685" loading="lazy" decoding="async">
-          <span class="bento-tile-caption">Reste régulier, progresse vraiment.</span>
+          <span class="bento-tile-caption">Travaille là où ça compte.</span>
         </article>
 
         <article class="bento-tile" data-reveal>
           <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame preview-icon"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"/></svg>          </div>
-          <h3>Streak &amp; badges</h3>
-          <p>Garde ta série active scan après scan et débloque des badges à chaque palier franchi, pour rester assidu sans te lasser.</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="preview-icon"><polygon points="12 2.5 21.5 9.4 17.9 20.5 6.1 20.5 2.5 9.4"/><polygon points="12 7.5 16.5 10.8 14.6 16.2 9 15.6 7.6 10.6"/></svg>
+          </div>
+          <h3>Notation et radars</h3>
+          <p>Chaque groupe musculaire reçoit une note sur 10, reprise sur tes radars. Tu vois d'un coup d'œil tes points forts, tes retards et ton évolution scan après scan.</p>
         </article>
 
         <article class="bento-tile" data-reveal>
@@ -257,9 +364,10 @@
 
         <article class="bento-tile" data-reveal>
           <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper preview-icon"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg>          </div>
-          <h3>Ta communauté</h3>
-          <p>Explore les profils et suis tes amis, leurs objectifs et leurs séances. Vois leurs nouveaux records dans ton fil et réagis avec des j'aimes.</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell preview-icon"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg>
+          </div>
+          <h3>Suis ta séance en direct</h3>
+          <p>Note poids et répétitions série par série, chronomètre ton repos et retrouve tes séances dans ton calendrier.</p>
         </article>
       </div>
     </div>
@@ -339,7 +447,7 @@
         <h2 class="section-title">Tes photos t'appartiennent.</h2>
         <p class="hero-sub">
           ShapeMax analyse la géométrie de ton corps directement, sans jamais conserver tes photos sur ses serveurs.
-          Aucune comparaison publique, aucun partage : ton scan reste le tien.
+          Aucune comparaison publique, aucun partage. Ton scan reste le tien.
         </p>
         <div class="trust-stats">
           <div class="trust-stat">
@@ -385,7 +493,7 @@
             <span class="review-avatar">TR</span>
             <div class="review-author-info">
               <span class="review-name">Thomas R.</span>
-              <span class="review-meta">Objectif : prise de muscle</span>
+              <span class="review-meta">Objectif prise de muscle</span>
             </div>
           </div>
         </article>
@@ -403,7 +511,7 @@
             <span class="review-avatar review-avatar--blue">CD</span>
             <div class="review-author-info">
               <span class="review-name">Camille D.</span>
-              <span class="review-meta">Objectif : perte de gras</span>
+              <span class="review-meta">Objectif perte de gras</span>
             </div>
           </div>
         </article>
@@ -421,7 +529,7 @@
             <span class="review-avatar">YB</span>
             <div class="review-author-info">
               <span class="review-name">Yanis B.</span>
-              <span class="review-meta">Objectif : sèche musculaire</span>
+              <span class="review-meta">Objectif sèche musculaire</span>
             </div>
           </div>
         </article>
@@ -439,7 +547,7 @@
             <span class="review-avatar review-avatar--blue">LM</span>
             <div class="review-author-info">
               <span class="review-name">Léa M.</span>
-              <span class="review-meta">Objectif : prise de muscle</span>
+              <span class="review-meta">Objectif prise de muscle</span>
             </div>
           </div>
         </article>
@@ -457,7 +565,7 @@
             <span class="review-avatar">KS</span>
             <div class="review-author-info">
               <span class="review-name">Karim S.</span>
-              <span class="review-meta">Objectif : perte de gras</span>
+              <span class="review-meta">Objectif perte de gras</span>
             </div>
           </div>
         </article>
@@ -475,7 +583,7 @@
             <span class="review-avatar review-avatar--blue">SL</span>
             <div class="review-author-info">
               <span class="review-name">Sarah L.</span>
-              <span class="review-meta">Objectif : sèche musculaire</span>
+              <span class="review-meta">Objectif sèche musculaire</span>
             </div>
           </div>
         </article>
@@ -691,7 +799,7 @@
     <div class="wrap cta-final-inner">
       <h2 class="section-title center">Prêt à connaître ta shape ?</h2>
       <p class="section-lead center">Le premier scan est gratuit. Trois photos suffisent.</p>
-      <div class="store-buttons store-buttons--center">
+      <div class="store-buttons store-buttons--center" id="telecharger">
         <a href="#" class="store-btn store-btn--ios" aria-label="Télécharger sur l'App Store (bientôt disponible)">
           <svg viewBox="0 0 417 512" aria-hidden="true"><path d="M347.927 272.278C348.439 232.384 369.345 195.542 403.329 174.656C381.804 143.894 347.009 125.099 309.484 123.926C269.996 119.787 231.724 147.542 211.607 147.542C191.105 147.542 160.129 124.331 126.764 125.014C82.8812 126.443 42.9452 150.784 21.5905 189.163C-23.8708 267.883 10.0279 383.595 53.5905 447.232C75.3932 478.4 100.844 513.195 134.188 511.979C166.807 510.635 178.988 491.179 218.348 491.179C257.345 491.179 268.78 511.979 302.785 511.19C337.772 510.614 359.831 479.894 380.865 448.427C396.524 426.219 408.577 401.686 416.556 375.723C374.999 358.144 347.969 317.419 347.927 272.278Z"/><path d="M283.693 82.0693C302.765 59.1573 312.173 29.7173 309.89 0C280.749 3.072 253.805 17.0027 234.477 39.0187C215.383 60.7573 205.698 89.1733 207.575 118.059C237.122 118.357 265.175 105.088 283.693 82.0693Z"/></svg>
           <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>
@@ -710,7 +818,7 @@
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <div class="footer-brand">
-      <a href="#top" class="footer-icon" aria-label="ShapeMax — retour en haut de page">
+      <a href="#top" class="footer-icon" aria-label="ShapeMax, retour en haut de page">
         <img src="assets/brand/icon-dark.webp" alt="Logo ShapeMax" class="logo-img logo-img--light">
           <img src="assets/brand/icon-light.webp" alt="Logo ShapeMax" class="logo-img logo-img--dark">
       </a>
