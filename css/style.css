@@ -522,12 +522,13 @@ html[data-os="android"] .store-btn--ios { display: none; }
 }
 .fan-card-sub { margin-top: 4px; font-size: 13px; font-weight: 600; opacity: 0.7; }
 
-/* Radar: the app's radar card (dark, in both themes) */
-.fan-card--radar { background: #1c1c1e; color: #ffffff; border: 1px solid #2c2c2e; }
+/* Radar: the app's chart on the brand blue, so it never sits dark next
+   to the dark scan card. */
+.fan-card--radar { background: #cfdcff; color: #1b1b1b; }
 .fan-radar { display: block; width: 86%; margin: 12px auto 0; }
-.fan-radar-grid polygon, .fan-radar-grid path { fill: none; stroke: rgba(255, 255, 255, 0.38); stroke-width: 1.2; }
-.fan-radar-fill { fill: rgba(215, 38, 56, 0.32); }
-.fan-radar-ref { fill: rgba(244, 184, 206, 0.78); }
+.fan-radar-grid polygon, .fan-radar-grid path { fill: none; stroke: rgba(27, 27, 27, 0.22); stroke-width: 1.2; }
+.fan-radar-fill { fill: rgba(215, 38, 56, 0.22); }
+.fan-radar-ref { fill: rgba(244, 160, 168, 0.85); }
 .fan-radar-line { fill: none; stroke: #e5293d; stroke-width: 3.5; stroke-linejoin: round; }
 .fan-radar-dots circle { fill: #e5293d; }
 
@@ -537,8 +538,8 @@ html[data-os="android"] .store-btn--ios { display: none; }
    and the one above tilted behind it. */
 .fan-badges {
   position: relative;
-  height: 160px;
-  margin-top: 18px;
+  height: 150px;
+  margin-top: 2px;
 }
 .fan-badge {
   position: absolute;
@@ -575,8 +576,9 @@ html[data-os="android"] .store-btn--ios { display: none; }
 }
 .fan-exos b { font-weight: 800; }
 
-/* Progression: surface card (follows the theme) */
-.fan-card--progress { background: var(--bg-card); color: var(--text); border: 1px solid var(--border-soft); }
+/* Progression: white in both themes (keeps the centre of the fan light) */
+.fan-card--progress { background: #ffffff; color: #1b1b1b; border: 1px solid #ededed; }
+.fan-card--progress .fan-score span { color: #6b6b6b; }
 .fan-score {
   margin-top: 16px;
   font-family: var(--font-display);
@@ -884,16 +886,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
   background: var(--accent-soft);
   box-shadow: 0 0 0 5px var(--accent-soft);
 }
-/* The privacy step stays tinted: it is the message this section must carry. */
-.scan-step--privacy,
-.scan-step--privacy.is-active { background: var(--blue-soft); border-color: transparent; }
-.scan-step--privacy .scan-step-num { color: var(--blue-strong); }
-.scan-step--privacy.is-active .scan-step-num {
-  border-color: var(--blue-strong);
-  color: var(--blue-strong);
-  background: var(--blue-soft);
-  box-shadow: 0 0 0 5px var(--blue-soft);
-}
 
 @media (max-width: 980px) {
   .scan-ia-inner { grid-template-columns: 1fr; }
@@ -909,6 +901,49 @@ html[data-os="android"] .store-btn--ios { display: none; }
   .scan-step p { font-size: 14.5px; }
 }
 
+
+/* Privacy banner above the demo: the promise, stated once and plainly. */
+.scan-privacy {
+  max-width: 980px;
+  margin: var(--space-5) auto 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 22px 28px;
+  border-radius: 20px;
+  background: var(--blue-soft);
+  border: 1px solid rgba(79, 111, 224, 0.22);
+}
+.scan-privacy-icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-card);
+  color: var(--blue-strong);
+  box-shadow: 0 0 0 6px rgba(79, 111, 224, 0.12);
+}
+.scan-privacy-icon svg { width: 26px; height: 26px; }
+.scan-privacy-copy h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; }
+.scan-privacy-copy p { margin-top: 4px; color: var(--text-muted); font-size: 15px; max-width: 520px; }
+.scan-privacy-stats { display: flex; margin: 0; }
+.scan-privacy-stats div { padding-inline: var(--space-3); border-left: 1px solid rgba(79, 111, 224, 0.25); }
+.scan-privacy-stats dt { font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1; color: var(--blue-strong); }
+.scan-privacy-stats dd { margin: 6px 0 0; font-size: 12.5px; color: var(--text-muted); white-space: nowrap; }
+.scan-privacy + .scan-ia-inner { margin-top: var(--space-5); }
+
+@media (max-width: 860px) {
+  .scan-privacy { grid-template-columns: auto 1fr; padding: 20px; }
+  .scan-privacy-stats { grid-column: 1 / -1; }
+  .scan-privacy-stats div:first-child { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 640px) {
+  .scan-privacy { gap: var(--space-2); }
+  .scan-privacy-icon { width: 46px; height: 46px; }
+  .scan-privacy-copy h3 { font-size: 18px; }
+  .scan-privacy-copy p { font-size: 14.5px; }
+  .scan-privacy-stats dt { font-size: 26px; }
+}
 
 /* ---------- features (bento grid) ---------- */
 
@@ -945,37 +980,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
   border-color: rgba(215, 38, 56, 0.3);
 }
 .bento-tile.bento-tile--lg h3 { font-size: clamp(26px, 2.8vw, 34px); line-height: 1.15; max-width: 440px; }
-.bento-flow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: var(--space-1) 0 0;
-  padding: 0;
-  list-style: none;
-}
-.bento-flow li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 14px;
-}
-.bento-flow li:not(:last-child)::after {
-  content: "";
-  width: 18px;
-  height: 1.5px;
-  background: var(--accent);
-  opacity: 0.5;
-}
-.bento-flow li span, .bento-flow li { color: var(--text); }
-.bento-flow li:last-child {
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: #ffffff;
-}
 .bento-tile--lg p { max-width: 420px; }
 .bento-tile-stat {
   margin-top: var(--space-2);
@@ -1244,74 +1248,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
   .grade-badge img, .grade-stage { transition: none; }
   .grade-badge { translate: none; }
 }
-
-/* ---------- privacy ---------- */
-
-.privacy-inner {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-5);
-  align-items: center;
-}
-.trust-stats {
-  margin-top: var(--space-4);
-  display: flex;
-  gap: var(--space-4);
-}
-.trust-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-left: var(--space-3);
-  border-left: 1px solid var(--border-soft);
-}
-.trust-stat:first-child { padding-left: 0; border-left: none; }
-.trust-stat-value {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(26px, 3vw, 34px);
-  color: var(--accent);
-  line-height: 1;
-}
-.trust-stat:nth-child(2) .trust-stat-value { color: var(--blue-strong); }
-.trust-stat-label { font-size: 13px; color: var(--text-muted); max-width: 160px; }
-
-.privacy-visual {
-  position: relative;
-  min-height: 340px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-soft);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.privacy-visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(180deg, rgba(7, 11, 22, 0.45), rgba(7, 11, 22, 0.75)),
-    url("../assets/images/boxing-dark.webp");
-  background-size: cover;
-  background-position: center;
-  filter: blur(7px);
-  transform: scale(1.1);
-}
-.privacy-visual-icon {
-  position: relative;
-  z-index: 1;
-  width: 100px; height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(11, 17, 34, 0.55);
-  border: 1px solid rgba(215, 38, 56, 0.4);
-  border-radius: 50%;
-  backdrop-filter: blur(8px);
-  color: var(--accent);
-}
-.privacy-visual-icon svg { width: 46px; height: 46px; }
 
 /* ---------- avis (reviews) ---------- */
 
@@ -1635,11 +1571,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
 @media (max-width: 980px) {
   .hero-sub { margin-inline: auto; }
   .store-buttons { justify-content: center; }
-  .privacy-inner { grid-template-columns: 1fr; text-align: center; }
-  .privacy-visual { min-height: 360px; }
-  .trust-stats { flex-direction: column; align-items: center; gap: var(--space-2); }
-  .trust-stat { align-items: center; text-align: center; padding-left: 0; border-left: none; }
-  .trust-stat-label { max-width: 220px; }
 
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);

@@ -91,7 +91,7 @@
          here is described again in the sections below. -->
     <div class="hero-fan" id="hero-fan" aria-hidden="true">
       <div class="fan-inner">
-      <div class="fan-card fan-card--radar" style="--i:-2; --d:2;">
+      <div class="fan-card fan-card--radar" style="--i:-1; --d:1;">
         <p class="fan-card-title">Radar</p>
         <p class="fan-card-sub">Ton équilibre musculaire</p>
         <!-- Same chart as the app's progression screen: score per muscle
@@ -112,7 +112,7 @@
         </svg>
       </div>
 
-      <div class="fan-card fan-card--grade" style="--i:-1; --d:1;">
+      <div class="fan-card fan-card--grade" style="--i:-2; --d:2;">
         <p class="fan-card-title">Grade</p>
         <p class="fan-card-sub">Six grades à gravir</p>
         <div class="fan-badges">
@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <div class="fan-card fan-card--seance" style="--i:1; --d:1;">
+      <div class="fan-card fan-card--seance" style="--i:2; --d:2;">
         <p class="fan-card-title">Séance IA</p>
         <p class="fan-card-sub">Fessiers · Dos en priorité</p>
         <ul class="fan-exos">
@@ -133,7 +133,7 @@
         </ul>
       </div>
 
-      <div class="fan-card fan-card--progress" style="--i:2; --d:2;">
+      <div class="fan-card fan-card--progress" style="--i:1; --d:1;">
         <p class="fan-card-title">Progression</p>
         <p class="fan-card-sub">Score global</p>
         <p class="fan-score">8,2<span>/10</span></p>
@@ -196,7 +196,21 @@
     <div class="wrap">
       <p class="eyebrow eyebrow-center">Scan IA</p>
       <h2 class="section-title center">Notre IA lit ton corps en trois photos.</h2>
-      <p class="section-lead center">Chaque muscle noté en moins d'une minute, sans jamais garder tes photos.</p>
+      <p class="section-lead center">Chaque muscle noté en moins d'une minute.</p>
+
+      <div class="scan-privacy" data-reveal>
+        <span class="scan-privacy-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.2" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <div class="scan-privacy-copy">
+          <h3>Aucune photo conservée</h3>
+          <p>Ta photo est analysée puis supprimée. Rien n'est stocké sur nos serveurs, seuls tes résultats restent dans ton historique.</p>
+        </div>
+        <dl class="scan-privacy-stats">
+          <div><dt>0</dt><dd>photo stockée</dd></div>
+          <div><dt>100&nbsp;%</dt><dd>analyse géométrique</dd></div>
+        </dl>
+      </div>
 
       <div class="scan-ia-inner">
         <div class="scan-demo" id="scan-demo" data-reveal>
@@ -300,17 +314,8 @@
               <p>Notre modèle place les points clés de ton corps et mesure proportions, symétrie et densité musculaire.</p>
             </div>
           </li>
-          <li class="scan-step scan-step--privacy">
-            <span class="scan-step-num">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-            </span>
-            <div>
-              <h3>Aucune photo conservée</h3>
-              <p>Ta photo est analysée puis supprimée. Rien n'est stocké sur nos serveurs, seuls tes résultats restent dans ton historique.</p>
-            </div>
-          </li>
           <li class="scan-step">
-            <span class="scan-step-num">04</span>
+            <span class="scan-step-num">03</span>
             <div>
               <h3>Ton score par muscle</h3>
               <p>Ton grade, une note sur 10 par groupe musculaire et tes points faibles. C'est la base des séances générées par l'IA.</p>
@@ -334,11 +339,6 @@
           </div>
           <h3>Des séances générées pour tes points faibles</h3>
           <p>Ton scan repère les muscles en retard et notre IA construit ta semaine d'entraînement autour d'eux. Plus de volume sur tes points faibles, placés en tête de chaque séance, selon ton objectif et tes préférences.</p>
-          <ol class="bento-flow" aria-label="Du scan à la séance">
-            <li>Scan</li>
-            <li>Points faibles</li>
-            <li>Séance ciblée</li>
-          </ol>
           <span class="bento-tile-stat">Chaque séance part de ton dernier scan</span>
         </article>
 
@@ -351,23 +351,24 @@
           <div class="feature-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="preview-icon"><polygon points="12 2.5 21.5 9.4 17.9 20.5 6.1 20.5 2.5 9.4"/><polygon points="12 7.5 16.5 10.8 14.6 16.2 9 15.6 7.6 10.6"/></svg>
           </div>
-          <h3>Notation et radars</h3>
-          <p>Chaque groupe musculaire reçoit une note sur 10, reprise sur tes radars. Tu vois d'un coup d'œil tes points forts, tes retards et ton évolution scan après scan.</p>
+          <h3>Radar musculaire</h3>
+          <p>Tous tes groupes musculaires sur un seul graphique. Ton dernier scan se superpose au précédent pour voir où tu as progressé.</p>
         </article>
 
         <article class="bento-tile" data-reveal>
           <div class="feature-icon feature-icon--blue">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-id-card preview-icon"><path d="M13 19a4 4 0 00-8 0"/><path d="M16 10h2"/><path d="M16 14h2"/><circle cx="9" cy="12" r="3"/><rect x="2" y="5" width="20" height="14" rx="2"/></svg>          </div>
-          <h3>Profil athlète</h3>
-          <p>Ton historique de scans, l'évolution de ton grade et un registre de tes records personnels, réunis sur une page.</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge preview-icon"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>
+          </div>
+          <h3>Une note par muscle</h3>
+          <p>Chaque groupe musculaire reçoit une note sur 10. Tes points forts et tes retards sont clairs dès la fin du scan.</p>
         </article>
 
         <article class="bento-tile" data-reveal>
           <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell preview-icon"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up preview-icon"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
           </div>
-          <h3>Suis ta séance en direct</h3>
-          <p>Note poids et répétitions série par série, chronomètre ton repos et retrouve tes séances dans ton calendrier.</p>
+          <h3>Graphique de progression</h3>
+          <p>Ton score global, scan après scan, sur une courbe. Tu vois tout de suite si tu bats ton dernier scan.</p>
         </article>
       </div>
     </div>
@@ -435,39 +436,6 @@
             <span class="grade-tab-meta">Grade unique</span>
           </button>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONFIDENTIALITE -->
-  <section class="section" id="confidentialite">
-    <div class="wrap privacy-inner">
-      <div class="privacy-copy" data-reveal>
-        <p class="eyebrow">Confidentialité</p>
-        <h2 class="section-title">Tes photos t'appartiennent.</h2>
-        <p class="hero-sub">
-          ShapeMax analyse la géométrie de ton corps directement, sans jamais conserver tes photos sur ses serveurs.
-          Aucune comparaison publique, aucun partage. Ton scan reste le tien.
-        </p>
-        <div class="trust-stats">
-          <div class="trust-stat">
-            <span class="trust-stat-value">0</span>
-            <span class="trust-stat-label">photo stockée sur nos serveurs</span>
-          </div>
-          <div class="trust-stat">
-            <span class="trust-stat-value">100%</span>
-            <span class="trust-stat-label">analyse géométrique, jamais visuelle</span>
-          </div>
-          <div class="trust-stat">
-            <span class="trust-stat-value">Toi</span>
-            <span class="trust-stat-label">seul point de comparaison, scan après scan</span>
-          </div>
-        </div>
-      </div>
-      <div class="privacy-visual" aria-hidden="true" data-reveal>
-        <span class="privacy-visual-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="15.2" r="1.15" fill="currentColor" stroke="none"/></svg>
-        </span>
       </div>
     </div>
   </section>

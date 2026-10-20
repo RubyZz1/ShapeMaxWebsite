@@ -328,7 +328,7 @@
       labels.forEach(function (l, i) { l.classList.toggle("is-active", i === p); });
 
       if (reduceMotion) {
-        setStep(3);
+        setStep(2);
         return;
       }
       // Restart the CSS pass.
@@ -338,7 +338,6 @@
       setStep(0);
       timers.push(setTimeout(function () { setStep(1); }, 500));
       timers.push(setTimeout(function () { setStep(2); }, 2500));
-      timers.push(setTimeout(function () { setStep(3); }, 3600));
       if (autoplay && visible) {
         nextTimer = setTimeout(function () { run((current + 1) % poses.length); }, 6000);
       }
@@ -448,7 +447,6 @@
   gsap.utils.toArray(".section > .wrap > .eyebrow").forEach(function (el) { parallax(el, 8); });
   gsap.utils.toArray(".section > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
   gsap.utils.toArray(".section > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
-  gsap.utils.toArray(".privacy-visual-icon").forEach(function (el) { parallax(el, -28); });
   gsap.utils.toArray(".tile-img").forEach(function (img) {
     gsap.set(img, { scale: 1.2 });
     gsap.fromTo(img, { yPercent: -8 }, {
