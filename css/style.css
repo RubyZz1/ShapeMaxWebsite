@@ -907,7 +907,7 @@ html[data-os="android"] .store-btn--ios { display: none; }
   max-width: 980px;
   margin: var(--space-5) auto 0;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: var(--space-3);
   padding: 22px 28px;
@@ -925,24 +925,17 @@ html[data-os="android"] .store-btn--ios { display: none; }
 }
 .scan-privacy-icon svg { width: 26px; height: 26px; }
 .scan-privacy-copy h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; }
-.scan-privacy-copy p { margin-top: 4px; color: var(--text-muted); font-size: 15px; max-width: 520px; }
-.scan-privacy-stats { display: flex; margin: 0; }
-.scan-privacy-stats div { padding-inline: var(--space-3); border-left: 1px solid rgba(79, 111, 224, 0.25); }
-.scan-privacy-stats dt { font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1; color: var(--blue-strong); }
-.scan-privacy-stats dd { margin: 6px 0 0; font-size: 12.5px; color: var(--text-muted); white-space: nowrap; }
+.scan-privacy-copy p { margin-top: 4px; color: var(--text-muted); font-size: 15px; }
 .scan-privacy + .scan-ia-inner { margin-top: var(--space-5); }
 
 @media (max-width: 860px) {
   .scan-privacy { grid-template-columns: auto 1fr; padding: 20px; }
-  .scan-privacy-stats { grid-column: 1 / -1; }
-  .scan-privacy-stats div:first-child { padding-left: 0; border-left: 0; }
 }
 @media (max-width: 640px) {
   .scan-privacy { gap: var(--space-2); }
   .scan-privacy-icon { width: 46px; height: 46px; }
   .scan-privacy-copy h3 { font-size: 18px; }
   .scan-privacy-copy p { font-size: 14.5px; }
-  .scan-privacy-stats dt { font-size: 26px; }
 }
 
 /* ---------- features (banner + three cards) ---------- */
