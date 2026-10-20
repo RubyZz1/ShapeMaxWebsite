@@ -20,6 +20,34 @@
     });
   }
 
+  // Nav: highlight the link of the section crossing the middle of the
+  // screen (aria-current for screen readers). The hero has no link, so it
+  // clears the highlight.
+  if (mainNav && "IntersectionObserver" in window) {
+    var navLinks = Array.prototype.slice.call(mainNav.querySelectorAll('a[href^="#"]'));
+    var linkFor = new Map();
+    navLinks.forEach(function (link) {
+      var target = document.querySelector(link.getAttribute("href"));
+      if (target && !target.hidden) linkFor.set(target, link);
+    });
+    var heroTarget = document.getElementById("top");
+    var setCurrent = function (link) {
+      navLinks.forEach(function (l) {
+        var on = l === link;
+        l.classList.toggle("is-current", on);
+        if (on) l.setAttribute("aria-current", "true");
+        else l.removeAttribute("aria-current");
+      });
+    };
+    var navObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setCurrent(linkFor.get(entry.target) || null);
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    linkFor.forEach(function (link, target) { navObserver.observe(target); });
+    if (heroTarget) navObserver.observe(heroTarget);
+  }
+
   // "Voir plus" / "Voir moins" toggle for the avis/faq lists on mobile
   // (CSS hides items past the 3rd via :nth-child until the list gets
   // .is-expanded).
@@ -290,7 +318,8 @@
 
   // Scan IA demo: one analysis pass per pose (key points, skeleton,
   // scores), then the next pose. The steps list on the side follows the
-  // pass. A click on a pose takes over from the autoplay.
+  // pass. Auto-advance holds while the pointer or focus is on the demo,
+  // and the pause button (or a click on a pose) stops it.
   (function () {
     var demo = document.getElementById("scan-demo");
     if (!demo) return;
@@ -302,7 +331,9 @@
     var timers = [];
     var autoplay = !reduceMotion;
     var visible = false;
+    var held = false;
     var nextTimer = null;
+    var pauseBtn = document.getElementById("scan-pause");
 
     function setStep(i) {
       steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); });
@@ -338,14 +369,42 @@
       setStep(0);
       timers.push(setTimeout(function () { setStep(1); }, 500));
       timers.push(setTimeout(function () { setStep(2); }, 2500));
-      if (autoplay && visible) {
-        nextTimer = setTimeout(function () { run((current + 1) % poses.length); }, 6000);
+      scheduleNext(6000);
+    }
+
+    function scheduleNext(delay) {
+      clearTimeout(nextTimer);
+      nextTimer = null;
+      if (autoplay && visible && !held) {
+        nextTimer = setTimeout(function () { run((current + 1) % poses.length); }, delay);
       }
     }
 
+    function setAutoplay(on) {
+      autoplay = on;
+      if (pauseBtn) {
+        pauseBtn.classList.toggle("is-paused", !on);
+        pauseBtn.setAttribute("aria-label", on ? "Mettre en pause la démo" : "Relancer la démo");
+      }
+      scheduleNext(on ? 1500 : 0);
+    }
+
+    if (pauseBtn) {
+      if (reduceMotion) pauseBtn.hidden = true;
+      pauseBtn.addEventListener("click", function () { setAutoplay(!autoplay); });
+    }
+    demo.addEventListener("mouseenter", function () { held = true; scheduleNext(0); });
+    demo.addEventListener("mouseleave", function () { held = false; scheduleNext(3000); });
+    demo.addEventListener("focusin", function () { held = true; scheduleNext(0); });
+    demo.addEventListener("focusout", function (e) {
+      if (demo.contains(e.relatedTarget)) return;
+      held = false;
+      scheduleNext(3000);
+    });
+
     poses.forEach(function (btn, i) {
       btn.addEventListener("click", function () {
-        autoplay = false;
+        setAutoplay(false);
         run(i);
       });
       btn.addEventListener("keydown", function (e) {
@@ -355,7 +414,7 @@
         if (next === null) return;
         e.preventDefault();
         poses[next].focus();
-        autoplay = false;
+        setAutoplay(false);
         run(next);
       });
     });
