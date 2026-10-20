@@ -202,17 +202,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn-small { padding: 10px 20px; font-size: 14px; }
 .list-toggle { display: none; }
 
-.hero-cta { margin-top: var(--space-4); }
-
-.btn-scan-gratuit {
-  display: flex;
-  width: 100%;
-  padding-block: 16px;
-  font-size: 16px;
-}
-
-.hero-cta .store-buttons { margin-top: var(--space-2); }
-
 .store-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -220,17 +209,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin-top: var(--space-4);
 }
 .store-buttons--center { justify-content: center; }
-
-/* Above mobile, the store buttons don't stretch to fill their row (they
-   size to their content), so the scan button must shrink-wrap to that same
-   row width instead of the full hero column — otherwise it looks oversized
-   next to the two buttons below it. */
-@media (min-width: 641px) {
-  .hero-cta {
-    display: inline-grid;
-    grid-template-columns: max-content;
-  }
-}
 
 .store-btn {
   display: flex;
@@ -434,42 +412,24 @@ html[data-os="android"] .store-btn--ios { display: none; }
 .site-header.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
 .site-header.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ---------- 3D phone component (WebGL, see js/phone3d.js) ---------- */
-
-.phone-gl-stage {
-  width: 260px;
-  height: 540px;
-  position: relative;
-}
-.phone-gl-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 /* ---------- hero ---------- */
 
 .hero {
   position: relative;
-  padding-top: calc(var(--header-h) + var(--space-7));
-  padding-bottom: var(--space-7);
+  padding-top: calc(var(--header-h) + var(--space-5));
+  overflow-x: clip;
 }
 
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: center;
-  gap: var(--space-5);
-  position: relative;
-}
+.hero-head { text-align: center; position: relative; z-index: 2; }
 
-.hero-copy h1 {
+.hero-head h1 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(40px, 5.6vw, 68px);
+  font-size: clamp(38px, 4.8vw, 60px);
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
+.text-accent { color: var(--accent); }
 
 .hero-sub {
   margin-top: var(--space-3);
@@ -478,202 +438,206 @@ html[data-os="android"] .store-btn--ios { display: none; }
   max-width: 520px;
 }
 .hero-sub strong { color: var(--text); }
+.hero-head .hero-sub { max-width: 600px; margin-inline: auto; margin-top: 18px; }
 
-.hero-visual { display: flex; justify-content: center; }
-
-/* ---------- comment ça marche (hub diagram) ---------- */
-
-.howto { position: relative; }
-
-/* ---- diagram ---- */
-
-.howto-diagram {
-  position: relative;
-  z-index: 1;
-  margin-top: var(--space-6);
-}
-
-.howto-stage {
-  position: relative;
+.hero-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
 }
 
-.howto-node { display: none; }
-.howto-lines { display: none; }
+/* ---- fan of app cards ----
+   Cards hang from one point (bottom centre of .fan-inner) and spread by
+   --i (position, -2..2) and --d (distance from the centre). --spread opens
+   the fan on load, --open widens it while scrolling (both set from JS).
+   The bottom of the cards is cut by the stage, like cards in a hand. */
 
-.howto-mobile-nav {
+.hero-fan {
+  --spread: 1;
+  --open: 1;
+  --gap: 205px;
+  --fan-scale: 1;
+  position: relative;
+  height: 370px;
   margin-top: var(--space-4);
+  overflow: visible clip;
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent);
+  mask-image: linear-gradient(180deg, #000 78%, transparent);
+}
+.hero-fan::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -260px;
+  width: 980px;
+  height: 560px;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, var(--accent-grad), var(--blue-soft) 55%, transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+.fan-inner {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  scale: var(--fan-scale);
+  transform-origin: 0 0;
+}
+
+.fan-card {
+  --w: 230px;
+  --h: 320px;
+  position: absolute;
+  left: calc(var(--w) / -2);
+  bottom: -30px;
+  z-index: calc(10 - var(--d));
+  width: var(--w);
+  height: var(--h);
+  padding: 20px;
+  border-radius: 28px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 30px 60px -28px rgba(27, 27, 27, 0.5);
+  transform-origin: 50% 100%;
+  transform:
+    translateX(calc(var(--i) * var(--gap) * var(--spread) * var(--open)))
+    translateY(calc(var(--d) * 20px * var(--spread)))
+    rotate(calc(var(--i) * 7deg * var(--spread) * var(--open)));
+  transition: translate 0.35s var(--ease);
+}
+@media (hover: hover) {
+  .fan-card:hover { translate: 0 -16px; }
+}
+
+.fan-card-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.fan-card-sub { margin-top: 4px; font-size: 13px; font-weight: 600; opacity: 0.7; }
+
+/* Radar: the app's radar card (dark, in both themes) */
+.fan-card--radar { background: #1c1c1e; color: #ffffff; border: 1px solid #2c2c2e; }
+.fan-radar { display: block; width: 86%; margin: 12px auto 0; }
+.fan-radar-grid polygon, .fan-radar-grid path { fill: none; stroke: rgba(255, 255, 255, 0.38); stroke-width: 1.2; }
+.fan-radar-fill { fill: rgba(215, 38, 56, 0.32); }
+.fan-radar-ref { fill: rgba(244, 184, 206, 0.78); }
+.fan-radar-line { fill: none; stroke: #e5293d; stroke-width: 3.5; stroke-linejoin: round; }
+.fan-radar-dots circle { fill: #e5293d; }
+
+/* Grade: the in-app pink grade card, with the real badge */
+.fan-card--grade { background: #ffd9dc; color: #b8162a; }
+/* Three overlapping badges: the current grade in front, the one below
+   and the one above tilted behind it. */
+.fan-badges {
+  position: relative;
+  height: 160px;
+  margin-top: 18px;
+}
+.fan-badge {
+  position: absolute;
+  top: 50%; left: 50%;
+  aspect-ratio: 1;
+  -webkit-mask-image: radial-gradient(closest-side, #000 86%, transparent);
+  mask-image: radial-gradient(closest-side, #000 86%, transparent);
+}
+.fan-badge img {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: calc(var(--w) * 1.6%);
+  max-width: none;
+  height: auto;
+  translate: -50% -50%;
+}
+.fan-badge--c { z-index: 2; width: 118px; translate: -50% -50%; }
+.fan-badge--l, .fan-badge--r { width: 100px; }
+.fan-badge--l { translate: calc(-50% - 66px) calc(-50% + 12px); rotate: -14deg; }
+.fan-badge--r { translate: calc(-50% + 66px) calc(-50% + 12px); rotate: 14deg; }
+
+/* Generated session: brand red */
+.fan-card--seance { background: var(--accent); color: #ffffff; }
+.fan-exos { margin-top: 18px; display: flex; flex-direction: column; gap: 7px; }
+.fan-exos li {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  font-size: 13px;
 }
-.howto-tab {
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--border-soft);
-  background: var(--bg-card);
-  box-shadow: var(--shadow-card);
+.fan-exos b { font-weight: 800; }
+
+/* Progression: surface card (follows the theme) */
+.fan-card--progress { background: var(--bg-card); color: var(--text); border: 1px solid var(--border-soft); }
+.fan-score {
+  margin-top: 16px;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--text-muted);
-  transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
+  font-weight: 800;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
-.howto-tab:hover { color: var(--text); }
-.howto-tab.is-active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-soft);
+.fan-score span { font-size: 17px; font-weight: 700; color: var(--text-muted); margin-left: 2px; }
+.fan-line { display: block; width: 100%; height: 80px; margin-top: 18px; overflow: visible; }
+.fan-line path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+
+/* Scan IA: front card, the app's dark scan screen */
+.fan-card--scan {
+  --w: 270px;
+  --h: 380px;
+  bottom: -20px;
+  background: #0d0d0f;
+  color: #ffffff;
+  border: 1px solid #2a2a2d;
+  box-shadow: 0 40px 70px -30px rgba(215, 38, 56, 0.55);
 }
-.howto-tab[data-feature="2"].is-active, .howto-tab[data-feature="4"].is-active {
-  border-color: var(--blue-strong);
-  color: var(--blue-strong);
-  background: var(--blue-soft);
+.fan-body {
+  position: absolute;
+  left: 50%;
+  top: 92px;
+  height: 236px;
+  width: auto;
+  translate: -50% 0;
+}
+.fan-body-sil { fill: none; stroke: var(--accent); stroke-width: 4; stroke-dasharray: 11 8; stroke-linecap: round; }
+.fan-body-bone { fill: none; stroke: rgba(255, 255, 255, 0.45); stroke-width: 2; stroke-linecap: round; }
+.fan-body-kps circle { fill: #ffffff; stroke: var(--accent); stroke-width: 2.5; }
+.fan-tag {
+  position: absolute;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(24, 24, 27, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.fan-tag b { margin-left: 4px; font-weight: 800; }
+.fan-tag--a { right: 14px; top: 116px; }
+.fan-tag--b { left: 14px; top: 168px; border-color: var(--accent); }
+.fan-tag--b b { color: #ff6b7a; }
+
+@media (max-width: 980px) {
+  .hero-fan { --fan-scale: 0.82; height: 310px; }
+}
+@media (max-width: 640px) {
+  .hero-head h1 { font-size: 34px; }
+  .hero-br { display: none; }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .hero-fan { --fan-scale: 0.6; --gap: 165px; height: 240px; }
+  .hero-fan::before { width: 560px; height: 300px; bottom: -150px; }
 }
 
-.howto-mobile-copy {
-  margin-top: var(--space-3);
-  text-align: center;
-  max-width: 420px;
-  margin-inline: auto;
-}
-.howto-mobile-copy strong {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 21px;
-  margin-bottom: 6px;
-}
-.howto-mobile-copy p { color: var(--text-muted); font-size: 14.5px; }
-
-@media (min-width: 900px) {
-  .howto-mobile-nav, .howto-mobile-copy { display: none; }
-
-  .howto-stage {
-    max-width: 1040px;
-    margin-inline: auto;
-    min-height: 640px;
-  }
-
-  .howto-phone {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-  .howto-phone-base {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 240px; height: 36px;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(0, 0, 0, 0.85), transparent 75%);
-    filter: blur(3px);
-    z-index: -1;
-    pointer-events: none;
-  }
-
-  .howto-lines {
-    display: block;
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-  }
-  .howto-line {
-    fill: none;
-    stroke: var(--border);
-    stroke-width: 2;
-    stroke-linecap: round;
-    opacity: 0.7;
-    transition: stroke 0.3s var(--ease), opacity 0.3s var(--ease);
-  }
-  .howto-line.is-active { stroke: var(--accent); opacity: 1; }
-  .howto-line[data-line="2"].is-active, .howto-line[data-line="4"].is-active { stroke: var(--blue-strong); }
-
-  .howto-node {
-    display: flex;
-    position: absolute;
-    z-index: 2;
-    align-items: center;
-    gap: 14px;
-    width: 300px;
-    padding: var(--space-3);
-    /* Fully opaque at all times (not dimmed via opacity) so the card keeps
-       masking the connector line behind it even when inactive -- opacity
-       on the whole element would let the line show through the
-       now-translucent background, which is exactly the "line reaches the
-       number even when not active" bug this replaced. */
-    background: var(--bg-card);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  .howto-node { translate: var(--tx, 0px) calc(var(--ty, 0px) + var(--dy, 0px)); }
-  .howto-node:hover, .howto-node.is-active {
-    border-color: var(--accent);
-    background: var(--bg-card-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
-  }
-  .howto-node--2:hover, .howto-node--2.is-active,
-  .howto-node--4:hover, .howto-node--4.is-active {
-    border-color: var(--blue-strong);
-    background: var(--bg-card-hover-blue);
-    box-shadow: 0 1px 2px rgba(27, 27, 27, 0.05), 0 16px 32px -14px rgba(207, 220, 255, 0.55);
-  }
-  .howto-node-copy strong { color: var(--text-muted); transition: color 0.3s var(--ease); }
-  .howto-node:hover .howto-node-copy strong, .howto-node.is-active .howto-node-copy strong { color: var(--text); }
-
-  .howto-node--1 { top: 6%; left: 0; flex-direction: row-reverse; }
-  .howto-node--2 { bottom: 6%; left: 0; flex-direction: row-reverse; }
-  .howto-node--3 { top: 6%; right: 0; }
-  .howto-node--4 { bottom: 6%; right: 0; }
-
-  .howto-node-dot {
-    position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-    width: 36px; height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 2px solid var(--border);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--text-muted);
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease), box-shadow 0.3s var(--ease);
-  }
-  .howto-node.is-active .howto-node-dot, .howto-node:hover .howto-node-dot {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-soft);
-    box-shadow: 0 0 0 6px var(--accent-soft);
-  }
-  .howto-node--2.is-active .howto-node-dot, .howto-node--2:hover .howto-node-dot,
-  .howto-node--4.is-active .howto-node-dot, .howto-node--4:hover .howto-node-dot {
-    border-color: var(--blue-strong);
-    color: var(--blue-strong);
-    background: var(--blue-soft);
-    box-shadow: 0 0 0 6px var(--blue-soft);
-  }
-
-  .howto-node-copy { min-width: 0; text-align: left; }
-  .howto-node-copy strong {
-    display: block;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 17px;
-  }
-  .howto-node-copy p { margin-top: 4px; color: var(--text-muted); font-size: 13px; line-height: 1.45; }
+@media (prefers-reduced-motion: reduce) {
+  .fan-card { transition: none; }
 }
 
 /* ---------- demo video ---------- */
@@ -733,6 +697,219 @@ html[data-os="android"] .store-btn--ios { display: none; }
   background: #000;
 }
 
+/* ---------- scan IA ---------- */
+
+.scan-ia-inner {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* The demo mirrors the app's scan screen, so it stays dark in both themes. */
+.scan-demo {
+  width: 100%;
+  max-width: 500px;
+  justify-self: center;
+  padding: 12px;
+  border-radius: 30px;
+  background: #141416;
+  border: 1px solid #2a2a2d;
+  box-shadow: 0 30px 60px -30px rgba(27, 27, 27, 0.55);
+  color: #f5f5f5;
+}
+
+.scan-poses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: #1c1c1f;
+  border: 1px solid #2c2c30;
+}
+.scan-pose {
+  padding: 10px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: #9a9a9a;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+.scan-pose:hover { color: #ffffff; }
+.scan-pose.is-active { background: var(--accent); color: #ffffff; }
+
+.scan-view {
+  position: relative;
+  margin-top: 12px;
+  height: 540px;
+  border-radius: 24px;
+  border: 1px solid #2a2a2d;
+  background:
+    radial-gradient(70% 50% at 50% 55%, rgba(215, 38, 56, 0.1), transparent 70%),
+    #000;
+  overflow: hidden;
+}
+
+.scan-figure {
+  position: absolute;
+  top: 30px; bottom: 74px;
+  left: 50%;
+  translate: -50% 0;
+  aspect-ratio: 1 / 2;
+}
+.scan-figure svg { width: 100%; height: 100%; overflow: visible; }
+.scan-art { display: none; }
+.scan-art.is-active { display: inline; }
+.scan-art .sil {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3.2;
+  stroke-dasharray: 10 7;
+  stroke-linecap: round;
+}
+.scan-art .bone {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+.scan-art .kps circle {
+  fill: #ffffff;
+  stroke: var(--accent);
+  stroke-width: 2;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.scan-labels { position: absolute; inset: 0; display: none; }
+.scan-labels.is-active { display: block; }
+.scan-label {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  z-index: 2;
+  white-space: nowrap;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  background: rgba(24, 24, 27, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-weight: 600;
+  font-size: 12.5px;
+  color: #d8d8d8;
+  opacity: 0;
+}
+.scan-label b { margin-left: 5px; color: #ffffff; font-weight: 800; }
+.scan-label--r { transform: translate(14px, -50%); }
+.scan-label--l { transform: translate(calc(-100% - 14px), -50%); }
+.scan-label--weak { border-color: var(--accent); }
+.scan-label--weak b { color: #ff6b7a; }
+
+
+.scan-done {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 3;
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  white-space: nowrap;
+  border-radius: var(--radius-pill);
+  background: #cfdcff;
+  color: #1b1b1b;
+  font-weight: 700;
+  font-size: 13.5px;
+  opacity: 0;
+}
+.scan-done svg { width: 16px; height: 16px; }
+
+/* One pass of the analysis, restarted by JS on every pose (.is-running). */
+.scan-demo.is-running .kps circle { animation: kp-pop 0.4s var(--ease) var(--d) forwards; }
+.scan-demo.is-running .bone { animation: fade-in 0.6s ease 1.3s forwards; }
+.scan-demo.is-running .scan-label { animation: label-in 0.45s var(--ease) var(--d) forwards; }
+.scan-demo.is-running .scan-done { animation: done-in 0.45s var(--ease) 2.5s forwards; }
+
+@keyframes kp-pop { from { opacity: 0; scale: 0.2; } to { opacity: 1; scale: 1; } }
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes label-in { from { opacity: 0; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
+@keyframes done-in { from { opacity: 0; translate: -50% 10px; } to { opacity: 1; translate: -50% 0; } }
+
+/* Static, fully-drawn state when motion is reduced. */
+@media (prefers-reduced-motion: reduce) {
+  .scan-art .bone, .scan-art .kps circle, .scan-label, .scan-done { opacity: 1; animation: none !important; }
+}
+
+.scan-steps { display: flex; flex-direction: column; gap: 10px; }
+.scan-step {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 18px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.scan-step-num {
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: border-color 0.35s var(--ease), color 0.35s var(--ease), background 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+.scan-step-num svg { width: 20px; height: 20px; }
+.scan-step h3 { font-family: var(--font-display); font-weight: 700; font-size: 19px; margin-top: 2px; }
+.scan-step p { margin-top: 4px; color: var(--text-muted); font-size: 15px; }
+.scan-step.is-active {
+  background: var(--bg-card);
+  border-color: var(--border-soft);
+  box-shadow: var(--shadow-card);
+}
+.scan-step.is-active .scan-step-num {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 5px var(--accent-soft);
+}
+/* The privacy step stays tinted: it is the message this section must carry. */
+.scan-step--privacy,
+.scan-step--privacy.is-active { background: var(--blue-soft); border-color: transparent; }
+.scan-step--privacy .scan-step-num { color: var(--blue-strong); }
+.scan-step--privacy.is-active .scan-step-num {
+  border-color: var(--blue-strong);
+  color: var(--blue-strong);
+  background: var(--blue-soft);
+  box-shadow: 0 0 0 5px var(--blue-soft);
+}
+
+@media (max-width: 980px) {
+  .scan-ia-inner { grid-template-columns: 1fr; }
+  .scan-steps { max-width: 560px; margin-inline: auto; }
+}
+@media (max-width: 640px) {
+  .scan-view { height: 460px; }
+  .scan-figure { top: 24px; bottom: 70px; }
+  .scan-label { font-size: 11.5px; padding: 4px 9px; }
+  .scan-step { padding: 14px; gap: 14px; grid-template-columns: 40px 1fr; }
+  .scan-step-num { width: 40px; height: 40px; font-size: 13px; }
+  .scan-step h3 { font-size: 17px; }
+  .scan-step p { font-size: 14.5px; }
+}
+
+
 /* ---------- features (bento grid) ---------- */
 
 .bento-grid {
@@ -767,7 +944,38 @@ html[data-os="android"] .store-btn--ios { display: none; }
   background: linear-gradient(160deg, var(--accent-grad), var(--bg-card) 65%);
   border-color: rgba(215, 38, 56, 0.3);
 }
-.bento-tile--lg h3 { font-size: clamp(24px, 2.4vw, 28px); }
+.bento-tile.bento-tile--lg h3 { font-size: clamp(26px, 2.8vw, 34px); line-height: 1.15; max-width: 440px; }
+.bento-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.bento-flow li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+}
+.bento-flow li:not(:last-child)::after {
+  content: "";
+  width: 18px;
+  height: 1.5px;
+  background: var(--accent);
+  opacity: 0.5;
+}
+.bento-flow li span, .bento-flow li { color: var(--text); }
+.bento-flow li:last-child {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #ffffff;
+}
 .bento-tile--lg p { max-width: 420px; }
 .bento-tile-stat {
   margin-top: var(--space-2);
@@ -1425,9 +1633,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
 /* ---------- responsive ---------- */
 
 @media (max-width: 980px) {
-  .hero-inner { grid-template-columns: 1fr; text-align: center; }
-  .hero-copy { order: 1; }
-  .hero-visual { display: none; }
   .hero-sub { margin-inline: auto; }
   .store-buttons { justify-content: center; }
   .privacy-inner { grid-template-columns: 1fr; text-align: center; }
@@ -1492,12 +1697,10 @@ html[data-os="android"] .store-btn--ios { display: none; }
   .btn-login { display: none; }
   .nav-login { display: block; }
   .section { padding-block: var(--space-5); }
-  .hero { padding-top: calc(var(--header-h) + var(--space-5)); padding-bottom: var(--space-5); }
-  .howto-diagram, .video-embed, .bento-grid, .review-list, .faq-list { margin-top: var(--space-4); }
+  .hero { padding-top: calc(var(--header-h) + var(--space-5)); }
+  .video-embed, .bento-grid, .review-list, .faq-list { margin-top: var(--space-4); }
   .legal-main { padding-bottom: var(--space-5); }
   .store-btn { flex: 1; justify-content: center; padding-inline: 14px; }
-  .hero-visual .phone-gl-stage,
-  .howto-phone .phone-gl-stage { width: 230px; height: 478px; }
   .faq-question { font-size: 16px; padding: 16px 18px; }
   .faq-answer p { padding: 0 18px 18px; }
 

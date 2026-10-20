@@ -285,188 +285,94 @@
     });
   });
 
-  // Per-feature tilt for the "comment ça marche" phone, one entry per node/tab.
-  var ROTATIONS = [
-    { x: 0.070, y: -0.279, z: -0.052 },
-    { x: -0.052, y: 0.244, z: 0.035 },
-    { x: 0.105, y: -0.209, z: 0.070 },
-    { x: -0.070, y: 0.279, z: -0.052 }
-  ];
-
-  // ---- 3D phone scenes: hero + the "comment ça marche" hub phone ----
-  // three.js is heavy to download, compile and initialise, so it is loaded
-  // lazily (only when a phone is about to be seen) and each scene is only
-  // rendered while its canvas is on screen.
-  var heroCanvas = document.getElementById("hero-phone-canvas");
-  var storyCanvas = document.getElementById("story-phone-canvas");
-  // App screenshots shown on the "comment ça marche" phone, one per step.
-  var HOWTO_SCREENS = [
-    "assets/screens/scan.webp",
-    "assets/screens/rank.webp",
-    "assets/screens/radar.webp",
-    "assets/screens/exercices.webp"
-  ];
-  var HERO_BASE_ROTATION = { x: 0.105, y: -0.349, z: -0.052 };
-  var heroScene = null;
-  var storyScene = null;
-  var heroVisible = false;
-  var storyVisible = false;
-  var heroIdle = null;
-  var phoneModule = null;
-
-  function loadPhoneModule() {
-    if (!phoneModule) phoneModule = import("./phone-scene.js");
-    return phoneModule;
-  }
-
-  function whenIdle(fn) {
-    if (window.requestIdleCallback) window.requestIdleCallback(fn, { timeout: 2000 });
-    else setTimeout(fn, 200);
-  }
-
-  function watchCanvas(canvas, margin, onFirstVisible, onChange) {
-    if (!canvas || !("IntersectionObserver" in window)) return;
-    var started = false;
-    new IntersectionObserver(function (entries) {
-      var on = entries[entries.length - 1].isIntersecting;
-      onChange(on);
-      if (on && !started) {
-        started = true;
-        onFirstVisible();
-      }
-    }, { rootMargin: margin }).observe(canvas);
-  }
-
-  watchCanvas(heroCanvas, "100px 0px", function () {
-    whenIdle(function () {
-      loadPhoneModule().then(function (mod) {
-        heroScene = mod.createPhoneScene(heroCanvas, { initialImage: "assets/screens/accueil.webp" });
-        heroScene.group.rotation.set(HERO_BASE_ROTATION.x, HERO_BASE_ROTATION.y, HERO_BASE_ROTATION.z);
-        if (heroIdle) heroIdle();
-      });
-    });
-  }, function (on) { heroVisible = on; });
-
-  watchCanvas(storyCanvas, "600px 0px", function () {
-    loadPhoneModule().then(function (mod) {
-      var target = ROTATIONS[howtoActiveIndex];
-      storyScene = mod.createPhoneScene(storyCanvas, { initialImage: HOWTO_SCREENS[howtoActiveIndex] });
-      storyScene.group.rotation.set(target.x, target.y, target.z);
-      storyScene.preload(HOWTO_SCREENS);
-    });
-  }, function (on) { storyVisible = on; });
-
-  // "Comment ça marche" hub diagram: one shared phone, 4 nodes (desktop) /
-  // 4 tabs (mobile) that swap its screen + tilt on hover/tap. See below for
-  // the wiring, after the shared render loop is set up.
-  var howtoNodes = Array.prototype.slice.call(document.querySelectorAll(".howto-node"));
-  var howtoTabs = Array.prototype.slice.call(document.querySelectorAll(".howto-tab"));
-  var howtoLines = Array.prototype.slice.call(document.querySelectorAll(".howto-line"));
-  var howtoTitleEl = document.getElementById("howto-mobile-title");
-  var howtoTextEl = document.getElementById("howto-mobile-text");
-  var HOWTO_COPY = [
-    { title: "Prends 3 photos", text: "Face, profil, dos. Un guide à l'écran te positionne, pose après pose." },
-    { title: "Reçois ton grade honnête", text: "Un grade basé sur ta symétrie et ta densité musculaire, jamais comparé aux autres." },
-    { title: "Explore ton radar musculaire", text: "Huit groupes musculaires passés au crible, avec ton évolution scan après scan." },
-    { title: "Suis un plan sur-mesure", text: "Des exercices ciblés sur tes points faibles, adaptés à ton objectif et à tes préférences." }
-  ];
-  var howtoActiveIndex = 0;
-
-  function setActiveFeature(idx) {
-    if (idx === howtoActiveIndex && (howtoNodes[idx] && howtoNodes[idx].classList.contains("is-active"))) return;
-    howtoActiveIndex = idx;
-
-    howtoNodes.forEach(function (node, i) { node.classList.toggle("is-active", i === idx); });
-    howtoLines.forEach(function (line, i) { line.classList.toggle("is-active", i === idx); });
-    howtoTabs.forEach(function (tab, i) {
-      tab.classList.toggle("is-active", i === idx);
-      tab.setAttribute("aria-selected", String(i === idx));
-    });
-    if (howtoTitleEl && howtoTextEl && HOWTO_COPY[idx]) {
-      howtoTitleEl.textContent = HOWTO_COPY[idx].title;
-      howtoTextEl.textContent = HOWTO_COPY[idx].text;
-    }
-
-    if (storyScene) {
-      storyScene.setImage(HOWTO_SCREENS[idx]);
-      var target = ROTATIONS[idx];
-      if (hasGsapGlobal()) {
-        gsap.to(storyScene.group.rotation, { duration: 0.9, ease: "power2.inOut", x: target.x, y: target.y, z: target.z });
-      } else {
-        storyScene.group.rotation.set(target.x, target.y, target.z);
-      }
-    }
-  }
-
-  function hasGsapGlobal() {
-    return typeof window.gsap !== "undefined";
-  }
-
-  // Auto-advance to the next step every 5s until the user takes control
-  // (a click means "I'm driving now"); hovering just pauses the timer
-  // for as long as the cursor stays on a card.
-  var howtoAutoplayTimer = null;
-  var howtoAutoplayEnabled = true;
-  var howtoHovering = false;
-  var howtoReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function pauseHowtoAutoplay() {
-    if (howtoAutoplayTimer) { clearInterval(howtoAutoplayTimer); howtoAutoplayTimer = null; }
-  }
-
-  function stopHowtoAutoplay() {
-    howtoAutoplayEnabled = false;
-    pauseHowtoAutoplay();
-  }
-
-  function resumeHowtoAutoplay() {
-    if (!howtoAutoplayEnabled || howtoHovering || howtoReduceMotion || howtoAutoplayTimer || !howtoNodes.length) return;
-    howtoAutoplayTimer = setInterval(function () {
-      setActiveFeature((howtoActiveIndex + 1) % howtoNodes.length);
-    }, 5000);
-  }
-
-  howtoNodes.forEach(function (node, i) {
-    node.addEventListener("mouseenter", function () {
-      howtoHovering = true;
-      pauseHowtoAutoplay();
-      setActiveFeature(i);
-    });
-    node.addEventListener("mouseleave", function () {
-      howtoHovering = false;
-      resumeHowtoAutoplay();
-    });
-    node.addEventListener("focus", function () { setActiveFeature(i); });
-    node.addEventListener("click", function () {
-      stopHowtoAutoplay();
-      setActiveFeature(i);
-    });
-  });
-  howtoTabs.forEach(function (tab, i) {
-    tab.addEventListener("click", function () {
-      stopHowtoAutoplay();
-      setActiveFeature(i);
-    });
-  });
-
-  resumeHowtoAutoplay();
-
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
-  function renderPhones() {
-    if (heroScene && heroVisible) heroScene.render();
-    if (storyScene && storyVisible) storyScene.render();
-  }
+  // Scan IA demo: one analysis pass per pose (key points, skeleton,
+  // scores), then the next pose. The steps list on the side follows the
+  // pass. A click on a pose takes over from the autoplay.
+  (function () {
+    var demo = document.getElementById("scan-demo");
+    if (!demo) return;
+    var poses = Array.prototype.slice.call(demo.querySelectorAll(".scan-pose"));
+    var arts = Array.prototype.slice.call(demo.querySelectorAll(".scan-art"));
+    var labels = Array.prototype.slice.call(demo.querySelectorAll(".scan-labels"));
+    var steps = Array.prototype.slice.call(document.querySelectorAll("#scan-steps .scan-step"));
+    var current = 0;
+    var timers = [];
+    var autoplay = !reduceMotion;
+    var visible = false;
+    var nextTimer = null;
 
-  if (hasGsap) {
-    gsap.ticker.add(renderPhones);
-  } else if (heroCanvas || storyCanvas) {
-    (function loop() {
-      renderPhones();
-      requestAnimationFrame(loop);
-    })();
-  }
+    function setStep(i) {
+      steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); });
+    }
+
+    function clearTimers() {
+      timers.forEach(clearTimeout);
+      timers = [];
+      clearTimeout(nextTimer);
+      nextTimer = null;
+    }
+
+    function run(p) {
+      clearTimers();
+      current = p;
+      poses.forEach(function (btn, i) {
+        var on = i === p;
+        btn.classList.toggle("is-active", on);
+        btn.setAttribute("aria-selected", String(on));
+        btn.tabIndex = on ? 0 : -1;
+      });
+      arts.forEach(function (g, i) { g.classList.toggle("is-active", i === p); });
+      labels.forEach(function (l, i) { l.classList.toggle("is-active", i === p); });
+
+      if (reduceMotion) {
+        setStep(3);
+        return;
+      }
+      // Restart the CSS pass.
+      demo.classList.remove("is-running");
+      void demo.offsetWidth;
+      demo.classList.add("is-running");
+      setStep(0);
+      timers.push(setTimeout(function () { setStep(1); }, 500));
+      timers.push(setTimeout(function () { setStep(2); }, 2500));
+      timers.push(setTimeout(function () { setStep(3); }, 3600));
+      if (autoplay && visible) {
+        nextTimer = setTimeout(function () { run((current + 1) % poses.length); }, 6000);
+      }
+    }
+
+    poses.forEach(function (btn, i) {
+      btn.addEventListener("click", function () {
+        autoplay = false;
+        run(i);
+      });
+      btn.addEventListener("keydown", function (e) {
+        var next = null;
+        if (e.key === "ArrowRight") next = (i + 1) % poses.length;
+        else if (e.key === "ArrowLeft") next = (i + poses.length - 1) % poses.length;
+        if (next === null) return;
+        e.preventDefault();
+        poses[next].focus();
+        autoplay = false;
+        run(next);
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        var on = entries[entries.length - 1].isIntersecting;
+        if (on === visible) return;
+        visible = on;
+        if (on) run(current);
+        else clearTimers();
+      }, { threshold: 0.35 }).observe(demo);
+    } else {
+      run(0);
+    }
+  })();
 
   // Scroll reveals: one IntersectionObserver, CSS does the animating.
   var revealEls = document.querySelectorAll("[data-reveal]");
@@ -499,25 +405,32 @@
     });
   }
 
-  // Hero phone: gentle idle float + tilt (started once the scene exists)
-  heroIdle = function () {
-    gsap.to(heroScene.group.rotation, {
-      z: HERO_BASE_ROTATION.z + 0.05,
-      x: HERO_BASE_ROTATION.x - 0.035,
-      duration: 3.4,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1
+  // Hero fan: the cards open from a stack on load (--spread), then open a
+  // little wider while the hero scrolls away (--open).
+  var heroFan = document.getElementById("hero-fan");
+  if (heroFan) {
+    // Opens as the logo loader (js/logo-loader.js) fades out, not behind it.
+    var openFan = function () {
+      gsap.to(heroFan, { "--spread": 1, duration: 1.3, ease: "power3.out", delay: 0.15 });
+    };
+    var loader = document.querySelector(".smx");
+    gsap.set(heroFan, { "--spread": 0 });
+    if (!loader || loader.classList.contains("smx--out")) {
+      openFan();
+    } else {
+      var loaderObserver = new MutationObserver(function () {
+        if (!loader.classList.contains("smx--out")) return;
+        loaderObserver.disconnect();
+        openFan();
+      });
+      loaderObserver.observe(loader, { attributes: true, attributeFilter: ["class"] });
+    }
+    gsap.fromTo(heroFan, { "--open": 1 }, {
+      "--open": 1.18,
+      ease: "none",
+      scrollTrigger: { trigger: heroFan, start: "top 70%", end: "bottom top", scrub: 0.6 }
     });
-    gsap.to(heroScene.group.position, {
-      y: 0.8,
-      duration: 3.4,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1
-    });
-  };
-  if (heroScene) heroIdle();
+  }
 
   // Parallax: layers drift at different speeds while scrolling (offset runs
   // from -v to +v px across the element's pass through the viewport).
@@ -530,10 +443,8 @@
     });
   }
   var heroSection = document.querySelector(".hero");
-  var heroVisual = document.querySelector(".hero-visual");
-  var heroCopy = document.querySelector(".hero-copy");
-  if (heroSection && heroVisual) parallax(heroVisual, -60, heroSection, "top top");
-  if (heroSection && heroCopy) parallax(heroCopy, 24, heroSection, "top top");
+  var heroHead = document.querySelector(".hero-head");
+  if (heroSection && heroHead) parallax(heroHead, 20, heroSection, "top top");
   gsap.utils.toArray(".section > .wrap > .eyebrow").forEach(function (el) { parallax(el, 8); });
   gsap.utils.toArray(".section > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
   gsap.utils.toArray(".section > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
@@ -546,64 +457,6 @@
       scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: 0.6 }
     });
   });
-
-  // "Comment ça marche": the diagram is pinned while the user scrolls, and
-  // the four steps are revealed (with a slight parallax drift) one after the
-  // other, each one becoming active in turn. Scroll replaces the autoplay.
-  var howtoDiagram = document.querySelector(".howto-diagram");
-  if (howtoDiagram && howtoNodes.length) {
-    gsap.matchMedia().add({ desktop: "(min-width: 900px)", mobile: "(max-width: 899px)" }, function (ctx) {
-      var isDesktop = ctx.conditions.desktop;
-      var steps = howtoNodes.length;
-      var lastIdx = -1;
-      stopHowtoAutoplay();
-
-      var tl = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: howtoDiagram,
-          start: "center center+=38",
-          end: function () { return "+=" + Math.round(window.innerHeight * 2.4); },
-          pin: true,
-          scrub: 0.6,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: function (self) {
-            var idx = Math.min(steps - 1, Math.floor(self.progress * steps));
-            if (idx !== lastIdx) {
-              lastIdx = idx;
-              setActiveFeature(idx);
-            }
-            var shown = Math.min(steps - 1, Math.floor(self.progress * steps + 0.3));
-            howtoLines.forEach(function (line, i) {
-              line.style.visibility = isDesktop && i > shown ? "hidden" : "";
-            });
-          }
-        }
-      });
-
-      if (isDesktop) {
-        howtoNodes.forEach(function (node, i) {
-          if (i === 0) return;
-          var side = i < 2 ? -1 : 1;
-          tl.fromTo(node,
-            { autoAlpha: 0, "--tx": side * 60 + "px", "--ty": "24px" },
-            { autoAlpha: 1, "--tx": "0px", "--ty": "0px", duration: 0.5, ease: "power2.out" },
-            i - 0.3);
-        });
-        tl.to([howtoNodes[0], howtoNodes[1]], { "--dy": "20px", duration: steps }, 0);
-        tl.to([howtoNodes[2], howtoNodes[3]], { "--dy": "-20px", duration: steps }, 0);
-        howtoLines.forEach(function (line, i) { if (i > 0) line.style.visibility = "hidden"; });
-      } else {
-        tl.to({}, { duration: steps }, 0);
-      }
-
-      return function () {
-        howtoLines.forEach(function (line) { line.style.visibility = ""; });
-      };
-    });
-  }
-
 
   // "Grades": the panel is pinned and the scroll position walks through the
   // six grades in order; the badge and glow drift with the overall progress
