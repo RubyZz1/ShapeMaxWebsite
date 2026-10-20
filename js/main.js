@@ -447,14 +447,6 @@
   gsap.utils.toArray(".section > .wrap > .eyebrow").forEach(function (el) { parallax(el, 8); });
   gsap.utils.toArray(".section > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
   gsap.utils.toArray(".section > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
-  gsap.utils.toArray(".tile-img").forEach(function (img) {
-    gsap.set(img, { scale: 1.2 });
-    gsap.fromTo(img, { yPercent: -8 }, {
-      yPercent: 8,
-      ease: "none",
-      scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: 0.6 }
-    });
-  });
 
   // "Grades": the panel is pinned and the scroll position walks through the
   // six grades in order; the badge and glow drift with the overall progress
