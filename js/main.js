@@ -453,6 +453,22 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // CSS "scroll-behavior: smooth" on <html> breaks ScrollTrigger: a refresh
+  // made while the page is scrolled (reload, fonts, resize) measured the
+  // grades pin from the wrong place and pinned it over another section.
+  // While GSAP runs, smooth scrolling is done here for in-page links instead.
+  document.documentElement.classList.add("js-smooth-scroll");
+  document.addEventListener("click", function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var hash = link.getAttribute("href");
+    var target = hash.length > 1 && document.getElementById(hash.slice(1));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (history.pushState) history.pushState(null, "", hash);
+  });
+
   // Recompute pin/trigger boundaries once web fonts have swapped in --
   // Plus Jakarta Sans loading late can reflow section heights after
   // ScrollTrigger's first measurement, which would otherwise leave the pin
@@ -538,6 +554,39 @@
       var y = gradesTrigger.start + (g + 0.5) / gradeCount * (gradesTrigger.end - gradesTrigger.start);
       window.scrollTo({ top: y, behavior: "smooth" });
     };
+  }
+
+
+  // Reload / back: the browser restores the scroll position before the
+  // grades pin exists and while the logo loader still locks the page, so
+  // the page is shorter than its final height and the pinned panel could
+  // end up on top of another section. Restore the position ourselves, once
+  // the loader is gone and the pin has measured the final layout.
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+    var navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    var isReturn = navEntry && (navEntry.type === "reload" || navEntry.type === "back_forward");
+    var savedY = 0;
+    try { savedY = Number(sessionStorage.getItem("smx-scroll")) || 0; } catch (e) {}
+    window.addEventListener("pagehide", function () {
+      try { sessionStorage.setItem("smx-scroll", String(Math.round(window.scrollY))); } catch (e) {}
+    });
+    var restoreScroll = function () {
+      ScrollTrigger.refresh();
+      if (isReturn && savedY) window.scrollTo({ top: savedY, behavior: "instant" });
+      ScrollTrigger.update();
+    };
+    var loaderRoot = document.querySelector(".smx");
+    if (!loaderRoot) {
+      restoreScroll();
+    } else {
+      var loaderGone = new MutationObserver(function () {
+        if (loaderRoot.isConnected) return;
+        loaderGone.disconnect();
+        restoreScroll();
+      });
+      loaderGone.observe(document.documentElement, { childList: true });
+    }
   }
 
 })();

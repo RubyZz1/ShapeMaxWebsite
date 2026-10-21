@@ -98,6 +98,8 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+/* GSAP pins need native (instant) scrolling; js/main.js smooths links. */
+html.js-smooth-scroll { scroll-behavior: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
