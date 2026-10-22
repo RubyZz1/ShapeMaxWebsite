@@ -1010,6 +1010,9 @@ html[data-os="android"] .store-btn--ios { display: none; }
   font-weight: 700;
   font-size: 13px;
 }
+.feat-banner-tag { transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+.feat-banner-tag:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.35); }
+.feat-banner-tag:focus-visible { outline-color: #ffffff; }
 .feat-banner-visual { display: flex; justify-content: center; }
 .feat-banner-visual .app-card { rotate: 2deg; }
 .feat-banner-visual .app-priority { background: #2a1a1d; border: 1px solid rgba(215, 38, 56, 0.45); }
