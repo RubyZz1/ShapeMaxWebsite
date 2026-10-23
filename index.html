@@ -64,7 +64,8 @@
 
     <div class="header-actions">
       <a href="https://app.shapemax.hugobaras.fr/home" class="btn btn-outline btn-small btn-login">Connexion</a>
-      <a href="#telecharger" class="btn btn-primary btn-small">Télécharger</a>
+      <!-- Bouton « Télécharger » masqué : retirer l'attribut hidden pour le réafficher -->
+      <a hidden href="#telecharger" class="btn btn-primary btn-small">Télécharger</a>
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
         <span></span><span></span><span></span>
       </button>
@@ -85,7 +86,8 @@
 
       <div class="hero-actions">
         <a href="https://app.shapemax.hugobaras.fr/onboarding" class="btn btn-primary">Découvre ton grade</a>
-        <a href="#telecharger" class="btn btn-outline">Télécharger l'app</a>
+        <!-- « Télécharger l'app » masqué : retirer hidden pour le réafficher -->
+        <a hidden href="#telecharger" class="btn btn-outline">Télécharger l'app</a>
       </div>
     </div>
 
@@ -596,7 +598,6 @@
           <h3 class="plan-name">Gratuit</h3>
           <p class="plan-tag">Pour découvrir</p>
           <p class="plan-price">0&nbsp;€</p>
-          <a href="https://app.shapemax.hugobaras.fr/onboarding" class="btn btn-outline plan-cta">Commencer gratuitement</a>
           <ul class="plan-list">
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>1 scan IA par mois</li>
             <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Grade global</li>
@@ -722,7 +723,8 @@
     <div class="wrap cta-final-inner">
       <h2 class="section-title center">Prêt à connaître ta shape ?</h2>
       <p class="section-lead center">Le premier scan est gratuit. Trois photos suffisent.</p>
-      <div class="store-buttons store-buttons--center" id="telecharger">
+      <!-- Boutons App Store / Google Play masqués : retirer hidden pour les réafficher -->
+      <div hidden class="store-buttons store-buttons--center" id="telecharger">
         <a href="#" class="store-btn store-btn--ios" aria-label="Télécharger sur l'App Store (bientôt disponible)">
           <svg viewBox="0 0 417 512" aria-hidden="true"><path d="M347.927 272.278C348.439 232.384 369.345 195.542 403.329 174.656C381.804 143.894 347.009 125.099 309.484 123.926C269.996 119.787 231.724 147.542 211.607 147.542C191.105 147.542 160.129 124.331 126.764 125.014C82.8812 126.443 42.9452 150.784 21.5905 189.163C-23.8708 267.883 10.0279 383.595 53.5905 447.232C75.3932 478.4 100.844 513.195 134.188 511.979C166.807 510.635 178.988 491.179 218.348 491.179C257.345 491.179 268.78 511.979 302.785 511.19C337.772 510.614 359.831 479.894 380.865 448.427C396.524 426.219 408.577 401.686 416.556 375.723C374.999 358.144 347.969 317.419 347.927 272.278Z"/><path d="M283.693 82.0693C302.765 59.1573 312.173 29.7173 309.89 0C280.749 3.072 253.805 17.0027 234.477 39.0187C215.383 60.7573 205.698 89.1733 207.575 118.059C237.122 118.357 265.175 105.088 283.693 82.0693Z"/></svg>
           <span class="store-btn-text"><small>Télécharger sur</small>App Store</span>

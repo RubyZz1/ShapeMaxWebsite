@@ -97,6 +97,8 @@
 }
 
 * { box-sizing: border-box; }
+/* hidden must win over component display rules (e.g. .btn is inline-flex). */
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
 /* GSAP pins need native (instant) scrolling; js/main.js smooths links. */
 html.js-smooth-scroll { scroll-behavior: auto; }
@@ -899,7 +901,7 @@ html[data-os="android"] .store-btn--ios { display: none; }
 .scan-demo.is-running .kps circle { animation: kp-pop 0.4s var(--ease) var(--d) forwards; }
 .scan-demo.is-running .bone { animation: fade-in 0.6s ease 1.3s forwards; }
 .scan-demo.is-running .scan-label { animation: label-in 0.45s var(--ease) var(--d) forwards; }
-.scan-demo.is-running .scan-done { animation: done-in 0.45s var(--ease) 2.5s forwards; }
+.scan-demo.is-running .scan-done { animation: done-in 0.45s var(--ease) 2s forwards; }
 
 @keyframes kp-pop { from { opacity: 0; scale: 0.2; } to { opacity: 1; scale: 1; } }
 @keyframes fade-in { to { opacity: 1; } }
@@ -937,11 +939,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
 .scan-step-num svg { width: 20px; height: 20px; }
 .scan-step h3 { font-family: var(--font-display); font-weight: 700; font-size: 19px; margin-top: 2px; }
 .scan-step p { margin-top: 4px; color: var(--text-muted); font-size: 15px; }
-.scan-step.is-active {
-  background: var(--bg-card);
-  border-color: var(--border-soft);
-  box-shadow: var(--shadow-card);
-}
 .scan-step.is-active .scan-step-num {
   border-color: var(--accent);
   color: var(--accent-text);

@@ -334,6 +334,7 @@
     var held = false;
     var nextTimer = null;
     var pauseBtn = document.getElementById("scan-pause");
+    var STEP_MS = 2000;
 
     function setStep(i) {
       steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); });
@@ -362,14 +363,17 @@
         setStep(2);
         return;
       }
-      // Restart the CSS pass.
+      // Three equal steps per pose: capture (silhouette only), analysis
+      // (the CSS pass draws points, skeleton and scores), result.
       demo.classList.remove("is-running");
-      void demo.offsetWidth;
-      demo.classList.add("is-running");
       setStep(0);
-      timers.push(setTimeout(function () { setStep(1); }, 500));
-      timers.push(setTimeout(function () { setStep(2); }, 2500));
-      scheduleNext(6000);
+      timers.push(setTimeout(function () {
+        void demo.offsetWidth;
+        demo.classList.add("is-running");
+        setStep(1);
+      }, STEP_MS));
+      timers.push(setTimeout(function () { setStep(2); }, STEP_MS * 2));
+      scheduleNext(STEP_MS * 3);
     }
 
     function scheduleNext(delay) {
