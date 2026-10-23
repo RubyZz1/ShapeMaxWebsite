@@ -523,9 +523,10 @@
   var heroSection = document.querySelector(".hero");
   var heroHead = document.querySelector(".hero-head");
   if (heroSection && heroHead) parallax(heroHead, 20, heroSection, "top top");
-  gsap.utils.toArray(".section > .wrap > .eyebrow").forEach(function (el) { parallax(el, 8); });
-  gsap.utils.toArray(".section > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
-  gsap.utils.toArray(".section > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
+  // The final CTA stays still: its lead would slide onto the note below it.
+  gsap.utils.toArray(".section:not(.cta-final) > .wrap > .eyebrow").forEach(function (el) { parallax(el, 8); });
+  gsap.utils.toArray(".section:not(.cta-final) > .wrap > .section-title").forEach(function (el) { parallax(el, 16); });
+  gsap.utils.toArray(".section:not(.cta-final) > .wrap > .section-lead").forEach(function (el) { parallax(el, 24); });
 
   // "Grades": the panel is pinned and the scroll position walks through the
   // six grades in order; the badge and glow drift with the overall progress
