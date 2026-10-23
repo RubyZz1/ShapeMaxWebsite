@@ -464,6 +464,8 @@ html[data-os="android"] .store-btn--ios { display: none; }
 }
 .hero-sub strong { color: var(--text); }
 .hero-head .hero-sub { max-width: 600px; margin-inline: auto; margin-top: 18px; }
+.hero-head .hero-note { margin-top: 16px; font-size: 16px; font-weight: 600; color: var(--text); }
+.cta-final .hero-note { margin-top: var(--space-3); font-size: 16px; font-weight: 600; color: var(--text); }
 
 .hero-actions {
   display: flex;
@@ -1032,9 +1034,7 @@ html[data-os="android"] .store-btn--ios { display: none; }
   justify-content: center;
   padding: 18px 20px;
   border-radius: 16px;
-  background:
-    radial-gradient(80% 70% at 50% 30%, rgba(215, 38, 56, 0.16), transparent 70%),
-    #1c1c1e;
+  background: #1c1c1e;
   color: #ffffff;
 }
 .feat-card-visual--radar { align-items: center; padding: 10px; }
