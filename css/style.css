@@ -466,6 +466,7 @@ html[data-os="android"] .store-btn--ios { display: none; }
 .hero-head .hero-sub { max-width: 600px; margin-inline: auto; margin-top: 18px; }
 .hero-head .hero-note { margin-top: 16px; font-size: 16px; font-weight: 600; color: var(--text); }
 .cta-final .hero-note { margin-top: var(--space-3); font-size: 16px; font-weight: 600; color: var(--text); }
+.cta-final-btn { margin-top: var(--space-3); }
 
 .hero-actions {
   display: flex;
@@ -941,12 +942,6 @@ html[data-os="android"] .store-btn--ios { display: none; }
 .scan-step-num svg { width: 20px; height: 20px; }
 .scan-step h3 { font-family: var(--font-display); font-weight: 700; font-size: 19px; margin-top: 2px; }
 .scan-step p { margin-top: 4px; color: var(--text-muted); font-size: 15px; }
-.scan-step.is-active .scan-step-num {
-  border-color: var(--accent);
-  color: var(--accent-text);
-  background: var(--accent-soft);
-  box-shadow: 0 0 0 5px var(--accent-soft);
-}
 
 @media (max-width: 980px) {
   .scan-ia-inner { grid-template-columns: 1fr; }
@@ -1013,6 +1008,19 @@ html[data-os="android"] .store-btn--ios { display: none; }
 .feat-banner-tag:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.35); }
 .feat-banner-tag:focus-visible { outline-color: #ffffff; }
 .feat-banner-visual { display: flex; justify-content: center; }
+/* Right column: the app preview, then the description and the link under it. */
+.feat-banner-side { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+.feat-banner-after { max-width: 420px; text-align: center; }
+.feat-banner-after p { margin-top: 0; }
+/* Desktop: description and link go back under the title, the preview spans
+   both rows on the right (mobile keeps them under the preview). */
+@media (min-width: 981px) {
+  .feat-banner { grid-template-areas: "copy visual" "after visual"; row-gap: var(--space-2); }
+  .feat-banner-copy { grid-area: copy; align-self: end; }
+  .feat-banner-side { display: contents; }
+  .feat-banner-visual { grid-area: visual; }
+  .feat-banner-after { grid-area: after; align-self: start; max-width: none; text-align: left; }
+}
 .feat-banner-visual .app-card { rotate: 2deg; }
 .feat-banner-visual .app-priority { background: #2a1a1d; border: 1px solid rgba(215, 38, 56, 0.45); }
 
