@@ -317,16 +317,14 @@
   var hasGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
   // Scan IA demo: one analysis pass per pose (key points, skeleton,
-  // scores), then the next pose. The steps list on the side follows the
-  // pass. Auto-advance holds while the pointer or focus is on the demo,
-  // and the pause button (or a click on a pose) stops it.
+  // scores), then the next pose. Auto-advance holds while the pointer or
+  // focus is on the demo, and the pause button (or a click on a pose) stops it.
   (function () {
     var demo = document.getElementById("scan-demo");
     if (!demo) return;
     var poses = Array.prototype.slice.call(demo.querySelectorAll(".scan-pose"));
     var arts = Array.prototype.slice.call(demo.querySelectorAll(".scan-art"));
     var labels = Array.prototype.slice.call(demo.querySelectorAll(".scan-labels"));
-    var steps = Array.prototype.slice.call(document.querySelectorAll("#scan-steps .scan-step"));
     var current = 0;
     var timers = [];
     var autoplay = !reduceMotion;
@@ -335,10 +333,6 @@
     var nextTimer = null;
     var pauseBtn = document.getElementById("scan-pause");
     var STEP_MS = 2000;
-
-    function setStep(i) {
-      steps.forEach(function (s, k) { s.classList.toggle("is-active", k === i); });
-    }
 
     function clearTimers() {
       timers.forEach(clearTimeout);
@@ -359,20 +353,14 @@
       arts.forEach(function (g, i) { g.classList.toggle("is-active", i === p); });
       labels.forEach(function (l, i) { l.classList.toggle("is-active", i === p); });
 
-      if (reduceMotion) {
-        setStep(2);
-        return;
-      }
+      if (reduceMotion) return;
       // Three equal steps per pose: capture (silhouette only), analysis
       // (the CSS pass draws points, skeleton and scores), result.
       demo.classList.remove("is-running");
-      setStep(0);
       timers.push(setTimeout(function () {
         void demo.offsetWidth;
         demo.classList.add("is-running");
-        setStep(1);
       }, STEP_MS));
-      timers.push(setTimeout(function () { setStep(2); }, STEP_MS * 2));
       scheduleNext(STEP_MS * 3);
     }
 
