@@ -53,7 +53,7 @@
     <div class="legal-header">
       <p class="eyebrow">Cookies</p>
       <h1 class="section-title">Politique de cookies</h1>
-      <p class="legal-updated">Dernière mise à jour le 30 octobre 2026</p>
+      <p class="legal-updated">Dernière mise à jour le 2 novembre 2026</p>
     </div>
 
     <div class="legal-body">
@@ -64,23 +64,27 @@
 
       <div>
         <h2>Site vitrine</h2>
-        <p>Le site vitrine n'utilise aucun traceur nécessitant ton consentement. Il ne dépose un cookie que si tu t'inscris à la newsletter (ps_nl, 6 mois) : il contient une empreinte (hachage) de ton e-mail, jamais l'e-mail lui-même, et sert à pré-cocher la newsletter si tu crées ensuite un compte sur app.shapemax.fr. Si tu fermes la fenêtre newsletter, ton navigateur le mémorise (stockage local ps_newsletter_popup) pour ne pas te la reproposer. Il ne comporte ni outil de mesure d'audience, ni publicité, ni bouton de réseau social. La vidéo de démonstration est hébergée sur le site lui-même et ne charge aucun service tiers.</p>
+        <p>Sans ton accord, le site vitrine n'utilise aucun traceur soumis à consentement. Il ne dépose un cookie que si tu t'inscris à la newsletter (ps_nl, 6 mois) : il contient une empreinte (hachage) de ton e-mail, jamais l'e-mail lui-même, et sert à pré-cocher la newsletter si tu crées ensuite un compte sur app.shapemax.fr. Si tu fermes la fenêtre newsletter, ton navigateur le mémorise (stockage local ps_newsletter_popup) pour ne pas te la reproposer. Il ne comporte ni outil de mesure d'audience ni bouton de réseau social. Les pixels publicitaires décrits plus bas ne se chargent qu'avec ton accord. La vidéo de démonstration est hébergée sur le site lui-même et ne charge aucun service tiers.</p>
         <p>Pour s'afficher, le site charge des bibliothèques d'animation depuis un serveur tiers (jsDelivr). Ce chargement ne dépose pas de cookie, mais transmet ton adresse IP à ce prestataire. Les polices de caractères sont hébergées sur le site. Voir la <a href="confidentialite.html">politique de confidentialité</a>.</p>
       </div>
 
       <div>
         <h2>Application ShapeMax (iOS, Android et web)</h2>
-        <p>L'application utilise uniquement des traceurs strictement nécessaires à son fonctionnement, exemptés de consentement.</p>
+        <p>Les applications iOS et Android utilisent uniquement des traceurs strictement nécessaires à leur fonctionnement, exemptés de consentement. L'application web utilise les mêmes, plus les pixels publicitaires décrits plus bas si tu les acceptes.</p>
         <ul>
           <li>un jeton de session, pour te maintenir connecté de manière sécurisée ;</li>
           <li>des préférences enregistrées sur ton appareil (par exemple le thème d'affichage ou l'objectif choisi).</li>
         </ul>
-        <p>Ces traceurs ne servent ni à te suivre en dehors de l'application, ni à de la publicité, ni à de la mesure d'audience.</p>
+        <p>Ces traceurs strictement nécessaires ne servent ni à te suivre en dehors de l'application, ni à de la publicité, ni à de la mesure d'audience. Ton choix sur les cookies est lui-même conservé dans un cookie (smx_consent, 6 mois), commun à shapemax.fr et app.shapemax.fr.</p>
       </div>
 
       <div>
-        <h2>Si nous ajoutons d'autres traceurs</h2>
-        <p>Avant toute activation d'un traceur non nécessaire (par exemple une mesure d'audience non exemptée ou un service tiers), nous t'afficherons un bandeau te permettant d'accepter, de refuser ou de personnaliser ton choix, avec un bouton « Tout refuser » aussi accessible que « Tout accepter ». Aucun traceur ne sera déposé avant ton choix. Ton choix sera conservé pour une durée maximale de 6 mois, et tu pourras le modifier à tout moment. Cette page sera mise à jour en conséquence.</p>
+        <h2>Pixels publicitaires (Meta et TikTok)</h2>
+        <p>Avec ton accord, nous utilisons le pixel Meta (Meta Platforms Ireland Limited, pour Facebook et Instagram) et le pixel TikTok (TikTok Technology Limited, Irlande). Ils servent à mesurer l'efficacité de nos publicités et à les montrer aux personnes qui ont déjà visité ShapeMax.</p>
+        <p>Ils se chargent sur shapemax.fr et sur les pages d'inscription et d'abonnement de app.shapemax.fr, jamais sur les écrans de capture, d'analyse ou de résultat. Ils reçoivent l'adresse des pages consultées, ton adresse IP, des informations techniques sur ton navigateur, et ces événements : création de compte, début d'essai ou abonnement, avec son montant. Une fois chargé, le pixel TikTok peut aussi relever l'adresse des pages suivantes de l'application, sans leur contenu. Ils ne reçoivent jamais tes photos, ton grade, tes notes ni tes mesures.</p>
+        <p>Cookies déposés : _fbp et _fbc pour Meta (jusqu'à 90 jours) ; _ttp, _tt_enable_cookie et ttcsid pour TikTok (jusqu'à 13 mois). Meta et TikTok sont responsables conjoints avec nous de cette collecte, puis responsables de leur propre usage des données, qu'ils peuvent traiter hors de l'Union européenne. Voir leurs politiques de confidentialité.</p>
+        <p>Aucun pixel n'est chargé avant ton choix. Le bandeau propose « Tout refuser » aussi simplement que « Tout accepter ». Ton choix est conservé 6 mois, et tu peux le modifier à tout moment.</p>
+        <p><button type="button" class="btn btn-outline btn-small" data-consent-reset hidden>Modifier mon choix</button></p>
       </div>
 
       <div>
@@ -118,5 +122,7 @@
 </footer>
 
 <script src="js/nav.js"></script>
+<script src="js/pixels.config.js"></script>
+<script src="js/consent.js" defer></script>
 </body>
 </html>
